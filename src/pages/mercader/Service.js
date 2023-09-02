@@ -37,6 +37,24 @@ const buyResources = async({priceId, puntajeAPagar}) => {
     });
 }
 
+const playTradeRoute = async ({subregionSelected, marketsSelected}) => {
+
+    const body = subregionSelected.map(s => {
+        return {
+            position: s.index + 1,
+            id: s.id,
+            cityMarketCardId: marketsSelected.find(mr => mr.cityName === s.nombre).id
+        };
+    });
+
+    return await axios.post('http://localhost:8085/api/comercio/play-trade-routes',
+        body,{
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    });
+}
+
 const giveResources = async ({idJugadorDestino, idResourceCard}) => {
 
     const body = {
@@ -57,5 +75,6 @@ export default {
     getGameData,
     getPlayerData,
     buyResources,
-    giveResources
+    giveResources,
+    playTradeRoute
 }
