@@ -28,8 +28,6 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
 
     const handleCardClick = (recurso) => {
 
-        debugger;
-
         const nextRecursos = recursos.map(r => {
             if (r === recurso) {
                 r.selected = !r.selected;
