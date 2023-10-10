@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Grid, Button } from '@mui/material'
 import { CapitanContext } from '../Context'
 import CambiarRegionModal from "./modals/CambiarRegionModal.jsx";
+import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
 
 const Botones = () => {
 
@@ -16,6 +17,14 @@ const Botones = () => {
     const handleCloseCambiarRegionModal = () => {
         setOpenEntregarMercadoModal(false);
     }
+    //Jugar Carta de Acción
+    const [openOrdenarAccionModal, setOpenOrdenarAccionModal] = useState(false);
+    const handleOpenOrdenarAccionModal = () => {
+        setOpenOrdenarAccionModal(true)
+    }
+    const handleCloseOrdenarAccionModal = () => {
+        setOpenOrdenarAccionModal(false);
+    }
 
     return (
         <>
@@ -28,7 +37,13 @@ const Botones = () => {
                 <Grid item>
                     <Button onClick={handleOpenCambiarRegionModal}
                         size="small" variant='contained' color='warning' >
-                        Entregar Mercado
+                        Trasladar campamento
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenOrdenarAccionModal}
+                            size="small" variant='contained' color='warning' >
+                        Trasladar campamento
                     </Button>
                 </Grid>
 
@@ -37,6 +52,13 @@ const Botones = () => {
                 open={openCambiarRegionModal}
                 handleClose={handleCloseCambiarRegionModal}
                 regions={gameData?.gameRegionsTiny}
+                cards={playerData?.actionCards?.filter(c => c.actionType === 'MOVIMIENTO')}
+            />
+            <OrdenarAccionModal
+                open={openOrdenarAccionModal}
+                handleClose={handleCloseOrdenarAccionModal}
+                cards={playerData?.actionCards}
+                subregions={gameData?.gameRegion?.subregions}
             />
         </>
     )

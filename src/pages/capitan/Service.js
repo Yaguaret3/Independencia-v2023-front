@@ -35,10 +35,26 @@ const moverCampamento = async ({cardId, regionToId}) => {
         });
 
 }
+const playActionCard = async ({cardId, subregionId}) => {
+
+    const body = {
+        cardId:cardId,
+        subregionId: subregionId
+    }
+
+    return await axios.post('http://localhost:8085/api/militares/play-action-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 
 
 export default {
     getGameData,
     getPlayerData,
-    moverCampamento
+    moverCampamento,
+    playActionCard
 }

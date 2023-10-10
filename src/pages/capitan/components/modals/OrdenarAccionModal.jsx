@@ -3,11 +3,11 @@ import {Modal, Grid, Box, Button, Typography, Autocomplete, TextField} from '@mu
 import service from '../../Service'
 import ActionCard from "../../../components/ActionCard.jsx";
 
-const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
+const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
 
     const [cardSelected, setCardSelected] = useState(undefined);
-    const {regionSelected, setRegionSelected} = useState({});
-    const {labelRegionSelected, setLabelRegionSelected} = useState('');
+    const {subregionSelected, setSubregionSelected} = useState({});
+    const {labelSubregionSelected, setLabelSubregionSelected} = useState('');
 
     const handleCardSelected = (card) => {
         if(card.isSelected){
@@ -22,11 +22,11 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
         }
     }
 
-    const handleRegionSelected = (region) => {
-        setRegionSelected(region);
+    const handleSubregionSelected = (region) => {
+        setSubregionSelected(region);
     }
-    const handleLabelRegionSelected = (label) => {
-        setLabelRegionSelected(label);
+    const handleLabelSubregionSelected = (label) => {
+        setLabelSubregionSelected(label);
     }
 
     const handleService = () => {
@@ -36,8 +36,8 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
             return;
         }
 
-        service.moverCampamento({
-            regionToId: regionSelected.id,
+        service.playActionCard({
+            subregionId: subregionSelected.id,
             cardId: cardSelected.id
         })
     }
@@ -66,16 +66,16 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                             <Autocomplete
                                 disablePortal
                                 getOptionLabel={(option) => option.nombre}
-                                options={regions}
-                                value={regionSelected}
+                                options={subregions}
+                                value={subregionSelected}
                                 onChange={(event, newValue) => {
-                                    handleRegionSelected(newValue);
+                                    handleSubregionSelected(newValue);
                                 }}
-                                inputValue={labelRegionSelected}
+                                inputValue={labelSubregionSelected}
                                 onInputChange={(event, newInputValue) => {
-                                    handleLabelRegionSelected(newInputValue);
+                                    handleLabelSubregionSelected(newInputValue);
                                 }}
-                                renderInput={(params) => <TextField {...params} label="Regiones" />}
+                                renderInput={(params) => <TextField {...params} label="Subregiones" />}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -88,7 +88,7 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                         </Grid>
                     <Grid item xs={12}>
                         <Button onClick={handleService}
-                                size="small" variant='contained' color='warning' fullWidth>Trasladar campamento a</Button>
+                                size="small" variant='contained' color='warning' fullWidth>Ordenar acción</Button>
                     </Grid>
 
                     </Grid>
@@ -98,4 +98,4 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
     )
 }
 
-export default CambiarRegionModal
+export default OrdenarAccionModal;
