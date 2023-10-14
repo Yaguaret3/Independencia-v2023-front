@@ -4,7 +4,7 @@ import service from '../../Service'
 import ActionCard from "../../../components/ActionCard.jsx";
 import PagarModal from "../../../components/PagarModal.jsx";
 
-const ComprarAccionModal = ({ open, handleClose, cards, recursos }) => {
+const ComprarCartaModal = ({ open, handleClose, cards, recursos, label }) => {
 
     const [cardSelected, setCardSelected] = useState(undefined);
     const [openPagarModal, setOpenPagarModal] = useState(false);
@@ -84,11 +84,11 @@ const ComprarAccionModal = ({ open, handleClose, cards, recursos }) => {
                 handleClose={handleClosePagarModal}
                 itemWanted={cardSelected}
                 handleService={handleService}
-                payLabel={'Comprar Acción'}
+                payLabel={label}
                 recursoList={recursos}
             />
         </>
     )
 }
 
-export default ComprarAccionModal
+export default ComprarCartaModal

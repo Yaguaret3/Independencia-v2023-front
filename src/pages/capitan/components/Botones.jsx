@@ -3,7 +3,7 @@ import { Grid, Button } from '@mui/material'
 import { CapitanContext } from '../Context'
 import CambiarRegionModal from "./modals/CambiarRegionModal.jsx";
 import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
-import ComprarAccionModal from "./modals/ComprarAccionModal.jsx";
+import ComprarCartaModal from "./modals/ComprarCartaModal.jsx";
 
 const Botones = () => {
 
@@ -26,6 +26,22 @@ const Botones = () => {
     const handleCloseOrdenarAccionModal = () => {
         setOpenOrdenarAccionModal(false);
     }
+    //Comprar Carta de Acción
+    const [openComprarAccionModal, setOpenComprarAccionModal] = useState(false);
+    const handleOpenComprarAccionModal = () => {
+        setOpenComprarAccionModal(true)
+    }
+    const handleCloseComprarAccionModal = () => {
+        setOpenComprarAccionModal(false);
+    }
+    //Jugar Carta de Acción
+    const [openComprarOrdenBatallaModal, setOpenComprarOrdenBatallaModal] = useState(false);
+    const handleOpenComprarOrdenBatallaModal = () => {
+        setOpenComprarOrdenBatallaModal(true)
+    }
+    const handleCloseComprarOrdenBatallaModal = () => {
+        setOpenComprarOrdenBatallaModal(false);
+    }
 
     return (
         <>
@@ -44,10 +60,21 @@ const Botones = () => {
                 <Grid item>
                     <Button onClick={handleOpenOrdenarAccionModal}
                             size="small" variant='contained' color='warning' >
-                        Trasladar campamento
+                        Ordenar Acción
                     </Button>
                 </Grid>
-
+                <Grid item>
+                    <Button onClick={handleOpenComprarAccionModal}
+                            size="small" variant='contained' color='warning' >
+                        Comprar Acción
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenComprarOrdenBatallaModal}
+                            size="small" variant='contained' color='warning' >
+                        Comprar Orden de Batalla
+                    </Button>
+                </Grid>
             </Grid>
             <CambiarRegionModal
                 open={openCambiarRegionModal}
@@ -61,11 +88,19 @@ const Botones = () => {
                 cards={playerData?.actionCards}
                 subregions={gameData?.gameRegion?.subregions}
             />
-            <ComprarAccionModal
-                open={openOrdenarAccionModal}
-                handleClose={handleCloseOrdenarAccionModal}
+            <ComprarCartaModal
+                open={openComprarAccionModal}
+                handleClose={handleCloseComprarAccionModal}
                 cards={playerData?.prices?.actionCardPrices}
                 recursos={playerData?.recursos}
+                label={'Comprar Acción'}
+            />
+            <ComprarCartaModal
+                open={openComprarOrdenBatallaModal}
+                handleClose={handleCloseComprarOrdenBatallaModal}
+                cards={playerData?.prices?.battleCardPrices}
+                recursos={playerData?.recursos}
+                label={'Comprar Orden de Batalla'}
             />
         </>
     )
