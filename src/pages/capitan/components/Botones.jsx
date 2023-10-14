@@ -3,6 +3,7 @@ import { Grid, Button } from '@mui/material'
 import { CapitanContext } from '../Context'
 import CambiarRegionModal from "./modals/CambiarRegionModal.jsx";
 import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
+import ComprarAccionModal from "./modals/ComprarAccionModal.jsx";
 
 const Botones = () => {
 
@@ -59,6 +60,12 @@ const Botones = () => {
                 handleClose={handleCloseOrdenarAccionModal}
                 cards={playerData?.actionCards}
                 subregions={gameData?.gameRegion?.subregions}
+            />
+            <ComprarAccionModal
+                open={openOrdenarAccionModal}
+                handleClose={handleCloseOrdenarAccionModal}
+                cards={playerData?.prices?.actionCardPrices}
+                recursos={playerData?.recursos}
             />
         </>
     )

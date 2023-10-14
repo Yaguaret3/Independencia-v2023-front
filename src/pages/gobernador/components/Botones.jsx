@@ -5,7 +5,7 @@ import { GobernadorContext } from '../Context'
 import EntregarMercadoModal from './modals/EntregarMercadoModal'
 import ImpuestosModal from './modals/ImpuestosModal'
 import CrearEdificioModal from './modals/CrearEdificioModal'
-import PagarModal from './modals/PagarModal'
+import PagarModal from '../../components/PagarModal.jsx'
 import ElegirDiputadoModal from './modals/ElegirDiputadoModal'
 import AsignarMiliciaModal from './modals/AsignarMiliciaModal'
 

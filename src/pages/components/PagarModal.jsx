@@ -39,7 +39,7 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
         const nextResourcesIds = resourcesSelectedIds;
 
         if (nextResourcesIds.includes(recurso.id)) {
-            setResourcesSelectedIds(nextResourcesIds.filter(r => !r == recurso.id))
+            setResourcesSelectedIds(nextResourcesIds.filter(r => !r === recurso.id))
         } else {
             nextResourcesIds.push(recurso.id)
             setResourcesSelectedIds(nextResourcesIds)
@@ -123,7 +123,7 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
                                     }}>
                                 </TextField>
                             </Grid>
-                            {recursos && recursos.map((recurso) => (
+                            {recursos?.map((recurso) => (
                                 <Grid item xs={6}>
                                     <Card onClick={() => handleCardClick(recurso)}
                                         sx={{ border: recurso.selected ? 'solid green' : 'solid black' }}>

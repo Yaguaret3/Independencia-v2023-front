@@ -50,11 +50,32 @@ const playActionCard = async ({cardId, subregionId}) => {
             }
         });
 }
+const buyActionCard = async ({cardTypeId, plata, puntajeComercial, disciplina, resourcesIds}) => {
+
+    const body = {
+        cardTypeId:cardTypeId,
+        payment: {
+            plata: plata,
+            puntajeComercial: puntajeComercial,
+            disciplina: disciplina,
+            resourcesIds: resourcesIds
+        }
+    }
+
+    return await axios.post('http://localhost:8085/api/militares/buy-action-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 
 
 export default {
     getGameData,
     getPlayerData,
     moverCampamento,
-    playActionCard
+    playActionCard,
+    comprarActionCard
 }
