@@ -90,6 +90,21 @@ const comprarBattleCard = async ({cardTypeId, plata, puntajeComercial, disciplin
             }
         });
 }
+const playBattleCard = async ({cardId, battleId}) => {
+
+    const body = {
+        cardId:cardId,
+        battleId:battleId
+    }
+
+    return await axios.post('http://localhost:8085/api/militares/play-battle-cards',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 
 
 export default {
@@ -98,5 +113,6 @@ export default {
     moverCampamento,
     playActionCard,
     comprarActionCard,
-    comprarBattleCard
+    comprarBattleCard,
+    playBattleCard
 }

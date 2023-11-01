@@ -4,6 +4,7 @@ import { CapitanContext } from '../Context'
 import CambiarRegionModal from "./modals/CambiarRegionModal.jsx";
 import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
 import ComprarCartaModal from "./modals/ComprarCartaModal.jsx";
+import BatallasModal from "./modals/BatallasModal.jsx";
 
 const Botones = () => {
 
@@ -42,6 +43,14 @@ const Botones = () => {
     const handleCloseComprarOrdenBatallaModal = () => {
         setOpenComprarOrdenBatallaModal(false);
     }
+    //Abrir Batallas
+    const [openBatallas, setOpenBatallas] = useState(false);
+    const handleOpenBatallas = () => {
+        setOpenBatallas(true);
+    }
+    const handleCloseBatallas = () => {
+        setOpenBatallas(false);
+    }
 
     return (
         <>
@@ -75,6 +84,13 @@ const Botones = () => {
                         Comprar Orden de Batalla
                     </Button>
                 </Grid>
+                <Grid item>
+                    <Button disabled={!gameData?.ownBattles}
+                            onClick={handleOpenBattles}
+                            size="small" variant='contained' color='warning' >
+                        ¡Batallas!
+                    </Button>
+                </Grid>
             </Grid>
             <CambiarRegionModal
                 open={openCambiarRegionModal}
@@ -101,6 +117,12 @@ const Botones = () => {
                 cards={playerData?.prices?.battleCardPrices}
                 recursos={playerData?.recursos}
                 label={'Comprar Orden de Batalla'}
+            />
+            <BatallasModal
+                open={openBatallas}
+                handleClose={handleCloseBatallas}
+                batallas={gameData?.ownBattles}
+                cards={playerData?.battleCards}
             />
         </>
     )
