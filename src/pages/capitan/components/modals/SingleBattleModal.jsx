@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import service from '../../Service'
 import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
-import ActionCard from "../../../controlComponents/ActionCard.jsx";
+import ActionCard from "../../../common/ActionCard.jsx";
 
 const SingleBattleModal = ({open, handleClose, batalla, cards, maxMilitia}) => {
 

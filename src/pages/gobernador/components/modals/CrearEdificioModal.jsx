@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Grid, Box, Button, Typography, Tooltip } from '@mui/material'
-import PagarModal from '../../../controlComponents/PagarModal.jsx'
+import PagarModal from '../../../common/PagarModal.jsx'
 import service from '../../Service'
 
 const CrearEdificioModal = ({ open, handleClose, buildings, recursos }) => {

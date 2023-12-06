@@ -5,17 +5,19 @@ import WrapperContextGobernador from "./pages/Gobernador/WrapperContextGobernado
 import WrapperContextMercader from "./pages/mercader/WrapperContextMercader";
 import WrapperContextRevolucionario from "./pages/revolucionario/WrapperContextRevolucionario";
 import WrapperContextCapitan from "./pages/capitan/WrapperContextCapitan.jsx";
+import WrapperContextControl from "./pages/control/WrapperContextControl.jsx";
 
 export default function App() {
 
   return (
     <>
-      <Route path="/" component={Login} />
-      <Route path="/register" component={Register} />
-      <Route path="/gobernador" component={WrapperContextGobernador} />
-      <Route path="/mercader" component={WrapperContextMercader} />
-      <Route path="/revolucionario" component={WrapperContextRevolucionario} />
-      <Route path="/capitan" component={WrapperContextCapitan} />
+          <Route path="/" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/gobernador" component={WrapperContextGobernador} />
+          <Route path="/mercader" component={WrapperContextMercader} />
+          <Route path="/revolucionario" component={WrapperContextRevolucionario} />
+          <Route path="/capitan" component={WrapperContextCapitan} />
+          <Route path="/control" component={WrapperContextControl} />
     </>
   )
 }
