@@ -1,8 +1,8 @@
 import { Card, CardActionArea, Typography, CardContent, Grid, Tooltip } from '@mui/material';
 import React, { useContext } from 'react';
 import { CapitanContext } from '../Context';
-import BattleCard from '../../components/BattleCard';
-import ActionCard from '../../components/ActionCard';
+import BattleCard from '../../controlComponents/BattleCard';
+import ActionCard from '../../controlComponents/ActionCard';
 
 const Cartas = () => {
 

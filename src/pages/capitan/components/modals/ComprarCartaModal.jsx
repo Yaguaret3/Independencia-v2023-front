@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {Modal, Grid, Box, Button, Typography, Autocomplete, TextField} from '@mui/material'
 import service from '../../Service'
-import ActionCard from "../../../components/ActionCard.jsx";
-import PagarModal from "../../../components/PagarModal.jsx";
+import ActionCard from "../../../controlComponents/ActionCard.jsx";
+import PagarModal from "../../../controlComponents/PagarModal.jsx";
 
 const ComprarCartaModal = ({ open, handleClose, cards, recursos, label }) => {
 

@@ -1,9 +1,9 @@
 import { Card, CardActionArea, Typography, CardContent, Grid, Tooltip } from '@mui/material';
 import React, { useContext } from 'react';
 import { GobernadorContext } from '../Context';
-import ResourceCard from '../../components/ResourceCard';
-import MarketCard from '../../components/MarketCard';
-import RepresentationCard from '../../components/RepresentationCard';
+import ResourceCard from '../../controlComponents/ResourceCard';
+import MarketCard from '../../controlComponents/MarketCard';
+import RepresentationCard from '../../controlComponents/RepresentationCard';
 
 const Cartas = () => {
 

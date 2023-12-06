@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
-import MarketCard from "../../../components/MarketCard.jsx";
+import MarketCard from "../../../controlComponents/MarketCard.jsx";
 import service from "../../Service.js"
 import {MercaderContext} from "../../Context.jsx";
 

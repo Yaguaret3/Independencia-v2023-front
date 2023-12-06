@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Grid, Autocomplete, TextField, Box, Button } from '@mui/material'
 import service from '../../Service'
-import ResourceCard from '../../../components/ResourceCard'
+import ResourceCard from '../../../controlComponents/ResourceCard'
 
 const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
 

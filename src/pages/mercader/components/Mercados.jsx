@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { MercaderContext } from '../Context';
 import { Typography, Grid, Button } from '@mui/material';
-import MarketCard from '../../components/MarketCard';
+import MarketCard from '../../controlComponents/MarketCard';
 import PlanificarRutaComercialModal from "./modals/PlanificarRutaComercialModal.jsx";
 
 const Mercados = () => {

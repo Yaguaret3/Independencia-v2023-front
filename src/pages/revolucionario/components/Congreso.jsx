@@ -4,7 +4,7 @@ import {
 } from '@mui/material'
 import React, { useState, useContext, useEffect } from 'react'
 import { RevolucionarioContext } from '../Context';
-import RepresentationCard from '../../components/RepresentationCard';
+import RepresentationCard from '../../controlComponents/RepresentationCard';
 import NuevaPropuestaModal from './modals/NuevaPropuestaModal';
 import VotarModal from './modals/VotarModal';
 

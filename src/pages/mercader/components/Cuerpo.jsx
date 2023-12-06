@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Box, Grid } from '@mui/material'
 import Acciones from './Acciones'
-import VirreinatoMap from '../../components/VirreinatoMap'
+import VirreinatoMap from '../../controlComponents/VirreinatoMap'
 import { MercaderContext } from '../Context'
 
 const Cuerpo = () => {

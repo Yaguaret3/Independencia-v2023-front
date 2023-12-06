@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { MercaderContext } from '../Context';
-import ResourceCard from '../../components/ResourceCard';
+import ResourceCard from '../../controlComponents/ResourceCard';
 import { Typography, Grid, Button } from '@mui/material';
 import service from '../Service';
 
