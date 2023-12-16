@@ -19,14 +19,6 @@ const Regiones = ({gameData}) => {
 				/>
 			))}
 
-				
-			{/* <AltoPeruRegion />
-			<SaltaDelTucumanRegion />
-			<ChileRegion />
-			<CordobaDelTucumanRegion />
-			<RioDeLaPlataRegion />
-			<LitoralRegion /> */}
-
 		</svg>
 	)
 }
