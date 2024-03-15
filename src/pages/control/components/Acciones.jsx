@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Button, Grid} from "@mui/material";
 import {ControlContext} from "../Context.jsx";
-import PlayersModal from "./PlayersModal.jsx";
+import PlayersModal from "./modals/PlayersModal.jsx";
 
 const Acciones = () => {
 

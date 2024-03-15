@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
-import {grey} from "@mui/material/colors";
 
 const BattleCard = ({battleCardName:battleCardName}) => {
 

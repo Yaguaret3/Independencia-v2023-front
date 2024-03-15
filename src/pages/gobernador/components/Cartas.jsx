@@ -4,6 +4,7 @@ import { GobernadorContext } from '../Context';
 import ResourceCard from '../../common/ResourceCard';
 import MarketCard from '../../common/MarketCard';
 import RepresentationCard from '../../common/RepresentationCard';
+import BuildingCard from "../../common/BuildingCard.jsx";
 
 const Cartas = () => {
 
@@ -13,46 +14,25 @@ const Cartas = () => {
     <Grid container spacing={4}>
 
       <Grid item xs={6}>
-        {playerData.city && playerData.city.buildings && playerData.city.buildings.map((building) => (
+        {playerData?.city?.buildings.map((building) => (
 
-          <Tooltip title={building.bonification}>
-            <Card sx={{ border: 'solid black' }}>
-              <CardActionArea>
-                <CardContent sx={{ backgroundColor: 'lightslategrey', paddingY: 0 }}>
-                  <Typography variant="button" color={'white'} fontSize={10}>
-                    Edificio:
-                  </Typography>
-                </CardContent>
-                <CardContent sx={{
-                  backgroundColor: 'lightslategrey',
-                  paddingY: '0.9vh'
-                }}>
-                  <Typography variant="body1"
-                    fontWeight={'bold'}
-                    color={'white'}
-                    textAlign={'center'}>
-                    {building.buildingType}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Tooltip>
+          <BuildingCard building={building} />
         ))}
       </Grid>
 
       <Grid item xs={6}>
-        {playerData.recursos && playerData.recursos.map((recurso) => (
+        {playerData?.recursos.map((recurso) => (
 
           <ResourceCard resourceName={recurso.resourceTypeEnum} />
         ))}
 
-        {playerData.mercados && playerData.mercados.map((mercado) => (
+        {playerData?.mercados.map((mercado) => (
 
           <MarketCard level={mercado.level} cityName={mercado.cityName} />
         ))}
 
-        {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion && playerData.representacion.poblacion}
-          ciudad={playerData.representacion && playerData.representacion.ciudad} />)}
+        {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion.poblacion}
+          ciudad={playerData.representacion.ciudad} />)}
       </Grid>
 
     </Grid>

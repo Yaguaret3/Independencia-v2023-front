@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
-import PlayerCard from "../../common/playerCards/PlayerCard.jsx";
+import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
 import SinglePlayerModal from "./SinglePlayerModal.jsx";
 
 const PlayersModal = ({open, handleClose, playersData} ) => {
@@ -9,8 +9,14 @@ const PlayersModal = ({open, handleClose, playersData} ) => {
     const handlePlayersFilter = (e) => {
         setPlayersFilter(e.target.value.toLowerCase());
     }
+
+    const [rolesFilter, setRolesFilter] = useState('');
+    const handleRolesFilter = (e) => {
+        setRolesFilter(e.target.value.toLowerCase());
+    }
+
     const playersFiltered = () => {
-        return playersData.filter(p => p.username.includes(playersFilter.toLowerCase()));
+        return playersData.filter(p => p.username?.includes(playersFilter.toLowerCase()) && p.rol?.includes(rolesFilter.toLowerCase()));
     }
     const [playerSelected, setPlayerSelected] = useState({});
     const [openSinglePlayerModal, setOpenSinglePlayerModal] = useState(false);
@@ -40,7 +46,10 @@ const PlayersModal = ({open, handleClose, playersData} ) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField onBlur={handlePlayersFilter} label={"Jugador"} fullWidth placeholder={"Jugador"} variant={"standard"}/>
+                            <TextField onChange={handlePlayersFilter} label={"Jugador"} fullWidth placeholder={"Jugador"} variant={"standard"}/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField onChange={handleRolesFilter} label={"Rol"} fullWidth placeholder={"Rol"} variant={"standard"}/>
                         </Grid>
 
                         <Grid item xs={6}>

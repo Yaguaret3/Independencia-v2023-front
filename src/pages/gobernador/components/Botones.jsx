@@ -191,7 +191,7 @@ const Botones = () => {
             <CrearEdificioModal
                 open={openCrearEdificioModal}
                 handleClose={handleCloseCrearEdificioModal}
-                buildings={playerData.precios && playerData.precios.buildingPrices}
+                buildings={playerData?.precios?.buildingPrices}
                 recursos={playerData.recursos}
             />
             <PagarModal
