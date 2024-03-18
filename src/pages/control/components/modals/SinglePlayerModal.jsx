@@ -1,7 +1,7 @@
 import React from 'react';
 import GobernadorModalViewForControl from "./gobernador/GobernadorModalViewForControl.jsx";
 import CapitanModalViewForControl from "../CapitanModalViewForControl.jsx";
-import MercaderModalViewForControl from "../MercaderModalViewForControl.jsx";
+import MercaderModalViewForControl from "./mercader/MercaderModalViewForControl.jsx";
 import RevolucionarioModalViewForControl from "../RevolucionarioModalViewForControl.jsx";
 
 const SinglePlayerModal = ({open, handleClose, player} ) => {

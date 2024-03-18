@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
 import CiudadModal from "./CiudadModal.jsx";
-import PreciosModal from "./PreciosModal.jsx";
+import PreciosModal from "../PreciosModal.jsx";
 import CardsModal from "../CardsModal.jsx";
 import ResourceCard from "../../../../common/ResourceCard.jsx";
 import MarketCard from "../../../../common/MarketCard.jsx";

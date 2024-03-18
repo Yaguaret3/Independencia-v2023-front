@@ -66,6 +66,15 @@ const addBuilding = async ({cityId, buildingType}) => {
             }
         });
 }
+const updatePrices = async ({priceId, body}) => {
+    return await axios.post('http://localhost:8085/api/control/'+priceId+'/update-price'),
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+}
 
 export default {
     getGameData,
@@ -73,5 +82,6 @@ export default {
     editarCiudad,
     assignDiputado,
     removeBuilding,
-    addBuilding
+    addBuilding,
+    updatePrices
  }
