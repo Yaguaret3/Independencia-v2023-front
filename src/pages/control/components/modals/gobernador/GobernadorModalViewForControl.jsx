@@ -1,8 +1,5 @@
-import React, {useState} from 'react';
-import {Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
-import CiudadModal from "./CiudadModal.jsx";
-import PreciosModal from "../PreciosModal.jsx";
-import service from "../../../Service.js";
+import React from 'react';
+import {Box, Grid, Modal, TextField, Typography} from "@mui/material";
 import CardsComponentForPlayerEdit from "../../CardsComponentForPlayerEdit.jsx";
 import PriceComponentForPlayerEdit from "../../PriceComponentForPlayerEdit.jsx";
 
@@ -10,22 +7,7 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
 
 
 
-    const [openCiudadModal, setOpenCiudadModal] = useState(false);
-    const handleOpenCiudadModal = () => {
-        setOpenCiudadModal(true);
-    }
-    const handleCloseCiudadModal = () => {
-        setOpenCiudadModal(false);
-    }
 
-
-    const [miliciaValue, setMiliciaValue] = useState("");
-    const handleMiliciaValue = (e) => {
-        setMiliciaValue(e.target.value);
-    }
-    const handleActualizarMilicia = () => {
-        service.actualizarMilicia({value:miliciaValue, gobernadorId:player.id});
-    }
 
     return (
         <>
@@ -61,47 +43,11 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Button onClick={handleOpenCiudadModal}
-                                            size="small" variant='contained' color='warning' fullWidth>{player?.ciudad?.name}</Button>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    {/* MILICIA */}
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value = "Milicia"
-                                                type = "text"
-                                                label = "Milicia"
-                                                disabled={true} />
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value = {player?.milicia}
-                                                label = "Valor Actual"
-                                                disabled={true} />
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value = {miliciaValue}
-                                                type = "number"
-                                                label = "Nuevo valor"
-                                                onChange = {(event) => handleMiliciaValue(event)} />
-                                        </Grid>
-                                        <Grid item xs={4}>
-                                            <Button onClick={handleActualizarMilicia}
-                                                    size="medium" variant='contained' color='warning' fullWidth>Actualizar</Button>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <PriceComponentForPlayerEdit player={player} />
-                                </Grid>
+
+                                <PriceComponentForPlayerEdit player={player} />
                             </Grid>
                         </Grid>
                         <Grid item xs={8}>
-
-                            {/* ------- ¡CARTAS! -------- */}
 
                             <CardsComponentForPlayerEdit player={player}/>
 
@@ -109,14 +55,6 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
                     </Grid>
                 </Box>
             </Modal>
-            <CiudadModal
-                open={openCiudadModal}
-                handleClose={handleCloseCiudadModal}
-                ciudad={player?.ciudad}
-                rolJugador={player?.rol}
-                idJugador={player?.id}
-                nombreJugador={player?.username}/>
-
         </>
     );
 };

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import PreciosModal from "./modals/PreciosModal.jsx";
 
 const PriceComponentForPlayerEdit = ({player}) => {
@@ -14,8 +14,10 @@ const PriceComponentForPlayerEdit = ({player}) => {
 
     return (
         <>
-            <Button onClick={handleOpenPreciosModal}
-                    size="small" variant='contained' color='warning' fullWidth>Precios</Button>
+            <Grid item xs={12}>
+                <Button onClick={handleOpenPreciosModal}
+                        size="small" variant='contained' color='warning' fullWidth>Precios</Button>
+            </Grid>
             <PreciosModal
                 open={openPreciosModal}
                 handleClose={handleClosePreciosModal}
