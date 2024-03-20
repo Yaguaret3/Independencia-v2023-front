@@ -1,15 +1,12 @@
 import React from 'react';
 import {Box, Grid, Modal, TextField, Typography} from "@mui/material";
-import CardsComponentForPlayerEdit from "../../CardsComponentForPlayerEdit.jsx";
-import PriceComponentForPlayerEdit from "../../PriceComponentForPlayerEdit.jsx";
+import CardsComponentForPlayerEdit from "../CardsComponentForPlayerEdit.jsx";
+import PriceComponentForPlayerEdit from "../PriceComponentForPlayerEdit.jsx";
+import RoleComponentForPlayerEdit from "./RoleComponentForPlayerEdit.jsx";
 
-const GobernadorModalViewForControl = ({open, handleClose, player}) => {
+const PlayerModalViewForControl = ({open, handleClose, player}) => {
 
-
-
-
-
-    return (
+   return (
         <>
             <Modal open={open} onClose={handleClose}>
                 <Box sx={{
@@ -43,14 +40,12 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
                             <Grid container spacing={2}>
-
+                                <RoleComponentForPlayerEdit player={player}/>
                                 <PriceComponentForPlayerEdit player={player} />
                             </Grid>
                         </Grid>
                         <Grid item xs={8}>
-
                             <CardsComponentForPlayerEdit player={player}/>
-
                         </Grid>
                     </Grid>
                 </Box>
@@ -59,4 +54,4 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
     );
 };
 
-export default GobernadorModalViewForControl;
+export default PlayerModalViewForControl;

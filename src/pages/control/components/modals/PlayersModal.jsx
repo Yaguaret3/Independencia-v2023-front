@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid, Modal, TextField} from "@mui/material";
 import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
-import SinglePlayerModal from "./SinglePlayerModal.jsx";
+import PlayerModalViewForControl from "./PlayerModalViewForControl.jsx";
 
 const PlayersModal = ({open, handleClose, playersData} ) => {
 
@@ -63,10 +63,10 @@ const PlayersModal = ({open, handleClose, playersData} ) => {
                     </Grid>
                 </Box>
             </Modal>
-            <SinglePlayerModal
+            <PlayerModalViewForControl
                 open={openSinglePlayerModal}
                 handleClose={handleCloseSinglePlayerModal}
-                players={playerSelected}
+                player={playerSelected}
                  />
         </>
     );

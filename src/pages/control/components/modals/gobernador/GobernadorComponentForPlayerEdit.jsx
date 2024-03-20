@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import CiudadModal from "./CiudadModal.jsx";
-import service from "../../../Service.js";
+import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 
 const GobernadorComponentForPlayerEdit = ({player}) => {
 
@@ -13,15 +13,6 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
         setOpenCiudadModal(false);
     }
 
-
-    const [miliciaValue, setMiliciaValue] = useState("");
-    const handleMiliciaValue = (e) => {
-        setMiliciaValue(e.target.value);
-    }
-    const handleActualizarMilicia = () => {
-        service.actualizarMilicia({value:miliciaValue, gobernadorId:player.id});
-    }
-
     return (
         <>
             <Grid item xs={12}>
@@ -29,32 +20,10 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
                         size="small" variant='contained' color='warning' fullWidth>{player?.ciudad?.name}</Button>
             </Grid>
             <Grid item xs={12}>
-                {/* MILICIA */}
+
                 <Grid container spacing={2}>
-                    <Grid item xs={3}>
-                        <TextField
-                            value = "Milicia"
-                            type = "text"
-                            label = "Milicia"
-                            disabled={true} />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <TextField
-                            value = {player?.milicia}
-                            label = "Valor Actual"
-                            disabled={true} />
-                    </Grid>
-                    <Grid item xs={3}>
-                        <TextField
-                            value = {miliciaValue}
-                            type = "number"
-                            label = "Nuevo valor"
-                            onChange = {(event) => handleMiliciaValue(event)} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button onClick={handleActualizarMilicia}
-                                size="medium" variant='contained' color='warning' fullWidth>Actualizar</Button>
-                    </Grid>
+                    <SingleAttributeEdit nombre={'Milicia'} valorActual={player?.milicia} />
+
                 </Grid>
             </Grid>
             <CiudadModal
