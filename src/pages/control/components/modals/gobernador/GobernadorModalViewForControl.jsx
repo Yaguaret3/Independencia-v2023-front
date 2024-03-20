@@ -2,19 +2,13 @@ import React, {useState} from 'react';
 import {Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
 import CiudadModal from "./CiudadModal.jsx";
 import PreciosModal from "../PreciosModal.jsx";
-import CardsModal from "../CardsModal.jsx";
-import ResourceCard from "../../../../common/ResourceCard.jsx";
-import MarketCard from "../../../../common/MarketCard.jsx";
-import RepresentationCard from "../../../../common/RepresentationCard.jsx";
 import service from "../../../Service.js";
+import CardsComponentForPlayerEdit from "../../CardsComponentForPlayerEdit.jsx";
+import PriceComponentForPlayerEdit from "../../PriceComponentForPlayerEdit.jsx";
 
 const GobernadorModalViewForControl = ({open, handleClose, player}) => {
 
-    const [cardSelected, setCardSelected] = useState({});
-    const handleCardSelected = ({card}) => {
-        setCardSelected(card);
-        handleOpenCardsModal();
-    }
+
 
     const [openCiudadModal, setOpenCiudadModal] = useState(false);
     const handleOpenCiudadModal = () => {
@@ -24,21 +18,7 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
         setOpenCiudadModal(false);
     }
 
-    const [openPreciosModal, setOpenPreciosModal] = useState(false);
-    const handleOpenPreciosModal = () => {
-        setOpenPreciosModal(true);
-    }
-    const handleClosePreciosModal = () => {
-        setOpenPreciosModal(false);
-    }
 
-    const [openCardsModal, setOpenCardsModal] = useState(false);
-    const handleOpenCardsModal = () => {
-        setOpenCardsModal(true);
-    }
-    const handleCloseCardsModal = () => {
-        setOpenCardsModal(false);
-    }
     const [miliciaValue, setMiliciaValue] = useState("");
     const handleMiliciaValue = (e) => {
         setMiliciaValue(e.target.value);
@@ -115,8 +95,7 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button onClick={handleOpenPreciosModal}
-                                            size="small" variant='contained' color='warning' fullWidth>Precios</Button>
+                                    <PriceComponentForPlayerEdit player={player} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -124,26 +103,8 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
 
                             {/* ------- ¡CARTAS! -------- */}
 
-                            <Grid container spacing={2}>
-                                {player?.recursos?.map((card) => (
-                                    <Button key={card.id} onClick={() => handleCardSelected(card)}
-                                            size="small" variant='contained' color='warning' fullWidth>
-                                        <ResourceCard resourceName={card.resourceTypeEnum} />
-                                    </Button>
-                                ))}
-                                {player?.mercados?.map((card) => (
-                                    <Button key={card.id} onClick={() => handleCardSelected(card)}
-                                            size="small" variant='contained' color='warning' fullWidth>
-                                        <MarketCard cityName={card?.cityName} level={card?.level} />
-                                    </Button>
-                                ))}
-                                {player?.representacion?.map((card) => (
-                                    <Button key={card.id} onClick={() => handleCardSelected(card)}
-                                            size="small" variant='contained' color='warning' fullWidth>
-                                        <RepresentationCard cityName={card?.cityName} level={card?.level} />
-                                    </Button>
-                                ))}
-                            </Grid>
+                            <CardsComponentForPlayerEdit player={player}/>
+
                         </Grid>
                     </Grid>
                 </Box>
@@ -155,14 +116,7 @@ const GobernadorModalViewForControl = ({open, handleClose, player}) => {
                 rolJugador={player?.rol}
                 idJugador={player?.id}
                 nombreJugador={player?.username}/>
-            <PreciosModal
-                open={openPreciosModal}
-                handleClose={handleClosePreciosModal}
-                precios={player?.prices}/>
-            <CardsModal
-                open={openCardsModal}
-                handleClose={handleCloseCardsModal}
-                card={cardSelected}/>
+
         </>
     );
 };
