@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Grid, TextField} from "@mui/material";
-import service from "../Service.js";
 
-const SingleAttributeEdit = ({nombre, valorActual}) => {
+const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
 
-    const [miliciaValue, setMiliciaValue] = useState("");
-    const handleMiliciaValue = (e) => {
-        setMiliciaValue(e.target.value);
-    }
-    const handleActualizarMilicia = () => {
-        service.actualizarMilicia({value:miliciaValue, gobernadorId:player.id});
+    const [newValue, setNewValue] = useState("");
+    const handleNewValue = (e) => {
+        setNewValue(e.target.value);
     }
 
     return (
@@ -29,14 +25,17 @@ const SingleAttributeEdit = ({nombre, valorActual}) => {
             </Grid>
             <Grid item xs={3}>
                 <TextField
-                    value = {miliciaValue}
+                    value = {newValue}
                     type = "number"
                     label = "Nuevo valor"
-                    onChange = {(event) => handleMiliciaValue(event)} />
+                    disabled={!handleActualizar}
+                    onChange = {(event) => handleNewValue(event)} />
             </Grid>
             <Grid item xs={4}>
-                <Button onClick={handleActualizarMilicia}
+                {handleActualizar &&
+                <Button onClick={handleActualizar}
                         size="medium" variant='contained' color='warning' fullWidth>Actualizar</Button>
+                }
             </Grid>
         </>
     );

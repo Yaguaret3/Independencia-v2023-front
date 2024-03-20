@@ -32,7 +32,6 @@ const MercaderComponentForPlayerEdit = ({player}) => {
                 handleClose={handleCloseRutasModal}
                 nombreJugador={player?.username}
                 rolJugador={player?.rol}
-                idJugador={player?.id}
                 rutas={player?.routes}
             />
         </>
