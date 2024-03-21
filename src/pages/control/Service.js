@@ -75,6 +75,32 @@ const updatePrices = async ({priceId, body}) => {
             }
         }
 }
+const updatePlata = async ({value, gobernadorId}) => {
+    const body = {
+        plata:value
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/update-plata/',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const updateVote = async ({voteId, newValue}) => {
+    const body = {
+        voteType:newValue
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+voteId+'/update-vote/',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 
 export default {
     getGameData,
@@ -83,5 +109,7 @@ export default {
     assignDiputado,
     removeBuilding,
     addBuilding,
-    updatePrices
+    updatePrices,
+    updatePlata,
+    updateVote
  }

@@ -17,7 +17,7 @@ const MercaderComponentForPlayerEdit = ({player}) => {
         <>
             <Grid item xs={12}>
                 <Button onClick={handleOpenRutasModal}
-                        size="small" variant='contained' color='warning' fullWidth>{player?.ciudad?.name}</Button>
+                        size="small" variant='contained' color='warning' fullWidth>Rutas</Button>
             </Grid>
             <Grid item xs={12}>
 

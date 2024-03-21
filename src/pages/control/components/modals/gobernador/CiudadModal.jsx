@@ -3,6 +3,7 @@ import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mu
 import BuildingCard from "../../../../common/BuildingCard.jsx";
 import {ControlContext} from "../../../Context.jsx";
 import service from "../../../Service.js";
+import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 
 const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose, open}) => {
 
@@ -176,98 +177,30 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value="Nivel de mercados"
-                                                type="text"
-                                                label="Nivel de mercados"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={ciudad?.marketLevel}
-                                                label="Valor Actual"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={newMarketLevelValue}
-                                                type="number"
-                                                label="Nuevo valor"
-                                                onChange={(event) => handleNewMarketLevelValue(event)}/>
-                                        </Grid>
+                                        <SingleAttributeEdit nombre={"Nivel de mercados"}
+                                                             valorActual={ciudad?.marketLevel}
+                                                             handleActualizar={handleNewMarketLevelValue} />
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value="Opinión pública"
-                                                type="text"
-                                                label="Opinión pública"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={ciudad?.publicOpinion}
-                                                label="Valor Actual"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={newPublicOpinionValue}
-                                                type="number"
-                                                label="Nuevo valor"
-                                                onChange={(event) => handleNewPublicOpinionValue(event)}/>
-                                        </Grid>
+                                        <SingleAttributeEdit nombre={"Opinión pública"}
+                                                             valorActual={ciudad?.publicOpinion}
+                                                             handleActualizar={handleNewPublicOpinionValue} />
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value="Nivel de impuestos"
-                                                type="text"
-                                                label="Nivel de impuestos"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={ciudad?.taxesLevel}
-                                                label="Valor Actual"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={newTaxesLevelValue}
-                                                type="number"
-                                                label="Nuevo valor"
-                                                onChange={(event) => handleNewTaxesLevelValue(event)}/>
-                                        </Grid>
+                                        <SingleAttributeEdit nombre={"Nivel de impuestos"}
+                                                             valorActual={ciudad?.taxesLevel}
+                                                             handleActualizar={handleNewTaxesLevelValue} />
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value="Prestigio"
-                                                type="text"
-                                                label="Prestigio"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={ciudad?.prestige}
-                                                label="Valor Actual"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value={newPrestigeValue}
-                                                type="number"
-                                                label="Nuevo valor"
-                                                onChange={(event) => handleNewPrestigeValue(event)}/>
-                                        </Grid>
+                                        <SingleAttributeEdit nombre={"Prestigio"}
+                                                             valorActual={"Valor Actual"}
+                                                             handleActualizar={handleNewPrestigeValue} />
                                     </Grid>
                                 </Grid>
 

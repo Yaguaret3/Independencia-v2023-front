@@ -16,6 +16,9 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
     const handleActualizarMilicia = ({newValue}) => {
         service.actualizarMilicia({value: newValue, gobernadorId:player.id});
     }
+    const handleActualizarPlata = ({newValue}) => {
+        service.updatePlata({gobernadorId:player.id, value:newValue});
+    }
 
     return (
         <>
@@ -27,7 +30,7 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
 
                 <Grid container spacing={2}>
                     <SingleAttributeEdit nombre={'Milicia'} valorActual={player?.milicia} handleActualizar={handleActualizarMilicia}/>
-
+                    <SingleAttributeEdit nombre={'Plata'} valorActual={player?.plata} handleActualizar={handleActualizarPlata} />
                 </Grid>
             </Grid>
             <CiudadModal
