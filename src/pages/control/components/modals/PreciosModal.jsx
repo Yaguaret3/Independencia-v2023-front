@@ -67,7 +67,6 @@ const PreciosModal = ({precios, playerRol}) => {
                         </TableRow>
                     </TableHead>
 
-                    {/*Falta hacerla editable: https://www.dhiwise.com/post/effortless-editing-how-to-make-a-react-table-editable */}
                     <TableBody>
                         {newPrecios.map(np => (
                             <TableRow key={np.id}>

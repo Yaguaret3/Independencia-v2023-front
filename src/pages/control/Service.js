@@ -80,7 +80,7 @@ const updatePlata = async ({value, gobernadorId}) => {
         plata:value
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/update-plata/',
+    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/update-plata',
         body,
         {
             headers: {
@@ -93,7 +93,70 @@ const updateVote = async ({voteId, newValue}) => {
         voteType:newValue
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+voteId+'/update-vote/',
+    return await axios.post('http://localhost:8085/api/control/'+voteId+'/update-vote',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const updateReserve = async ({playerId, militia}) => {
+    const body = {
+        militia:militia
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/assign-reserve',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const assignMilitiaToArmy = async ({armyId, militia}) => {
+    const body = {
+        militia:militia
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const assignMilitiaToArmy = async ({armyId, militia}) => {
+    const body = {
+        militia:militia
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const deleteArmy = async ({armyId}) => {
+
+    return await axios.delete('http://localhost:8085/api/control/'+armyId,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewArmy = async ({capitanId, subregionId, militia}) => {
+    const body = {
+        militia:militia,
+        gameSubRegionId:subregionId,
+        capitanId:capitanId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/new-army',
         body,
         {
             headers: {
@@ -111,5 +174,8 @@ export default {
     addBuilding,
     updatePrices,
     updatePlata,
-    updateVote
+    updateVote,
+    updateReserve,
+    assignMilitiaToArmy,
+    deleteArmy
  }

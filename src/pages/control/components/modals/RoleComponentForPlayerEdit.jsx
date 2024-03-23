@@ -2,6 +2,7 @@ import React from 'react';
 import GobernadorComponentForPlayerEdit from "./gobernador/GobernadorComponentForPlayerEdit.jsx";
 import RevolucionarioComponentForPlayerEdit from "./revolucionario/RevolucionarioComponentForPlayerEdit.jsx";
 import MercaderComponentForPlayerEdit from "./mercader/MercaderComponentForPlayerEdit.jsx";
+import CapitanComponentForPlayerEdit from "./capitan/CapitanComponentForPlayerEdit.jsx";
 
 const RoleComponentForPlayerEdit = ({player} ) => {
 
