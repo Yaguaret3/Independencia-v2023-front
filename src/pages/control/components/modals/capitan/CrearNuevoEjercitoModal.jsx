@@ -56,7 +56,7 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField onBlur={handleMilicias} fullWidth placeholder={"Milicias"} variant={"standard"}/>
+                        <TextField onBlur={handleMilicias} fullWidth placeholder={"Milicias"} variant={"standard"} type='number'/>
                     </Grid>
                     <Grid item xs={12}>
                         <Button onClick={() => handleCrearNuevoEjercito({milicias:milicias, subregionId:subregionSelected.id})}
