@@ -127,19 +127,6 @@ const assignMilitiaToArmy = async ({armyId, militia}) => {
             }
         });
 }
-const assignMilitiaToArmy = async ({armyId, militia}) => {
-    const body = {
-        militia:militia
-    }
-
-    return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
-}
 const deleteArmy = async ({armyId}) => {
 
     return await axios.delete('http://localhost:8085/api/control/'+armyId,
@@ -177,5 +164,6 @@ export default {
     updateVote,
     updateReserve,
     assignMilitiaToArmy,
-    deleteArmy
+    deleteArmy,
+    createNewArmy
  }

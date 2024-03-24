@@ -8,15 +8,19 @@ const PlayersModal = ({open, handleClose, playersData} ) => {
     const [playersFilter, setPlayersFilter] = useState('');
     const handlePlayersFilter = (e) => {
         setPlayersFilter(e.target.value.toLowerCase());
+        filterPlayers();
     }
+    const [playersFiltered, setPlayersFiltered] = useState(playersData);
 
     const [rolesFilter, setRolesFilter] = useState('');
     const handleRolesFilter = (e) => {
         setRolesFilter(e.target.value.toLowerCase());
+        filterPlayers();
     }
 
-    const playersFiltered = () => {
-        return playersData.filter(p => p.username?.includes(playersFilter.toLowerCase()) && p.rol?.includes(rolesFilter.toLowerCase()));
+    const filterPlayers = () => {
+
+        setPlayersFiltered(playersData.filter(p => p.username?.includes(playersFilter.toLowerCase()) && p.rol?.includes(rolesFilter.toLowerCase())));
     }
     const [playerSelected, setPlayerSelected] = useState({});
     const [openSinglePlayerModal, setOpenSinglePlayerModal] = useState(false);

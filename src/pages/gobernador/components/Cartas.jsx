@@ -21,18 +21,18 @@ const Cartas = () => {
       </Grid>
 
       <Grid item xs={6}>
-        {playerData?.recursos.map((recurso) => (
+        {playerData?.recursos?.map((recurso) => (
 
           <ResourceCard resourceName={recurso.resourceTypeEnum} />
         ))}
 
-        {playerData?.mercados.map((mercado) => (
+        {playerData?.mercados?.map((mercado) => (
 
           <MarketCard level={mercado.level} cityName={mercado.cityName} />
         ))}
 
         {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion.poblacion}
-          ciudad={playerData.representacion.ciudad} />)}
+          ciudad={playerData.representacion?.ciudad} />)}
       </Grid>
 
     </Grid>

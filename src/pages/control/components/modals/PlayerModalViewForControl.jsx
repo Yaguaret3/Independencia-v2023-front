@@ -25,7 +25,7 @@ const PlayerModalViewForControl = ({open, handleClose, player}) => {
                             <Typography>Username</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled={'true'} label={"Username"} fullWidth value={player?.username} variant={"standard"}/>
+                            <TextField disabled={true} label={"Username"} fullWidth value={player?.username} variant={"standard"}/>
                         </Grid>
                     </Grid>
                     <Grid container spacing={2}>
@@ -33,7 +33,7 @@ const PlayerModalViewForControl = ({open, handleClose, player}) => {
                             <Typography>Rol</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled={'true'} label={"Rol"} fullWidth value={player?.rol} variant={"standard"}/>
+                            <TextField disabled={true} label={"Rol"} fullWidth value={player?.rol} variant={"standard"}/>
                         </Grid>
                     </Grid>
 

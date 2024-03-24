@@ -142,10 +142,10 @@ const SingleBattleModal = ({open, handleClose, batalla, cards, maxMilitia}) => {
                         />
                     </Grid>
                     <Grid item xs={6}>
+
+
+                        {/*TODO DESHABILITAR cuando milicia ya asignada */}
                         <Button onClick={handleAssignMilitiaService}
-
-                                {/*TODO DESHABILITAR cuando milicia ya asignada */}
-
                                 size="small" variant='contained' color='warning' fullWidth>Asignar Milicias</Button>
                     </Grid>
                     <Grid item xs={12}>

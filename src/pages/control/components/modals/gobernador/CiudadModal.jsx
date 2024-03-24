@@ -219,7 +219,7 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                                 <Grid item xs={12}>
                                     <BuildingCard key={building?.id} building={building}/>
                                     <Button onClick={() => handleRemoveBuilding(building?.id)}
-                                            size="small" variant='contained' color='warning' fullWidth>---</>
+                                            size="small" variant='contained' color='warning' fullWidth>---</Button>
                                 </Grid>
                             ))}
 

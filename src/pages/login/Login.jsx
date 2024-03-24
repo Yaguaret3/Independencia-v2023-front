@@ -33,7 +33,24 @@ export default function Login() {
         }
         const response = await login(data);
         localStorage.setItem('independencia-token', response.data.token)
-        setLocation('/gobernador')
+        response.data.roles.map(r => {
+           switch (r){
+               case "CONTROL":
+                   setLocation('/control');
+                   return;
+               case "GOBERNADOR":
+                   setLocation('/gobernador');
+                   return;
+               case "CAPITAN":
+                   setLocation('/capitan');
+                   return;
+               case "REVOLUCIONARIO":
+                   setLocation('/revolucionario');
+                   return;
+               default:
+                   return;
+           }
+        });
     }
 
 

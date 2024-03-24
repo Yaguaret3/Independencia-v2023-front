@@ -44,13 +44,13 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
                             disablePortal
                             getOptionLabel={(option) => option.playerName ? option.playerName : ''}
                             options={gameData.gameRegions.forEach(r => r.subRegions)}
-                            value={labelSubregionSelected}
+                            value={subregionSelected}
                             onChange={(event, newValue) => {
                                 handleSubregionSelected(newValue);
                             }}
-                            inputValue={handleLabelSubregionSelected}
+                            inputValue={labelSubregionSelected}
                             onInputChange={(event, newInputValue) => {
-                                handleLabelRevolucionarioSelected(newInputValue);
+                                handleLabelSubregionSelected(newInputValue);
                             }}
                             renderInput={(params) => <TextField {...params} label="Revolucionarios"/>}
                         />

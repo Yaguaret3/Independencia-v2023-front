@@ -17,7 +17,7 @@ const Regiones = () => {
         }}>
 
             {gameData?.gameRegions?.map((r) => (
-                <Region
+                <Region key={r.id}
                     region={r}
                 />
             ))}
