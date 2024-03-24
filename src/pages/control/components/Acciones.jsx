@@ -6,15 +6,15 @@ import PlayersModal from "./modals/PlayersModal.jsx";
 const Acciones = () => {
 
     //Context
-    const { gameData, regionSelected } = useContext(ControlContext)
+    const { gameData, regionSelected } = useContext(ControlContext);
 
     //OpenModal
     const [openPlayersModal, setOpenPlayerModal] = useState(false);
     const handleOpenPlayersModal = () => {
-        openPlayersModal(true)
+        setOpenPlayerModal(true)
     }
     const handleClosePlayersModal = () => {
-        openPlayersModal(false);
+        setOpenPlayerModal(false);
     }
 
     return (

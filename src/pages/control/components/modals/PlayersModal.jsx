@@ -3,14 +3,14 @@ import {Box, Button, Grid, Modal, TextField} from "@mui/material";
 import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
 import PlayerModalViewForControl from "./PlayerModalViewForControl.jsx";
 
-const PlayersModal = ({open, handleClose, playersData} ) => {
+const PlayersModal = ({open, handleClose, players} ) => {
 
     const [playersFilter, setPlayersFilter] = useState('');
     const handlePlayersFilter = (e) => {
         setPlayersFilter(e.target.value.toLowerCase());
         filterPlayers();
     }
-    const [playersFiltered, setPlayersFiltered] = useState(playersData);
+    const [playersFiltered, setPlayersFiltered] = useState(players);
 
     const [rolesFilter, setRolesFilter] = useState('');
     const handleRolesFilter = (e) => {
@@ -20,7 +20,7 @@ const PlayersModal = ({open, handleClose, playersData} ) => {
 
     const filterPlayers = () => {
 
-        setPlayersFiltered(playersData.filter(p => p.username?.includes(playersFilter.toLowerCase()) && p.rol?.includes(rolesFilter.toLowerCase())));
+        setPlayersFiltered(players.filter(p => p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter)));
     }
     const [playerSelected, setPlayerSelected] = useState({});
     const [openSinglePlayerModal, setOpenSinglePlayerModal] = useState(false);
