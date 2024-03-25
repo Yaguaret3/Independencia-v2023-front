@@ -1,8 +1,11 @@
 import React from 'react';
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-const GobernadorCard = (gobernador) => {
+const GobernadorCard = ({gobernador}) => {
+
+    // Cambiar el onlick del Button a la Card
     return (
+
         <Card sx={{ border: 'solid black' }}>
             <CardActionArea>
                 <CardContent sx={{ backgroundColor: 'white', paddingY: 0 }}>

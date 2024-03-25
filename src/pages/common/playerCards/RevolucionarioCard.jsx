@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-const RevolucionarioCard = (revolucionario) => {
+const RevolucionarioCard = ({revolucionario}) => {
 
     return (
         <Card sx={{ border: 'solid black' }}>

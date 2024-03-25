@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 
-const CapitanCard = (capitan) => {
+const CapitanCard = ({capitan}) => {
     return (
         <Card sx={{ border: 'solid black' }}>
             <CardActionArea>

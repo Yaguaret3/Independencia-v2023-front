@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, Grid, Modal, TextField} from "@mui/material";
 import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
 import PlayerModalViewForControl from "./PlayerModalViewForControl.jsx";
@@ -8,20 +8,13 @@ const PlayersModal = ({open, handleClose, players} ) => {
     const [playersFilter, setPlayersFilter] = useState('');
     const handlePlayersFilter = (e) => {
         setPlayersFilter(e.target.value.toLowerCase());
-        filterPlayers();
     }
-    const [playersFiltered, setPlayersFiltered] = useState(players);
 
     const [rolesFilter, setRolesFilter] = useState('');
     const handleRolesFilter = (e) => {
         setRolesFilter(e.target.value.toLowerCase());
-        filterPlayers();
     }
 
-    const filterPlayers = () => {
-
-        setPlayersFiltered(players.filter(p => p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter)));
-    }
     const [playerSelected, setPlayerSelected] = useState({});
     const [openSinglePlayerModal, setOpenSinglePlayerModal] = useState(false);
 
@@ -33,10 +26,17 @@ const PlayersModal = ({open, handleClose, players} ) => {
         setOpenSinglePlayerModal(false);
     }
 
+    const handleCloseThis = () => {
+        setPlayersFilter('');
+        setRolesFilter('');
+        handleClose();
+    }
+
+    const playersFiltered = players?.filter(p => p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter));
 
     return (
         <>
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={handleCloseThis}>
                 <Box sx={{
                     position: 'absolute',
                     top: '50vh',
@@ -57,8 +57,8 @@ const PlayersModal = ({open, handleClose, players} ) => {
                         </Grid>
 
                         <Grid item xs={6}>
-                            {playersFiltered?.map((player, index) => (
-                                <Button key={index} onClick={() => handleSelectPlayer(player)}>
+                            {playersFiltered?.map((player) => (
+                                <Button key={player.id} onClick={() => handleSelectPlayer(player)}>
                                     <PlayerCard player ={player} />
                                 </Button>
                             ))}
