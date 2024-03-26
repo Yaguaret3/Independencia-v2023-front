@@ -4,26 +4,23 @@ import PreciosModal from "./modals/PreciosModal.jsx";
 
 const PriceComponentForPlayerEdit = ({player}) => {
 
-    const [openPreciosModal, setOpenPreciosModal] = useState(false);
-    const handleOpenPreciosModal = () => {
-        setOpenPreciosModal(true);
-    }
-    const handleClosePreciosModal = () => {
-        setOpenPreciosModal(false);
+    const [showPrecios, setShowPrecios] = useState(false);
+    const handleToggleShowPrecios = () => {
+        setShowPrecios(!showPrecios);
     }
 
     return (
         <>
             <Grid item xs={12}>
-                <Button onClick={handleOpenPreciosModal}
+                <Button onClick={handleToggleShowPrecios}
                         size="small" variant='contained' color='warning' fullWidth>Precios</Button>
             </Grid>
             <PreciosModal
-                open={openPreciosModal}
-                handleClose={handleClosePreciosModal}
-                precios={player?.prices}/>
+                show={showPrecios}
+                precios={player?.prices}
+                playerRol={player?.rol}/>
         </>
     );
-};
+}
 
 export default PriceComponentForPlayerEdit;

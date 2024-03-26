@@ -7,6 +7,8 @@ import CardsModal from "./modals/CardsModal.jsx";
 
 const CardsComponentForPlayerEdit = ({player}) => {
 
+    //TODO Eliminar carta, agregar carta
+
     const [cardSelected, setCardSelected] = useState({});
     const handleCardSelected = ({card}) => {
         setCardSelected(card);
@@ -23,31 +25,22 @@ const CardsComponentForPlayerEdit = ({player}) => {
 
     return (
         <>
-        <Grid container spacing={2}>
-            {player?.recursos?.map((card) => (
-                <Button key={card.id} onClick={() => handleCardSelected(card)}
-                        size="small" variant='contained' color='warning' fullWidth>
-                    <ResourceCard resourceName={card.resourceTypeEnum} />
-                </Button>
-            ))}
-            {player?.mercados?.map((card) => (
-                <Button key={card.id} onClick={() => handleCardSelected(card)}
-                        size="small" variant='contained' color='warning' fullWidth>
-                    <MarketCard cityName={card?.cityName} level={card?.level} />
-                </Button>
-            ))}
-            {player?.representacion?.map((card) => (
-                <Button key={card.id} onClick={() => handleCardSelected(card)}
-                        size="small" variant='contained' color='warning' fullWidth>
-                    <RepresentationCard cityName={card?.cityName} level={card?.level} />
-                </Button>
-            ))}
-        </Grid>
-        <CardsModal
-            open={openCardsModal}
-            handleClose={handleCloseCardsModal}
-            card={cardSelected}/>
-    </>
+            <Grid container spacing={2}>
+                {player?.recursos?.map((card) => (
+                    <ResourceCard key={card.id} resourceName={card.resourceTypeEnum}/>
+                ))}
+                {player?.mercados?.map((card) => (
+                    <MarketCard key={card.id} cityName={card?.cityName} level={card?.level}/>
+                ))}
+                {player?.representacion?.map((card) => (
+                    <RepresentationCard key={card.id} ciudad={card?.ciudad} poblacion={card?.poblacion}/>
+                ))}
+            </Grid>
+            <CardsModal
+                open={openCardsModal}
+                handleClose={handleCloseCardsModal}
+                card={cardSelected}/>
+        </>
     );
 };
 

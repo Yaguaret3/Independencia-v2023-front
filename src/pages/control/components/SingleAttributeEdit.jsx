@@ -10,17 +10,10 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
 
     return (
         <>
-            <Grid item xs={3}>
-                <TextField
-                    value = {nombre}
-                    type = "text"
-                    label = {nombre}
-                    disabled={true} />
-            </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={5}>
                 <TextField
                     value = {valorActual}
-                    label = "Valor Actual"
+                    label = {nombre}
                     disabled={true} />
             </Grid>
             <Grid item xs={3}>
@@ -34,7 +27,7 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
             <Grid item xs={4}>
                 {handleActualizar &&
                 <Button onClick={handleActualizar}
-                        size="medium" variant='contained' color='warning' fullWidth>Actualizar</Button>
+                        size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                 }
             </Grid>
         </>

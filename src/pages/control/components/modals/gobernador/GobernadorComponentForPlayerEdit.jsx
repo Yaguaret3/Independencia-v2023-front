@@ -30,6 +30,8 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
 
                 <Grid container spacing={2}>
                     <SingleAttributeEdit nombre={'Milicia'} valorActual={player?.milicia} handleActualizar={handleActualizarMilicia}/>
+                </Grid>
+                <Grid container spacing={2}>
                     <SingleAttributeEdit nombre={'Plata'} valorActual={player?.plata} handleActualizar={handleActualizarPlata} />
                 </Grid>
             </Grid>

@@ -24,7 +24,7 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
             value: "EN_CONTRA"
         }];
 
-    const [newVoteValue, setNewVoteValue] = useState(player?.congreso?.votations?.find(v => v.active).votos.find(v => v.revolucionarioName === player.username));
+    const [newVoteValue, setNewVoteValue] = useState(player?.congreso?.votations?.find(v => v.active)?.votos?.find(v => v.revolucionarioName === player.username)?.voteType);
 
     const handleNewVoteSelected = ({newValue}) => {
         setNewVoteValue(newValue.descripcion);
@@ -32,7 +32,7 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
 
     const handleActualizarVoto = () => {
 
-        const vote = player?.congreso?.votations?.find(v => v.active).votos.find(v => v.revolucionarioName === player.username);
+        const vote = player?.congreso?.votations?.find(v => v.active).votos?.find(v => v.revolucionarioName === player.username);
 
         service.updateVote({voteId:vote.id, newValue:newVoteValue});
     }
@@ -44,8 +44,9 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
                 <SingleAttributeEdit nombre={'Plata'} valorActual={player?.plata} handleActualizar={handleActualizarPlata}/>
             </Grid>
             <Grid item xs={12}>
-                <TextareaAutosize placeholder={'Propuesta Activa'}
-                                  value={player?.congreso?.votations?.find(v => v.active).propuesta}/>
+                <TextareaAutosize disabled={true}
+                                  placeholder={'Propuesta Activa'}
+                                  value={player?.congreso?.votations?.find(v => v.active)?.propuesta}/>
                 <Autocomplete
                     disablePortal
                     getOptionLabel={(option) => option.descripcion}
@@ -58,7 +59,7 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
                     inputValue={newVoteValue}
                     renderInput={(params) => <TextField {...params} label="Voto" />}
                 />
-                {player?.congreso?.votations?.find(v =>v.active).votos.find(v => v.revolucionarioName === player.username).representacionResponse.map(r => {
+                {player?.congreso?.votations?.find(v =>v.active)?.votos.find(v => v.revolucionarioName === player.username)?.representacionResponse.map(r => {
                     return <RepresentationCard key={r.id} ciudad={r.ciudad} poblacion={r.poblacion}/>
                 })}
 

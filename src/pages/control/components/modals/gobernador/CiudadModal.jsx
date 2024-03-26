@@ -9,75 +9,46 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
 
     const {gameData} = useContext(ControlContext);
 
-    //Service grabar
-    const handleEditarCiudadService = () => {
-
-        const body = {};
-        if(marketValueChanged){
-            body.marketLevel = newMarketLevelValue;
-        }
-        if(publicOpinionValueChanged){
-            body.publicOpinion = newPublicOpinionValue;
-        }
-        if(taxesLevelValueChanged){
-            body.taxesLevel = newTaxesLevelValue;
-        }
-        if(prestigeValueChanged){
-            body.prestige = newPrestigeValue;
-        }
-        service.editarCiudad({gobernadorId:idJugador, body:body});
-
-        //GRABAR DIPUTADO POR OTRO ENDPOINT
-        if(diputadoChanged){
-            service.assignDiputado({revolucionariodId:revolucionarioSelected.id, cityId:ciudad.id});
-        }
-    }
-
-
     //Nivel de Mercado
-    const [newMarketLevelValue, setNewMarketLevelValue] = useState(ciudad.marketLevel);
-    const [marketValueChanged, setMarketValueChanged] = useState(false);
-
     const handleNewMarketLevelValue = (e) => {
-        setNewMarketLevelValue(e.target.value);
-        setMarketValueChanged(ciudad.marketLevel !== e.target.value)
+        const body = {};
+        body.marketLevel = e.target.value;
+        service.editarCiudad({gobernadorId: idJugador, body: body});
     }
     //Opinión Pública
-    const [newPublicOpinionValue, setNewPublicOpinionValue] = useState(ciudad.publicOpinion);
-    const [publicOpinionValueChanged, setPublicOpinionValueChanged] = useState(false);
-
     const handleNewPublicOpinionValue = (e) => {
-        setNewPublicOpinionValue(e.target.value);
-        setPublicOpinionValueChanged(ciudad.publicOpinion !== e.target.value);
+        const body = {};
+        body.publicOpinion = e.target.value;
+        service.editarCiudad({gobernadorId: idJugador, body: body});
     }
     //Nivel de Impuestos
-    const [newTaxesLevelValue, setNewTaxesLevelValue] = useState(ciudad.taxesLevel);
-    const [taxesLevelValueChanged, setTaxesLevelValueChanged] = useState(false);
-
     const handleNewTaxesLevelValue = (e) => {
-        setNewTaxesLevelValue(e.target.value);
-        setTaxesLevelValueChanged(ciudad.taxesLevel !== e.target.value);
+        const body = {};
+        body.taxesLevel = e.target.value;
+        service.editarCiudad({gobernadorId:idJugador, body:body});
     }
     //Prestigio
-    const [newPrestigeValue, setNewPrestigeValue] = useState(ciudad.prestige);
-    const [prestigeValueChanged, setPrestigeValueChanged] = useState(false);
-
     const handleNewPrestigeValue = (e) => {
-        setNewPrestigeValue(e.target.value);
-        setPrestigeValueChanged(ciudad.prestige !== e.target.value);
+        const body = {};
+        body.prestige = e.target.value;
+        service.editarCiudad({gobernadorId:idJugador, body:body});
     }
 
     //Revolucionarios
-    const [revolucionarioSelected, setRevolucionarioSelected] = useState(ciudad.diputado ? ciudad.diputado : '');
+    const [revolucionarioSelected, setRevolucionarioSelected] = useState({rol:''});
     const [labelRevolucionarioSelected, setLabelRevolucionarioSelected] = useState('')
     const [diputadoChanged, setDiputadoChanged] = useState(false);
 
     const handleRevolucionarioSelected = ({newValue}) => {
+        debugger
         setRevolucionarioSelected(newValue);
         setDiputadoChanged(ciudad.diputado !== newValue);
     }
     const handleLabelRevolucionarioSelected = ({newValue}) => {
         setLabelRevolucionarioSelected(newValue);
+    }
+    const handleUpdateRevolucionario = () => {
+        service.assignDiputado({revolucionariodId:diputadoChanged.id, cityId:ciudad.id})
     }
 
     //Edificios
@@ -91,10 +62,10 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
         setLabelBuildingTypeSelected(newValue);
     }
     const handleRemoveBuilding = ({id}) => {
-        service.removeBuilding({cityId:ciudad.id, buildingId:id});
+        service.removeBuilding({cityId: ciudad.id, buildingId: id});
     }
     const handleAddBuilding = () => {
-        service.addBuilding({cityId:ciudad.id, buildingType:buildingTypeSelected.buildingType});
+        service.addBuilding({cityId: ciudad.id, buildingType: buildingTypeSelected.buildingType});
     }
 
     return (
@@ -144,34 +115,32 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                value="Diputado"
-                                                type="text"
-                                                label="Diputado"
-                                                disabled={true}/>
-                                        </Grid>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={5}>
                                             <TextField
                                                 value={ciudad?.diputado}
                                                 label="Diputado actual"
                                                 disabled={true}/>
                                         </Grid>
-                                        <Grid item xs={3}>
+                                        <Grid item xs={5}>
                                             <Autocomplete
                                                 disablePortal
-                                                getOptionLabel={(option) => option.playerName ? option.playerName : ''}
+                                                getOptionLabel={(option) => option.username ? option.username : ""}
                                                 options={gameData.playersData?.filter(p => p.rol === 'REVOLUCIONARIO')}
                                                 value={revolucionarioSelected}
                                                 onChange={(event, newValue) => {
-                                                    handleRevolucionarioSelected(newValue);
+                                                    handleRevolucionarioSelected({newValue:newValue});
                                                 }}
                                                 inputValue={labelRevolucionarioSelected}
                                                 onInputChange={(event, newInputValue) => {
-                                                    handleLabelRevolucionarioSelected(newInputValue);
+                                                    handleLabelRevolucionarioSelected({newValue:newInputValue});
                                                 }}
-                                                renderInput={(params) => <TextField {...params} label="Revolucionarios"/>}
+                                                renderInput={(params) => <TextField {...params}
+                                                                                    label="Revolucionarios"/>}
                                             />
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Button onClick={handleUpdateRevolucionario}
+                                                size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -179,35 +148,29 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                                     <Grid container spacing={2}>
                                         <SingleAttributeEdit nombre={"Nivel de mercados"}
                                                              valorActual={ciudad?.marketLevel}
-                                                             handleActualizar={handleNewMarketLevelValue} />
+                                                             handleActualizar={handleNewMarketLevelValue}/>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
                                         <SingleAttributeEdit nombre={"Opinión pública"}
                                                              valorActual={ciudad?.publicOpinion}
-                                                             handleActualizar={handleNewPublicOpinionValue} />
+                                                             handleActualizar={handleNewPublicOpinionValue}/>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
                                         <SingleAttributeEdit nombre={"Nivel de impuestos"}
                                                              valorActual={ciudad?.taxesLevel}
-                                                             handleActualizar={handleNewTaxesLevelValue} />
+                                                             handleActualizar={handleNewTaxesLevelValue}/>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
                                         <SingleAttributeEdit nombre={"Prestigio"}
                                                              valorActual={"Valor Actual"}
-                                                             handleActualizar={handleNewPrestigeValue} />
+                                                             handleActualizar={handleNewPrestigeValue}/>
                                     </Grid>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Button onClick={handleEditarCiudadService}
-                                            size="small" variant='contained' color='warning' fullWidth>
-                                        GRABAR CAMBIOS</Button>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -216,8 +179,8 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                         <Grid container spacing={2}>
                             {/*Remove*/}
                             {ciudad?.buildings?.map((building) => (
-                                <Grid item xs={12}>
-                                    <BuildingCard key={building?.id} building={building}/>
+                                <Grid key={building?.id} item xs={12}>
+                                    <BuildingCard  building={building}/>
                                     <Button onClick={() => handleRemoveBuilding(building?.id)}
                                             size="small" variant='contained' color='warning' fullWidth>---</Button>
                                 </Grid>
