@@ -26,7 +26,9 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
             </Grid>
             <Grid item xs={4}>
                 {handleActualizar &&
-                <Button onClick={handleActualizar}
+                <Button onClick={() => {
+                    handleActualizar({newValue:newValue})
+                }}
                         size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                 }
             </Grid>

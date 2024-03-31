@@ -10,27 +10,27 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
     const {gameData} = useContext(ControlContext);
 
     //Nivel de Mercado
-    const handleNewMarketLevelValue = (e) => {
+    const handleNewMarketLevelValue = ({newValue}) => {
         const body = {};
-        body.marketLevel = e.target.value;
+        body.marketLevel = newValue;
         service.editarCiudad({gobernadorId: idJugador, body: body});
     }
     //Opinión Pública
-    const handleNewPublicOpinionValue = (e) => {
+    const handleNewPublicOpinionValue = ({newValue}) => {
         const body = {};
-        body.publicOpinion = e.target.value;
+        body.publicOpinion = newValue;
         service.editarCiudad({gobernadorId: idJugador, body: body});
     }
     //Nivel de Impuestos
-    const handleNewTaxesLevelValue = (e) => {
+    const handleNewTaxesLevelValue = ({newValue}) => {
         const body = {};
-        body.taxesLevel = e.target.value;
+        body.taxesLevel = newValue;
         service.editarCiudad({gobernadorId:idJugador, body:body});
     }
     //Prestigio
-    const handleNewPrestigeValue = (e) => {
+    const handleNewPrestigeValue = ({newValue}) => {
         const body = {};
-        body.prestige = e.target.value;
+        body.prestige = newValue;
         service.editarCiudad({gobernadorId:idJugador, body:body});
     }
 
@@ -40,7 +40,6 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
     const [diputadoChanged, setDiputadoChanged] = useState(false);
 
     const handleRevolucionarioSelected = ({newValue}) => {
-        debugger
         setRevolucionarioSelected(newValue);
         setDiputadoChanged(ciudad.diputado !== newValue);
     }
@@ -48,7 +47,8 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
         setLabelRevolucionarioSelected(newValue);
     }
     const handleUpdateRevolucionario = () => {
-        service.assignDiputado({revolucionariodId:diputadoChanged.id, cityId:ciudad.id})
+        service.assignDiputado({revolucionariodId:revolucionarioSelected.id, cityId:ciudad.id});
+
     }
 
     //Edificios
@@ -104,7 +104,7 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                             <Typography>Ciudad</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled={'true'} label={"Username"} fullWidth value={ciudad?.name}
+                            <TextField disabled={'true'} label={"Ciudad"} fullWidth value={ciudad?.name}
                                        variant={"standard"}/>
                         </Grid>
                     </Grid>
@@ -140,6 +140,7 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Button onClick={handleUpdateRevolucionario}
+                                                    disabled={!diputadoChanged}
                                                 size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                                         </Grid>
                                     </Grid>
@@ -168,7 +169,7 @@ const CiudadModal = ({nombreJugador, rolJugador, idJugador, ciudad, handleClose,
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
                                         <SingleAttributeEdit nombre={"Prestigio"}
-                                                             valorActual={"Valor Actual"}
+                                                             valorActual={ciudad?.prestige}
                                                              handleActualizar={handleNewPrestigeValue}/>
                                     </Grid>
                                 </Grid>

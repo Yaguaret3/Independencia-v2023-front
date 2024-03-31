@@ -13,10 +13,10 @@ const getGameData = async () => {
 const actualizarMilicia = async ({value, gobernadorId}) => {
 
     const body = {
-        milicia:value
+        newValue:value
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/assign-reserve/',
+    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/assign-reserve',
         body,
         {
             headers: {
@@ -26,7 +26,7 @@ const actualizarMilicia = async ({value, gobernadorId}) => {
 }
 const editarCiudad = async ({gobernadorId, body}) => {
 
-    return await axios.patch('http://localhost:8085/api/control/'+gobernadorId+'/edit-city/',
+    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/edit-city/',
         body,
         {
             headers: {
@@ -36,7 +36,8 @@ const editarCiudad = async ({gobernadorId, body}) => {
 }
 const assignDiputado = async ({revolucionariodId, cityId}) => {
 
-    return await axios.patch('http://localhost:8085/api/control/'+cityId+'/assign-diputado?diputadoId:'+revolucionariodId,
+    return await axios.post('http://localhost:8085/api/control/'+cityId+'/assign-diputado?diputadoId='+revolucionariodId,
+        {},
         {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -46,6 +47,7 @@ const assignDiputado = async ({revolucionariodId, cityId}) => {
 const removeBuilding = async ({cityId, buildingId}) => {
 
     return await axios.post('http://localhost:8085/api/control/'+cityId+'/remove-building?buildingId:'+buildingId,
+        {},
         {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -67,17 +69,17 @@ const addBuilding = async ({cityId, buildingType}) => {
         });
 }
 const updatePrices = async ({priceId, body}) => {
-    return await axios.post('http://localhost:8085/api/control/'+priceId+'/update-price'),
+    return await axios.post('http://localhost:8085/api/control/'+priceId+'/update-price',
         body,
         {
             headers: {
                 Authorization: 'Bearer ' + token
             }
-        }
+        });
 }
 const updatePlata = async ({value, gobernadorId}) => {
     const body = {
-        plata:value
+        newValue:value
     }
 
     return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/update-plata',
@@ -103,7 +105,7 @@ const updateVote = async ({voteId, newValue}) => {
 }
 const updateReserve = async ({playerId, militia}) => {
     const body = {
-        militia:militia
+        newValue:militia
     }
 
     return await axios.post('http://localhost:8085/api/control/'+playerId+'/assign-reserve',
@@ -116,7 +118,7 @@ const updateReserve = async ({playerId, militia}) => {
 }
 const assignMilitiaToArmy = async ({armyId, militia}) => {
     const body = {
-        militia:militia
+        newValue:militia
     }
 
     return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',

@@ -21,25 +21,29 @@ const PlayerModalViewForControl = ({open, handleClose, player}) => {
                 }}
                 >
                     <Grid container spacing={6}>
-                        <Grid item xs={6}>
-                            <Grid item xs={6}>
-                                <TextField size="mFGr" disabled={true} label={"Username"} fullWidth
-                                           value={player?.username}
-                                           variant={"standard"}/>
+                        <Grid item xs={12}>
+                            <Grid container spacing={6}>
+                                <Grid item xs={6}>
+                                    <TextField size="mFGr" disabled={true} label={"Username"} fullWidth
+                                               value={player?.username}
+                                               variant={"standard"}/>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField size="small" disabled={true} label={"Rol"} fullWidth value={player?.rol}
+                                               variant={"standard"}/>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={6}>
-                                <TextField size="small" disabled={true} label={"Rol"} fullWidth value={player?.rol}
-                                           variant={"standard"}/>
-                            </Grid>
-
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <Grid container spacing={2}>
-                                <RoleComponentForPlayerEdit player={player}/>
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <CardsComponentForPlayerEdit player={player}/>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={2}>
+                                        <RoleComponentForPlayerEdit player={player}/>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <CardsComponentForPlayerEdit player={player}/>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -50,7 +54,8 @@ const PlayerModalViewForControl = ({open, handleClose, player}) => {
                 </Box>
             </Modal>
         </>
-    );
+    )
+        ;
 };
 
 export default PlayerModalViewForControl;
