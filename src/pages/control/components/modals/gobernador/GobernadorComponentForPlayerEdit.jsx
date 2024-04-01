@@ -14,7 +14,7 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
         setOpenCiudadModal(false);
     }
     const handleActualizarMilicia = ({newValue}) => {
-        service.actualizarMilicia({value: newValue, gobernadorId:player.id});
+        service.updateReserve({value: newValue, playerId:player.id});
     }
     const handleActualizarPlata = ({newValue}) => {
         service.updatePlata({gobernadorId:player.id, value:newValue});

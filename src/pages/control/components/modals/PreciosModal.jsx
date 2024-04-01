@@ -1,11 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import TableInput from "../../../common/TableInput.jsx";
 import service from "../../Service.js";
 
 const PreciosModal = ({precios, playerRol, show}) => {
 
-    const [newPrecios, setNewPrecios] = useState(precios);
+    const [newPrecios, setNewPrecios] = useState([]);
+
+    const attributes = ['plata', 'textil', 'agropecuaria',
+        'metalmecanica', 'construccion', 'comercial', 'puntajeComercial'];
+
+    useEffect(() => {
+
+        const pr = precios.map(p => ({...p}))
+        const preciosConModif = pr.map(p => {
+
+            attributes.forEach(a => {
+                p[a] = {
+                    data:p[a],
+                    modif:false
+                }
+            })
+            return p;
+        });
+        setNewPrecios(preciosConModif);
+    }, []);
 
     const handleInputChange = ({event, id}) => {
         const attribute = event.target.name;
@@ -15,13 +34,15 @@ const PreciosModal = ({precios, playerRol, show}) => {
 
             if (id === np.id) {
                 return {
-                    ...rowData,
-                    [attribute.data]: newValue,
-                    modificado: newValue !== np[attribute],
-                    [attribute.modif]: newValue !== np[attribute]
+                    ...np,
+                    [attribute]: {
+                        data:newValue,
+                        modif:newValue !== np[attribute]
+                    },
+                    modificado: newValue !== np[attribute]
                 };
             }
-            return rowData;
+            return np;
         });
 
         setNewPrecios(updatedPrecios);
@@ -31,15 +52,14 @@ const PreciosModal = ({precios, playerRol, show}) => {
 
         newPrecios.filter(np => np.modificado).forEach((np) => {
 
-            const attributes = ['plata', 'textil', 'agropecuaria',
-                'metalmecanica', 'construccion', 'comercial', 'puntajeComercial'];
-
-            const body = attributes.map(a => {
-                if (np[a][modif])
-                    return {[a]: np[a][data]};
+            let body = {};
+            attributes.forEach(a => {
+                if (np[a].modif)
+                    body = {...body,
+                    [a]: np[a].data};
             });
 
-            service.updatePrices({id: np.id, body: body});
+            service.updatePrices({priceId: np.id, body: body});
         })
 
     }
@@ -57,11 +77,11 @@ const PreciosModal = ({precios, playerRol, show}) => {
                             <TableCell padding='none' align="center">Construcción</TableCell>
                             <TableCell padding='none' align="center">Comercial</TableCell>
                             {(playerRol === 'GOBERNADOR' || playerRol === 'REVOLUCIONARIO') && <TableCell
-                                padding='none' align="right">
+                                padding='none' align="center">
                                 Plata
                             </TableCell>}
                             {(playerRol === 'MERCADER') && <TableCell
-                                padding='none' align="right">
+                                padding='none' align="center">
                                 Puntaje Comercial
                             </TableCell>}
                         </TableRow>

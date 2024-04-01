@@ -11,7 +11,7 @@ const CapitanComponentForPlayerEdit = ({player}) => {
     const [modificaciones, setModificaciones] = useState(false)
 
     const handleActualizarReserva = ({newValue}) => {
-        service.updateReserve({newValue:newValue, playerId:player.id});
+        service.updateReserve({value:newValue, playerId:player.id});
     }
 
     const handleInputChange = ({event, id}) => {

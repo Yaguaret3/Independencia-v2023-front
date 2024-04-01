@@ -10,20 +10,6 @@ const getGameData = async () => {
         }
     });
 }
-const actualizarMilicia = async ({value, gobernadorId}) => {
-
-    const body = {
-        newValue:value
-    }
-
-    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/assign-reserve',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
-}
 const editarCiudad = async ({gobernadorId, body}) => {
 
     return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/edit-city/',
@@ -36,8 +22,11 @@ const editarCiudad = async ({gobernadorId, body}) => {
 }
 const assignDiputado = async ({revolucionariodId, cityId}) => {
 
-    return await axios.post('http://localhost:8085/api/control/'+cityId+'/assign-diputado?diputadoId='+revolucionariodId,
-        {},
+    const body = {
+        diputadoId:revolucionariodId
+    }
+    return await axios.post('http://localhost:8085/api/control/'+cityId+'/assign-diputado',
+        body,
         {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -103,9 +92,10 @@ const updateVote = async ({voteId, newValue}) => {
             }
         });
 }
-const updateReserve = async ({playerId, militia}) => {
+const updateReserve = async ({playerId, value}) => {
+    debugger
     const body = {
-        newValue:militia
+        newValue:value
     }
 
     return await axios.post('http://localhost:8085/api/control/'+playerId+'/assign-reserve',
@@ -156,7 +146,6 @@ const createNewArmy = async ({capitanId, subregionId, militia}) => {
 
 export default {
     getGameData,
-    actualizarMilicia,
     editarCiudad,
     assignDiputado,
     removeBuilding,

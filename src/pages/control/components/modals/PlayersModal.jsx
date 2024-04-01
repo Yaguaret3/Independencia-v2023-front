@@ -56,13 +56,14 @@ const PlayersModal = ({open, handleClose, players} ) => {
                             <TextField onChange={handleRolesFilter} label={"Rol"} fullWidth placeholder={"Rol"} variant={"standard"}/>
                         </Grid>
 
-                        <Grid item xs={6}>
-                            {playersFiltered?.map((player) => (
-                                <Button key={player.id} onClick={() => handleSelectPlayer(player)}>
+
+                        {playersFiltered?.map((player) => (
+                            <Grid key={player.id} item xs={3}>
+                                <Button  onClick={() => handleSelectPlayer(player)}>
                                     <PlayerCard player ={player} />
                                 </Button>
-                            ))}
-                        </Grid>
+                            </Grid>
+                        ))}
 
                     </Grid>
                 </Box>

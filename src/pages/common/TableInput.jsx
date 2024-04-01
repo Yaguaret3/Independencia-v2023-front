@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextField} from "@mui/material";
 
 const TableInput = ({ name, value, onChange }) => {
 
-    const [inputValue, setInputValue] = React.useState(value);
+    console.log("value = ")
+    console.log(value)
+
+    const [inputValue, setInputValue] = useState(value?.data);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
