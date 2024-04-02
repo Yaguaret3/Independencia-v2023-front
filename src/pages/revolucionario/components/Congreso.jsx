@@ -17,7 +17,7 @@ const Congreso = () => {
 
     useEffect(() => {
         
-        setCurrentVotation(playerData.congreso && playerData.congreso.votations.find(v => v.active))
+        setCurrentVotation(playerData?.congreso?.votations.find(v => v.active))
       }, [playerData]);
 
     const handleVotationSelected = (newValue) => {
@@ -63,7 +63,7 @@ const Congreso = () => {
                         disablePortal
                         getOptionLabel={
                             (option) => handleOptionLabel(option)}
-                        options={playerData && playerData.congreso ? playerData.congreso.votations : []}
+                        options={playerData?.congreso?.votations !== undefined ? playerData?.congreso?.votations : []}
                         value={votation}
                         onChange={(event, newValue) => {
                             handleVotationSelected(newValue);
@@ -75,24 +75,24 @@ const Congreso = () => {
                         renderInput={(params) => <TextField {...params} label="Votaciones" />}
                     />
                 </Grid>
-                <Grid item xs={4}>
+                {(playerData?.congreso?.presidenteId === playerData.id) && <Grid item xs={4}>
                     <Button onClick={handleOpenNuevaPropuestaModal}
-                        size="small" variant='contained' color='warning' fullWidth>
+                            size="small" variant='contained' color='warning' fullWidth>
                         Nueva Propuesta
                     </Button>
-                </Grid>
+                </Grid>}
                 <Grid item xs={4}>
                     <Button onClick={handleOpenVotarModal}
                         size="small" variant='contained' color='warning' fullWidth>
                         Votar
                     </Button>
                 </Grid>
-                <Grid item xs={4}>
+                {(playerData?.congreso?.presidenteId === playerData.id) && <Grid item xs={4}>
                     <Button
                         size="small" variant='contained' color='warning' fullWidth>
                         Cerrar Votación
                     </Button>
-                </Grid>
+                </Grid>}
                 <Grid item>
                     <TableContainer style={{ height: '100%', maxHeight: '100%', overflow: 'hidden', alignItems: 'center' }}>
                         <Table style={{ tableLayout: 'fixed' }}>
@@ -110,8 +110,8 @@ const Congreso = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {votation.votos && votation.votos.map((v) => (
-                                    <TableRow>
+                                {votation?.votos?.map((v) => (
+                                    <TableRow key={v.id}>
                                         <TableCell>
                                             {v.revolucionarioName}
                                         </TableCell>
@@ -119,8 +119,8 @@ const Congreso = () => {
                                             {v.voteType}
                                         </TableCell>
                                         <TableCell>
-                                            {v.representacionResponse && v.representacionResponse.map((c) => (
-                                                <RepresentationCard poblacion={c.poblacion}
+                                            {v.representacionResponse?.map((c) => (
+                                                <RepresentationCard key={c.id} poblacion={c.poblacion}
                                                     ciudad={c.ciudad} />
                                             ))}
                                         </TableCell>

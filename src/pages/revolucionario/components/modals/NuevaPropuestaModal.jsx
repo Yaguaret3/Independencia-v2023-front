@@ -10,7 +10,7 @@ const NuevaPropuestaModal = ({ open, handleClose }) => {
         setTextField(e.target.value)
     }
     const handleService = () => {
-        if (playerSelected === '' || playerSelected === null) {
+        if (textField === '' || textField === null) {
             alert('Por favor, enviar propuesta correctamente')
             return;
         }
