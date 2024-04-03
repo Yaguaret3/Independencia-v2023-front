@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Autocomplete, Button, Grid, TextareaAutosize, TextField} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
@@ -24,17 +24,25 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
             value: "EN_CONTRA"
         }];
 
-    const [newVoteValue, setNewVoteValue] = useState(player?.congreso?.votations?.find(v => v.active)?.votos?.find(v => v.revolucionarioName === player.username)?.voteType);
+    const [newVoteValue, setNewVoteValue] = useState(
 
+        voteValues.find(vv => {
+            return player?.congreso?.votations?.find(v => v.active)?.votos?.find(v => v.revolucionarioName === player.username)?.voteType === vv.descripcion;
+        }));
     const handleNewVoteSelected = ({newValue}) => {
-        setNewVoteValue(newValue.descripcion);
+        setNewVoteValue(newValue);
+    }
+
+    const [labelNewVoteValue, setLabelNewVoteValue] = useState(newVoteValue?.descripcion);
+    const handleLabelNewVoteValueSelected = ({newValue}) => {
+        setLabelNewVoteValue(newValue);
     }
 
     const handleActualizarVoto = () => {
 
         const vote = player?.congreso?.votations?.find(v => v.active).votos?.find(v => v.revolucionarioName === player.username);
 
-        service.updateVote({voteId:vote.id, newValue:newVoteValue});
+        service.updateVote({voteId:vote.id, newValue:newVoteValue.value});
     }
 
     return (
@@ -44,24 +52,42 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
                 <SingleAttributeEdit nombre={'Plata'} valorActual={player?.plata} handleActualizar={handleActualizarPlata}/>
             </Grid>
             <Grid item xs={12}>
-                <TextareaAutosize disabled={true}
-                                  placeholder={'Propuesta Activa'}
-                                  value={player?.congreso?.votations?.find(v => v.active)?.propuesta}/>
-                <Autocomplete
-                    disablePortal
-                    getOptionLabel={(option) => option.descripcion}
-                    options={voteValues}
-                    value={newVoteValue}
-                    disabled={!newVoteValue}
-                    onChange={(event, newOption) => {
-                        handleNewVoteSelected(newOption);
-                    }}
-                    inputValue={newVoteValue}
-                    renderInput={(params) => <TextField {...params} label="Voto" />}
-                />
-                {player?.congreso?.votations?.find(v =>v.active)?.votos.find(v => v.revolucionarioName === player.username)?.representacionResponse.map(r => {
-                    return <RepresentationCard key={r.id} ciudad={r.ciudad} poblacion={r.poblacion}/>
-                })}
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextareaAutosize readOnly={true}
+                                          placeholder={'Propuesta Activa'}
+                                          style={{width:"100%"}}
+                                          value={'Propuesta Activa: ' + player?.congreso?.votations?.find(v => v.active)?.propuesta}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Autocomplete
+                            disablePortal
+                            getOptionLabel={(option) => option.descripcion}
+                            options={voteValues}
+                            value={newVoteValue}
+                            disabled={newVoteValue === undefined}
+                            onChange={(event, newOption) => {
+                                handleNewVoteSelected({newValue:newOption});
+                            }}
+                            inputValue={labelNewVoteValue}
+                            onInputChange={(event, newInputValue) => {
+                                handleLabelNewVoteValueSelected({newValue:newInputValue});
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Voto" />}
+                        />
+                    </Grid>
+
+                    {/*TODO VERIFICAR QUE MOSTRAR LAS CARTAS DE REPRESENTACION SÍ HACE FALTA Y QUE NO ES SUFICIENTE CON LAS CARTAS AL COSTADO */}
+
+                    {player?.congreso?.votations?.find(v =>v.active)?.votos.find(v => v.revolucionarioName === player.username)?.representacionResponse.map(r => {
+                        return (<Grid item xs={4} key={r.id}>
+                            <RepresentationCard  ciudad={r.ciudad} poblacion={r.poblacion}/>
+                        </Grid>)
+                    })}
+                </Grid>
+
+
+
 
                 <Button onClick={handleActualizarVoto}
                         size="small" variant='contained' color='warning' fullWidth

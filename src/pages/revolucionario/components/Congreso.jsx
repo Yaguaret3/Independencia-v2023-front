@@ -7,6 +7,7 @@ import { RevolucionarioContext } from '../Context';
 import RepresentationCard from '../../common/RepresentationCard';
 import NuevaPropuestaModal from './modals/NuevaPropuestaModal';
 import VotarModal from './modals/VotarModal';
+import service from "../Service.js";
 
 const Congreso = () => {
 
@@ -54,6 +55,10 @@ const Congreso = () => {
     const handleCloseVotarModal = () => {
         setOpenVotarModal(false);
     }
+    const handleCloseVotacion = () => {
+        confirm("¿Quiere cerrar la votación vigente definitivamente?")
+        service.closeVotation();
+    }
 
     return (
         <>
@@ -83,12 +88,14 @@ const Congreso = () => {
                 </Grid>}
                 <Grid item xs={4}>
                     <Button onClick={handleOpenVotarModal}
+                        disabled={!votation.active || (votation.votos.filter(v => v.revolucionarioId === playerData.id) !== 0)}
                         size="small" variant='contained' color='warning' fullWidth>
                         Votar
                     </Button>
                 </Grid>
                 {(playerData?.congreso?.presidenteId === playerData.id) && <Grid item xs={4}>
                     <Button
+                        onClick={handleCloseVotacion}
                         size="small" variant='contained' color='warning' fullWidth>
                         Cerrar Votación
                     </Button>

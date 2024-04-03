@@ -58,11 +58,21 @@ const vote = async ({votationId, voteType}) => {
         }
     });
 }
+const closeVotation = async () => {
+
+    return await axios.post('http://localhost:8085/api/revolucion/close-votation', {},
+        {
+            headers:{
+                Authorization: 'Bearer ' + token
+            }
+        })
+}
 
 export default {
     getGameData,
     getPlayerData,
     getCongresosData,
     propose,
-    vote
+    vote,
+    closeVotation
 }
