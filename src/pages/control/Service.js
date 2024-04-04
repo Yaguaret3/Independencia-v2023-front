@@ -106,9 +106,9 @@ const updateReserve = async ({playerId, value}) => {
             }
         });
 }
-const assignMilitiaToArmy = async ({armyId, militia}) => {
+const assignMilitiaToArmy = async ({armyId, milicias}) => {
     const body = {
-        newValue:militia
+        newValue:milicias
     }
 
     return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',
@@ -128,9 +128,9 @@ const deleteArmy = async ({armyId}) => {
             }
         });
 }
-const createNewArmy = async ({capitanId, subregionId, militia}) => {
+const createNewArmy = async ({capitanId, subregionId, milicias}) => {
     const body = {
-        militia:militia,
+        milicias:milicias,
         gameSubRegionId:subregionId,
         capitanId:capitanId
     }

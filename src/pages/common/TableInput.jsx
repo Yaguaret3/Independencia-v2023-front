@@ -3,9 +3,6 @@ import {TextField} from "@mui/material";
 
 const TableInput = ({ name, value, onChange }) => {
 
-    console.log("value = ")
-    console.log(value)
-
     const [inputValue, setInputValue] = useState(value?.data);
 
     const handleInputChange = (e) => {

@@ -4,7 +4,7 @@ import {ControlContext} from "../../../Context.jsx";
 
 const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) => {
 
-    const {gameData} = useContext(ControlContext);
+   const {gameData} = useContext(ControlContext);
 
     const [milicias, setMilicias] = useState(0);
 
@@ -34,7 +34,7 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
             }}
             >
                 <Grid container spacing={2}>
-                    <Grid item={12}>
+                    <Grid item xs={12}>
                         <Typography>
                             Crear Nuevo Ejército
                         </Typography>
@@ -42,17 +42,17 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
                     <Grid item xs={6}>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.playerName ? option.playerName : ''}
-                            options={gameData.gameRegions.forEach(r => r.subRegions)}
+                            getOptionLabel={(option) => option.name ? option.name : ''}
+                            options={gameData?.gameRegions.map(r => r.subRegions).flatMap(sr => sr)}
                             value={subregionSelected}
                             onChange={(event, newValue) => {
-                                handleSubregionSelected(newValue);
+                                handleSubregionSelected({subRegion:newValue});
                             }}
                             inputValue={labelSubregionSelected}
                             onInputChange={(event, newInputValue) => {
-                                handleLabelSubregionSelected(newInputValue);
+                                handleLabelSubregionSelected({labelSubregion:newInputValue});
                             }}
-                            renderInput={(params) => <TextField {...params} label="Revolucionarios"/>}
+                            renderInput={(params) => <TextField {...params} label="Subregiones"/>}
                         />
                     </Grid>
                     <Grid item xs={6}>
