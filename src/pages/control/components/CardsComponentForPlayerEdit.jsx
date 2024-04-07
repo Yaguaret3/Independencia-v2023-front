@@ -7,7 +7,7 @@ import CardsModal from "./modals/CardsModal.jsx";
 
 const CardsComponentForPlayerEdit = ({player}) => {
 
-    //TODO Eliminar carta, agregar carta
+    //TODO agregar carta
 
     const [cardSelected, setCardSelected] = useState({});
     const handleCardSelected = ({card}) => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Autocomplete, Button, Grid, TextareaAutosize, TextField} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";

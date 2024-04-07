@@ -143,6 +143,48 @@ const createNewArmy = async ({capitanId, subregionId, milicias}) => {
             }
         });
 }
+const removeCongress = async({congressId}) => {
+    return await axios.delete('http://localhost:8085/api/control/'+congressId+'/remove-congress',
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const updateCongress = async({congressId, presidente, plata, milicia}) => {
+
+    const body = {
+        presidente:presidente,
+        plata:plata,
+        milicia:milicia
+    }
+
+    return await axios.put('http://localhost:8085/api/control/'+congressId+'/update-congress',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewCongress = async({presidente, plata, milicia, diputados, sede}) => {
+
+    const body = {
+        presidenteId:presidente,
+        plata:plata,
+        milicia:milicia,
+        diputadosIds:diputados,
+        sedeId:sede
+    }
+
+    return await axios.post('http://localhost:8085/api/control/remove-congress',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 
 export default {
     getGameData,
@@ -156,5 +198,8 @@ export default {
     updateReserve,
     assignMilitiaToArmy,
     deleteArmy,
-    createNewArmy
+    createNewArmy,
+    removeCongress,
+    updateCongress,
+    createNewCongress
  }

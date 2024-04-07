@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import {Button, Grid} from "@mui/material";
 import {ControlContext} from "../Context.jsx";
 import PlayersModal from "./modals/PlayersModal.jsx";
+import CongresosModal from "./modals/CongresosModal.jsx";
 
 const Acciones = () => {
 
@@ -15,6 +16,13 @@ const Acciones = () => {
     }
     const handleClosePlayersModal = () => {
         setOpenPlayerModal(false);
+    }
+    const [openCongresosModal, setOpenCongresosModal] = useState(false);
+    const handleOpenCongresosModal = () => {
+        setOpenCongresosModal(true);
+    }
+    const handleCloseCongresosModal = () => {
+        setOpenCongresosModal(false);
     }
 
     return (
@@ -30,13 +38,21 @@ const Acciones = () => {
                             size="small" variant='contained' color='warning' >
                         Jugadores
                     </Button>
+                    <Button onClick={handleOpenCongresosModal}
+                            size="small" variant='contained' color='warning' >
+                        Congresos
+                    </Button>
                 </Grid>
             </Grid>
             <PlayersModal
                 open={openPlayersModal}
                 handleClose={handleClosePlayersModal}
                 players={gameData?.playersData}
-
+            />
+            <CongresosModal
+                open={openCongresosModal}
+                handleClose={handleCloseCongresosModal}
+                congresos={gameData?.congresos}
             />
         </>
     )
