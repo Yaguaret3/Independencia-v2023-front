@@ -185,7 +185,89 @@ const createNewCongress = async({presidente, plata, milicia, diputados, sede}) =
             }
         });
 }
+const removeCard = async({cardId}) => {
+    return await axios.delete('http://localhost:8085/api/control/'+cardId+'/remove-card',
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const moveCard = async({cardId, fromId, toId}) => {
 
+    const body = {
+        fromId:fromId,
+        toId:toId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+cardId+'/remove-congress',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewResourceCard = async({playerId, resourceType}) => {
+
+    const body = {
+        resourceType:resourceType
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-resource-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewMarketCard = async({playerId, cityName, level}) => {
+
+    const body = {
+        cityName:cityName,
+        level:level
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-market-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewRepresentationCard = async({playerId, cityName, cityId}) => {
+
+    const body = {
+        cityName:cityName,
+        cityId:cityId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-representation-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) => {
+
+    const body = {
+        nombre:nombre,
+        descripcion:descripcion,
+        bonificacion:bonificacion
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-extra-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
     editarCiudad,
@@ -201,5 +283,11 @@ export default {
     createNewArmy,
     removeCongress,
     updateCongress,
-    createNewCongress
+    createNewCongress,
+    removeCard,
+    moveCard,
+    createNewResourceCard,
+    createNewMarketCard,
+    createNewRepresentationCard,
+    createNewExtraCard
  }
