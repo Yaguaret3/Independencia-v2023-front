@@ -177,7 +177,7 @@ const createNewCongress = async({presidente, plata, milicia, diputados, sede}) =
         sedeId:sede
     }
 
-    return await axios.post('http://localhost:8085/api/control/remove-congress',
+    return await axios.post('http://localhost:8085/api/control/create-new-congress',
         body,
         {
             headers: {

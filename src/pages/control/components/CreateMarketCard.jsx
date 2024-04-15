@@ -52,7 +52,7 @@ const CreateMarketCard = ({playerId}) => {
             </Grid>
             <Grid item={3}>
                 <Button onClick={handleCrearNewMarketCard}
-                        size="small" variant='contained' color='warning' >>
+                        size="small" variant='contained' color='warning' >
                     Crear
                 </Button>
             </Grid>

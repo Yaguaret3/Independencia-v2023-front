@@ -48,7 +48,7 @@ const CreateExtraCard = ({playerId}) => {
             </Grid>
             <Grid item={12}>
                 <Button onClick={handleCrear}
-                        size="small" variant='contained' color='warning' >>
+                        size="small" variant='contained' color='warning' >
                     Crear
                 </Button>
             </Grid>

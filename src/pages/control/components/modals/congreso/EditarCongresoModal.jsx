@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Autocomplete, Box, Button, Grid, Modal, TextField} from "@mui/material";
 import service from "../../../Service.js";
 
 const EditarCongresoModal = ({open, handleClose, congreso}) => {
 
-    const [newPresidenteSelected, setNewPresidenteSelected] = useState({});
+    const [newPresidenteSelected,setNewPresidenteSelected ] = useState();
 
     const handleNewPresidenteSelected = ({newValue}) => {
         setNewPresidenteSelected(newValue);
@@ -43,12 +43,12 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
             >
                 <Grid container spacing={2}>
 
-                    <Grid item={12}>
+                    <Grid item xs={12}>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.playerName}
-                            options={congreso.revolucionarios}
-                            value={newPresidenteSelected}
+                            getOptionLabel={(option) => option.playerName ? option.playerName : ''}
+                            options={congreso?.revolucionarios}
+                            value={newPresidenteSelected || congreso?.revolucionarios.find(r => r.playerName === congreso.presidente)}
                             onChange={(event, newOption) => {
                                 handleNewPresidenteSelected({newValue: newOption});
                             }}
@@ -56,12 +56,12 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
                             onInputChange={(event, newInputValue) => {
                                 handleLabelPresidenteSelected({newValue: newInputValue});
                             }}
-                            renderInput={(params) => <TextField {...params} label="Diputados"/>}
+                            renderInput={(params) => <TextField {...params} label="Presidente"/>}
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            value = {congreso.plata}
+                            value = {congreso?.plata}
                             label = 'Plata actual'
                             aria-readonly={true} />
                     </Grid>
@@ -69,12 +69,12 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
                         <TextField
                             value = {plata}
                             type = "number"
-                            label = "Nuevo valor"
+                            label = "Plata: nuevo valor"
                             onChange = {(event) => handlePlata({newValue:event.target.value})} />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            value = {congreso.militia}
+                            value = {congreso?.militia}
                             label = 'Milicia actual'
                             aria-readonly={true} />
                     </Grid>
@@ -82,10 +82,10 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
                         <TextField
                             value = {milicia}
                             type = "number"
-                            label = "Nuevo valor"
+                            label = "Milicia: nuevo valor"
                             onChange = {(event) => handleMilicia({newValue:event.target.value})} />
                     </Grid>
-                    <Grid item={12}>
+                    <Grid item xs={12}>
                         <Button onClick={handleActualizarCongreso}
                                 size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                     </Grid>

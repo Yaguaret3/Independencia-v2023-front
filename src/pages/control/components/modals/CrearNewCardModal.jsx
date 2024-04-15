@@ -3,7 +3,7 @@ import {Autocomplete, Box, Button, Grid, Modal, TextField} from "@mui/material";
 import service from "../../Service.js";
 import CreateResourceCard from "../CreateResourceCard.jsx";
 import CreateMarketCard from "../CreateMarketCard.jsx";
-import CreateRepresentationCard from "./CreateRepresentationCard.jsx";
+import CreateRepresentationCard from "../CreateRepresentationCard.jsx";
 
 const CrearNewCardModal = ({open, handleClose, playerId}) => {
 
@@ -76,7 +76,7 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                                     </Grid>
                                     <Grid item={6}>
                                         <Button onClick={handleCrearNewResourceCard}
-                                                size="small" variant='contained' color='warning' >>
+                                                size="small" variant='contained' color='warning' >
                                             Crear
                                         </Button>
                                     </Grid>

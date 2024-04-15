@@ -14,15 +14,17 @@ import {
 } from "@mui/material";
 import service from "../../Service.js";
 import EditarCongresoModal from "./congreso/EditarCongresoModal.jsx";
+import CrearCongresoModal from "./congreso/CrearCongresoModal.jsx";
 
 const CongresosModal = ({open, handleClose, congresos}) => {
 
     const [openEditarCongresoModal, setOpenEditarCongresoModal] = useState(false);
-    const [congresoSelected, setCongresoSelected] = useState({});
+    const [congresoSelected, setCongresoSelected] = useState();
     const handleOpenEditarCongresoModal = ({congreso}) => {
         setCongresoSelected(congreso);
         setOpenEditarCongresoModal(true);
     }
+
     const handleCloseEditarCongresoModal = () => {
         setOpenEditarCongresoModal(false);
     }
@@ -36,7 +38,6 @@ const CongresosModal = ({open, handleClose, congresos}) => {
     const handleCloseCrearCongresoModal = () => {
         setOpenCrearCongresoModal(false);
     }
-
 
     return (
         <>
@@ -68,7 +69,7 @@ const CongresosModal = ({open, handleClose, congresos}) => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {congresos.map(congreso => (
+                                        {congresos?.map(congreso => (
                                             <TableRow key={congreso.id}>
                                                 <TableCell padding='none' align="center">
                                                     {congreso.sede.name}
@@ -93,6 +94,10 @@ const CongresosModal = ({open, handleClose, congresos}) => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                            <Button onClick={handleOpenCrearCongresoModal}
+                                    size="small" variant='contained' color='warning' fullWidth>
+                                Crear Congreso
+                            </Button>
                         </Grid>
                     </Grid>
                 </Box>
@@ -101,9 +106,10 @@ const CongresosModal = ({open, handleClose, congresos}) => {
                 open={openEditarCongresoModal}
                 handleClose={handleCloseEditarCongresoModal}
                 congreso={congresoSelected}/>
+
             <CrearCongresoModal
                 open={openCrearCongresoModal}
-                handleClose={handleCloseCrearCongresoModal()}/>
+                handleClose={handleCloseCrearCongresoModal}/>
         </>
     );
 };

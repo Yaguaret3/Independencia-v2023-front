@@ -58,7 +58,7 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
                         </Grid>
                         <Grid item xs={6}>
                             <Button onClick={handleBorrarCarta}
-                                    size="small" variant='contained' color='warning'>>
+                                    size="small" variant='contained' color='warning'>
                                 Borrar Carta
                             </Button>
                             Dar carta al jugador:
@@ -77,7 +77,7 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
                                 renderInput={(params) => <TextField {...params} label="Jugadores"/>}
                             />
                             <Button onClick={handleMoverCarta}
-                                    size="small" variant='contained' color='warning'>>
+                                    size="small" variant='contained' color='warning'>
                                 Dar a otro jugador
                             </Button>
                         </Grid>

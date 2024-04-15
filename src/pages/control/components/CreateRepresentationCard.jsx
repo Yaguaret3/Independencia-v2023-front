@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Autocomplete, Button, Grid, TextField} from "@mui/material";
-import {ControlContext} from "../../Context.jsx";
-import service from "../../Service.js";
+import {ControlContext} from "../Context.jsx";
+import service from "../Service.js";
 
 const CreateRepresentationCard = ({playerId}) => {
 
@@ -39,7 +39,7 @@ const CreateRepresentationCard = ({playerId}) => {
             </Grid>
             <Grid item={6}>
                 <Button onClick={handleCrearNewRepresentationCard}
-                        size="small" variant='contained' color='warning' >>
+                        size="small" variant='contained' color='warning' >
                     Crear
                 </Button>
             </Grid>

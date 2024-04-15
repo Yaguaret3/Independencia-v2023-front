@@ -31,7 +31,7 @@ const CreateResourceCard = ({playerId}) => {
             </Grid>
             <Grid item={6}>
                 <Button onClick={handleCrearNewResourceCard}
-                        size="small" variant='contained' color='warning' >>
+                        size="small" variant='contained' color='warning' >
                     Crear
                 </Button>
             </Grid>
