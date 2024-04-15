@@ -159,7 +159,7 @@ const updateCongress = async({congressId, presidente, plata, milicia}) => {
         milicia:milicia
     }
 
-    return await axios.put('http://localhost:8085/api/control/'+congressId+'/update-congress',
+    return await axios.patch('http://localhost:8085/api/control/'+congressId+'/update-congress',
         body,
         {
             headers: {
