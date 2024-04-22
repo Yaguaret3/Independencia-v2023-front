@@ -62,7 +62,7 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography fontSize={13}>
-                            {itemWanted.name}
+                            {itemWanted?.name}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
@@ -74,32 +74,32 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Plata: {itemWanted.plata}
+                                    Plata: {itemWanted?.plata}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Industria Agropecuaria: {itemWanted.agropecuaria}
+                                    Industria Agropecuaria: {itemWanted?.agropecuaria}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Industria Comercial: {itemWanted.comercial}
+                                    Industria Comercial: {itemWanted?.comercial}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Industria de la Construcción: {itemWanted.construccion}
+                                    Industria de la Construcción: {itemWanted?.construccion}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Industria Metalmecánica: {itemWanted.metalmecanica}
+                                    Industria Metalmecánica: {itemWanted?.metalmecanica}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography fontSize={13}>
-                                    Industria Textil: {itemWanted.textil}
+                                    Industria Textil: {itemWanted?.textil}
                                 </Typography>
                             </Grid>
 

@@ -86,7 +86,7 @@ const Botones = () => {
                 </Grid>
                 <Grid item>
                     <Button disabled={!gameData?.ownBattles}
-                            onClick={handleOpenBattles}
+                            onClick={handleOpenBatallas}
                             size="small" variant='contained' color='warning' >
                         ¡Batallas!
                     </Button>
