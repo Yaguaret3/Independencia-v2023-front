@@ -69,7 +69,7 @@ const CardsComponentForPlayerEdit = ({player}) => {
                 playerId={player.id}/>
             <CrearNewCardModal
                 open={openCrearNewCardModal}
-                handleClose={handleCloseCrearNewCardModal()}
+                handleClose={handleCloseCrearNewCardModal}
                 playerId={player.id}
             />
         </>

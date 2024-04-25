@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Box, Button, Grid, Modal, TextField} from "@mui/material";
 import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
 import PlayerModalViewForControl from "./PlayerModalViewForControl.jsx";
