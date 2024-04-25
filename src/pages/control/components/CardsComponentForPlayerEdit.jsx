@@ -59,7 +59,7 @@ const CardsComponentForPlayerEdit = ({player}) => {
                 ))}
             </Grid>
             <Button onClick={handleOpenCrearNewCardModal}
-                    size="small" variant='contained' color='warning' >>
+                    size="small" variant='contained' color='warning' >
                 Crear nueva carta
             </Button>
             <EditarCardModal
