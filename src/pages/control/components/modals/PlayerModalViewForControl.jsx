@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Grid, Modal, TextField, Typography} from "@mui/material";
+import {Box, Grid, Modal, TextField} from "@mui/material";
 import CardsComponentForPlayerEdit from "../CardsComponentForPlayerEdit.jsx";
 import PriceComponentForPlayerEdit from "../PriceComponentForPlayerEdit.jsx";
 import RoleComponentForPlayerEdit from "./RoleComponentForPlayerEdit.jsx";
