@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
-import {Modal, Grid, Box, Button, Typography, Autocomplete, TextField} from '@mui/material'
+import React, {useState} from 'react'
+import {Modal, Grid, Box, Button, Typography} from '@mui/material'
 import service from '../../Service'
 import ActionCard from "../../../common/ActionCard.jsx";
 import PagarModal from "../../../common/PagarModal.jsx";
+import BattleCard from "../../../common/BattleCard.jsx";
 
-const ComprarCartaModal = ({ open, handleClose, cards, recursos, label }) => {
+const ComprarCartaModal = ({open, handleClose, cards, recursos, label, accion, ordenDeBatalla}) => {
 
-    const [cardSelected, setCardSelected] = useState(undefined);
+    const [cardSelected, setCardSelected] = useState({});
     const [openPagarModal, setOpenPagarModal] = useState(false);
 
     const handleCardSelected = (card) => {
-        if(card.isSelected){
+        if (card.isSelected) {
             card.isSelected = false;
             setCardSelected(undefined);
         } else {
@@ -24,7 +25,7 @@ const ComprarCartaModal = ({ open, handleClose, cards, recursos, label }) => {
 
     const handleOpenPagarModal = () => {
 
-        if(cardSelected === undefined){
+        if (cardSelected === undefined) {
             alert('Por favor, seleccioná un tipo de acción para continuar');
             return;
         }
@@ -59,21 +60,21 @@ const ComprarCartaModal = ({ open, handleClose, cards, recursos, label }) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography >
+                            <Typography>
                                 Seleccionar tipo de Carta de Acción
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
-                            {cards?.map((card) => (
-                                <Button onClick={() => handleCardSelected(card)}
-                                        size="small" variant='contained' color='warning' fullWidth>
-                                    <ActionCard actionName={card.actionType} />
+                        {cards?.map((card) => (
+                            <Grid item xs={2}  key={card.id}>
+                                <Button onClick={() => handleCardSelected(card)}>
+                                    {accion && <ActionCard actionName={card.name}/>}
+                                    {ordenDeBatalla && <BattleCard battleCardName={card.name}/>}
                                 </Button>
-                            ))}
-                        </Grid>
+                            </Grid>
+                        ))}
                         <Grid item xs={12}>
                             <Button onClick={handleOpenPagarModal}
-                                    size="small" variant='contained' color='warning' fullWidth>Ir a pagar</Button>
+                                    size="medium" variant='contained' color='warning' fullWidth>Ir a pagar</Button>
                         </Grid>
 
                     </Grid>

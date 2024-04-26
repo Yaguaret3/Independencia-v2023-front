@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
-const BattleCard = ({battleCardName:battleCardName}) => {
+const BattleCard = ({battleCardName}) => {
 
     return (
         <Card sx={{ border: 'solid black' }}>

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
-const ResourceCard = ({actionName:actionName}) => {
+const ActionCard = ({actionName:actionName}) => {
 
     return (
         <Card sx={{ border: 'solid black' }}>
             <CardActionArea>
               <CardContent sx={{ backgroundColor: 'blue', paddingY: 0 }}>
                 <Typography variant="button" color={'white'} fontSize={10}>
-                  Recurso de Industria:
+                  Acción:
                 </Typography>
               </CardContent>
               <CardContent sx={{
@@ -26,4 +26,4 @@ const ResourceCard = ({actionName:actionName}) => {
     )
 }
 
-export default ResourceCard
+export default ActionCard

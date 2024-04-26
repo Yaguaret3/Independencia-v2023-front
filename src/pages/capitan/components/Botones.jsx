@@ -85,7 +85,7 @@ const Botones = () => {
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button disabled={!gameData?.ownBattles}
+                    <Button disabled={!gameData?.ownBattles || gameData?.ownBattles?.length === 0}
                             onClick={handleOpenBatallas}
                             size="small" variant='contained' color='warning' >
                         ¡Batallas!
@@ -109,6 +109,8 @@ const Botones = () => {
                 handleClose={handleCloseComprarAccionModal}
                 cards={playerData?.prices?.actionCardPrices}
                 recursos={playerData?.recursos}
+                accion={true}
+                ordenDeBatalla={false}
                 label={'Comprar Acción'}
             />
             <ComprarCartaModal
@@ -116,6 +118,8 @@ const Botones = () => {
                 handleClose={handleCloseComprarOrdenBatallaModal}
                 cards={playerData?.prices?.battleCardPrices}
                 recursos={playerData?.recursos}
+                accion={false}
+                ordenDeBatalla={true}
                 label={'Comprar Orden de Batalla'}
             />
             <BatallasModal

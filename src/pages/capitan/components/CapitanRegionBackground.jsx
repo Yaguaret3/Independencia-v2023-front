@@ -9,8 +9,6 @@ const CapitanRegionBackground = () => {
 
     const backgroundSrc = "src/assets/img/map_independencia_recortado.jpg";
 
-    debugger
-
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <img src={backgroundSrc}

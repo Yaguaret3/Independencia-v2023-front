@@ -3,8 +3,6 @@ import CapitanSubRegion from "./CapitanSubRegion.jsx";
 
 const CapitanRegionFrontground = ({ gameRegion }) => {
 
-    debugger
-
   return (
     <svg height={gameRegion?.fgHeight} width={gameRegion?.fgHeight}
       viewBox={gameRegion?.fgViewBox}
