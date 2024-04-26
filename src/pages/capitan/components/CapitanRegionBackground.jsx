@@ -5,9 +5,11 @@ import CapitanRegionFrontground from "./CapitanRegionFrontground.jsx";
 
 const CapitanRegionBackground = () => {
 
-    const {playerData} = useContext(CapitanContext);
+    const {gameData} = useContext(CapitanContext);
 
     const backgroundSrc = "src/assets/img/map_independencia_recortado.jpg";
+
+    debugger
 
     return (
         <Box sx={{ overflow: 'hidden' }}>
@@ -15,12 +17,12 @@ const CapitanRegionBackground = () => {
                 alt="BackgroundImage"
                 style={{
                     position: 'relative',
-                    top: playerData && playerData.gameRegion && playerData.gameRegion.bgTop,
-                    left: playerData && playerData.gameRegion && playerData.gameRegion.bgLeft,
-                    scale: playerData && playerData.gameRegion && playerData.gameRegion.bgScale
+                    top: gameData?.gameRegion?.bgTop,
+                    left: gameData?.gameRegion?.bgLeft,
+                    scale: gameData?.gameRegion?.bgScale
                 }}
             />
-            <CapitanRegionFrontground gameRegion={playerData && playerData.gameRegion}/>
+            <CapitanRegionFrontground gameRegion={gameData?.gameRegion}/>
         </Box>
     )
 }
