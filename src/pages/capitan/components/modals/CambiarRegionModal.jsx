@@ -5,9 +5,9 @@ import ActionCard from "../../../common/ActionCard.jsx";
 
 const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
 
-    const [cardSelected, setCardSelected] = useState(undefined);
-    const {regionSelected, setRegionSelected} = useState({});
-    const {labelRegionSelected, setLabelRegionSelected} = useState('');
+    const [cardSelected, setCardSelected] = useState({});
+    const [regionSelected, setRegionSelected] = useState({});
+    const [labelRegionSelected, setLabelRegionSelected] = useState('');
 
     const handleCardSelected = (card) => {
         if(card.isSelected){
@@ -65,7 +65,7 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                         <Grid item>
                             <Autocomplete
                                 disablePortal
-                                getOptionLabel={(option) => option.nombre}
+                                getOptionLabel={(option) => option.nombre || ''}
                                 options={regions}
                                 value={regionSelected}
                                 onChange={(event, newValue) => {
@@ -75,7 +75,8 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                                 onInputChange={(event, newInputValue) => {
                                     handleLabelRegionSelected(newInputValue);
                                 }}
-                                renderInput={(params) => <TextField {...params} label="Regiones" />}
+                                renderInput={(params) => <TextField {...params} label="Regiones"
+                                                                    sx={{ width: "250%" }}/>}
                             />
                         </Grid>
                         <Grid item xs={6}>

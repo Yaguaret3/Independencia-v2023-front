@@ -17,7 +17,7 @@ const Botones = () => {
         setOpenCambiarRegionModal(true)
     }
     const handleCloseCambiarRegionModal = () => {
-        setOpenEntregarMercadoModal(false);
+        setOpenCambiarRegionModal(false);
     }
     //Jugar Carta de Acción
     const [openOrdenarAccionModal, setOpenOrdenarAccionModal] = useState(false);
