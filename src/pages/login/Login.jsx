@@ -47,6 +47,9 @@ export default function Login() {
                case "REVOLUCIONARIO":
                    setLocation('/revolucionario');
                    return;
+               case "MERCADER":
+                   setLocation('/mercader');
+                   return;
                default:
                    return;
            }

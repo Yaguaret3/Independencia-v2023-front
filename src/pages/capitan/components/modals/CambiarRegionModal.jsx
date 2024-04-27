@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {Modal, Grid, Box, Button, Typography, Autocomplete, TextField} from '@mui/material'
 import service from '../../Service'
 import ActionCard from "../../../common/ActionCard.jsx";
 
-const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
+const CambiarRegionModal = ({open, handleClose, cards, regions}) => {
 
     const [cardSelected, setCardSelected] = useState({});
     const [regionSelected, setRegionSelected] = useState({});
     const [labelRegionSelected, setLabelRegionSelected] = useState('');
 
     const handleCardSelected = (card) => {
-        if(card.isSelected){
+        if (card.isSelected) {
             card.isSelected = false;
             setCardSelected(undefined);
         } else {
@@ -31,7 +31,7 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
 
     const handleService = () => {
 
-        if(cardSelected === undefined){
+        if (cardSelected === undefined) {
             alert('Por favor, seleccione una carta de acción válida');
             return;
         }
@@ -58,7 +58,7 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography >
+                            <Typography>
                                 Seleccionar carta de acción y destino
                             </Typography>
                         </Grid>
@@ -76,21 +76,22 @@ const CambiarRegionModal = ({ open, handleClose, cards, regions }) => {
                                     handleLabelRegionSelected(newInputValue);
                                 }}
                                 renderInput={(params) => <TextField {...params} label="Regiones"
-                                                                    sx={{ width: "250%" }}/>}
+                                                                    sx={{width: "250%"}}/>}
                             />
                         </Grid>
                         <Grid item xs={6}>
                             {cards?.map((card) => (
                                 <Button onClick={() => handleCardSelected(card)}
                                         size="small" variant='contained' color='warning' fullWidth>
-                                    <ActionCard actionName={card.actionType} />
+                                    <ActionCard actionName={card.actionType}/>
                                 </Button>
                             ))}
                         </Grid>
-                    <Grid item xs={12}>
-                        <Button onClick={handleService}
-                                size="small" variant='contained' color='warning' fullWidth>Trasladar campamento a</Button>
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Button onClick={handleService}
+                                    size="small" variant='contained' color='warning' fullWidth>Trasladar campamento
+                                a</Button>
+                        </Grid>
 
                     </Grid>
                 </Box>

@@ -15,7 +15,7 @@ const CrearCongresoModal = ({handleClose, open}) => {
 
         if(gameData.playersData !== undefined){
             setDiputadosNoSelected(gameData?.playersData?.filter(p => p.rol === "REVOLUCIONARIO")?.slice());
-            setCiudades(gameData?.gameRegions?.flatMap(r => r.subRegions).filter(sr => sr.city !== null).flatMap(sr => sr.city)?.slice());
+            setCiudades(gameData?.gameRegions?.flatMap(r => r.subregions).filter(sr => sr.city !== null).flatMap(sr => sr.city)?.slice());
         }
 
     }, [gameData]);

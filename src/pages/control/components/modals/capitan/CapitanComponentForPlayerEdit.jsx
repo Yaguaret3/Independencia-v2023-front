@@ -4,6 +4,7 @@ import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
 import TableInput from "../../../../common/TableInput.jsx";
 import CrearNuevoEjercitoModal from "./CrearNuevoEjercitoModal.jsx";
+import MoveCampModal from "./MoveCampModal.jsx";
 
 const CapitanComponentForPlayerEdit = ({player}) => {
 
@@ -79,7 +80,19 @@ const CapitanComponentForPlayerEdit = ({player}) => {
         service.createNewArmy({capitanId:player.id, subregionId:subregionId, milicias:milicias});
     }
 
-    return (
+    const [openMoveCampModal, setOpemMoveCampModal] = useState(false);
+    const handleOpenMoveCampModal = () => {
+        setOpemMoveCampModal(true);
+    }
+    const handleCloseMoveCampModal = () => {
+        setOpemMoveCampModal(false);
+    }
+    const handleMoveCampService = ({gameSubregionId}) => {
+        service.moveCamp({playerId:player.id, gameSubregionId:gameSubregionId});
+    }
+
+
+        return (
         <>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -133,10 +146,19 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                 <Button onClick={handleOpenCrearNuevoEjercitoModal}
                         size="small" variant='contained' color='warning' fullWidth>Asignar Nuevo Ejército</Button>
             </Grid>
+            <Grid item xs={12}>
+                <Button onClick={handleOpenMoveCampModal}
+                        size="small" variant='contained' color='warning' fullWidth>Mover campamento</Button>
+            </Grid>
             <CrearNuevoEjercitoModal
                 open={openCrearNuevoEjercitoModal}
                 handleClose={handleCloseCrearNuevoEjercitoModal}
                 handleCrearNuevoEjercito={handleCrearNuevoEjercito}
+            />
+            <MoveCampModal
+                open={openMoveCampModal}
+                handleClose={handleCloseMoveCampModal}
+                handleService={handleMoveCampService}
             />
         </>
     );

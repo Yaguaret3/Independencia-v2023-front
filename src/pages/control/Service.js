@@ -268,6 +268,20 @@ const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) 
             }
         });
 }
+const moveCamp = async({playerId, gameSubregionId}) => {
+    const body = {
+        capitanId:playerId,
+        gameSubregionId:gameSubregionId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/move-camp',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
     editarCiudad,
@@ -289,5 +303,6 @@ export default {
     createNewResourceCard,
     createNewMarketCard,
     createNewRepresentationCard,
-    createNewExtraCard
+    createNewExtraCard,
+    moveCamp
  }
