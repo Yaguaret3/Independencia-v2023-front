@@ -3,11 +3,12 @@ import {Button, Grid} from "@mui/material";
 import {ControlContext} from "../Context.jsx";
 import PlayersModal from "./modals/PlayersModal.jsx";
 import CongresosModal from "./modals/CongresosModal.jsx";
+import service from "../Service.js";
 
 const Acciones = () => {
 
     //Context
-    const { gameData, regionSelected } = useContext(ControlContext);
+    const { gameData, controlData } = useContext(ControlContext);
 
     //OpenModal
     const [openPlayersModal, setOpenPlayerModal] = useState(false);
@@ -23,6 +24,14 @@ const Acciones = () => {
     }
     const handleCloseCongresosModal = () => {
         setOpenCongresosModal(false);
+    }
+    const handleTerminarFase = () => {
+
+        let message = controlData?.siguienteFaseSolicitada ? "¿Está seguro que quiere reabrir la fase?" : "¿Está seguro que quiere terminar la fase?";
+
+        if(confirm(message)){
+            service.terminarFase();
+        }
     }
 
     return (
@@ -41,6 +50,10 @@ const Acciones = () => {
                     <Button onClick={handleOpenCongresosModal}
                             size="small" variant='contained' color='warning' >
                         Congresos
+                    </Button>
+                    <Button onClick={handleTerminarFase}
+                            size="small" variant='contained' color='warning' >
+                        {controlData?.siguienteFaseSolicitada ? 'Reabrir fase' : 'Terminar fase'}
                     </Button>
                 </Grid>
             </Grid>

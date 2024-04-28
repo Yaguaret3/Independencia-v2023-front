@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     AppBar,
     Box,
@@ -17,6 +17,32 @@ const BarraSuperior = (props) => {
 
     const { gameData } = useContext(ControlContext);
 
+    const [endOfTurn, setEndOfTurn] = useState({minutes:'00', seconds:'00'});
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            calculateTimeLeft({futureDate:gameData?.nextEndOfTurn});
+        }, 1000);
+
+        return () => clearInterval(timer);
+    });
+
+    const calculateTimeLeft= ({futureDate})  => {
+        let difference = futureDate - new Date();
+        let minutes = Math.floor(difference / 1000 / 60);
+        let seconds = Math.floor((difference / 1000) % 60);
+
+        let minString = '00';
+        let secString = '00';
+
+        if(difference>0){
+            minString = minutes >= 10 ? minutes : '0'+minutes;
+            secString = seconds >= 10 ? seconds : '0'+seconds;
+        }
+        setEndOfTurn({minutes:minString,
+            seconds: secString});
+    }
+
     return (
         <AppBar position="static" color='warning' style={{ height: '10vh' }}>
             <Toolbar>
@@ -32,13 +58,13 @@ const BarraSuperior = (props) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Lorem Ipsum...
+                                        Turno
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
+                                        Fase
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
+                                        Próximo turno en
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
                                         Lorem Ipsum...
@@ -48,6 +74,25 @@ const BarraSuperior = (props) => {
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
+                                        {gameData?.turno}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        {gameData?.fase}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        {endOfTurn.minutes + ' : ' + endOfTurn.seconds}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        Lorem Ipsum...
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        Lorem Ipsum...
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
 
                         </Table>
                     </TableContainer>

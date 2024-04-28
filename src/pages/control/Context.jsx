@@ -5,15 +5,15 @@ export const ControlContext = React.createContext();
 export default function ControlContextProvider({ children }) {
 
     const [gameData, setGameData] = useState({})
-    const [regionSelected, setRegionSelected] = useState({});
+    const [controlData, setControlData] = useState({});
 
     return (
         <ControlContext.Provider
             value={{
                 gameData,
                 setGameData,
-                regionSelected,
-                setRegionSelected
+                controlData,
+                setControlData
             }}>
             {children}
         </ControlContext.Provider>

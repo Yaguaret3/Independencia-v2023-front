@@ -10,6 +10,14 @@ const getGameData = async () => {
         }
     });
 }
+const getControlData = async () => {
+
+    return await axios.get('http://localhost:8085/api/control/control-data/',{
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    });
+}
 const editarCiudad = async ({gobernadorId, body}) => {
 
     return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/edit-city/',
@@ -282,8 +290,20 @@ const moveCamp = async({playerId, gameSubregionId}) => {
             }
         });
 }
+const terminarFase = async() => {
+    const body = {};
+
+    return await axios.post('http://localhost:8085/api/control/conclude-phase',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
+    getControlData,
     editarCiudad,
     assignDiputado,
     removeBuilding,
@@ -304,5 +324,6 @@ export default {
     createNewMarketCard,
     createNewRepresentationCard,
     createNewExtraCard,
-    moveCamp
+    moveCamp,
+    terminarFase
  }

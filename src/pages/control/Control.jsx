@@ -8,12 +8,14 @@ import BarraInferior from "../control/components/BarraInferior.jsx";
 
 const Control = () => {
 
-    const { setGameData } = useContext(ControlContext);
+    const { setGameData, setControlData } = useContext(ControlContext);
 
     useEffect(() => {
         async function fetchData() {
             const gameData = await service.getGameData();
             setGameData(gameData.data);
+            const controlData = await service.getControlData();
+            setControlData(controlData.data);
         }
         fetchData();
     }, []);
