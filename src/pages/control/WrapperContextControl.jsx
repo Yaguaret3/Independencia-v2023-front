@@ -4,9 +4,9 @@ import Control from "./Control.jsx";
 
 const WrapperContextControl = () => {
     return (
-        <ControlContextProvider>
-            <Control />
-        </ControlContextProvider>
+            <ControlContextProvider>
+                <Control/>
+            </ControlContextProvider>
     );
 };
 

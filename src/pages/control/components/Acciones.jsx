@@ -4,11 +4,14 @@ import {ControlContext} from "../Context.jsx";
 import PlayersModal from "./modals/PlayersModal.jsx";
 import CongresosModal from "./modals/CongresosModal.jsx";
 import service from "../Service.js";
+import useSocket from "../../../hooks/useSocket.jsx";
 
 const Acciones = () => {
 
     //Context
     const { gameData, controlData } = useContext(ControlContext);
+    //WebSocket
+    const {disparoTodos} = useSocket({});
 
     //OpenModal
     const [openPlayersModal, setOpenPlayerModal] = useState(false);
@@ -25,12 +28,13 @@ const Acciones = () => {
     const handleCloseCongresosModal = () => {
         setOpenCongresosModal(false);
     }
-    const handleTerminarFase = () => {
+    const handleTerminarFase = async () => {
 
         let message = controlData?.siguienteFaseSolicitada ? "¿Está seguro que quiere reabrir la fase?" : "¿Está seguro que quiere terminar la fase?";
 
         if(confirm(message)){
-            service.terminarFase();
+            await service.terminarFase();
+            disparoTodos();
         }
     }
 

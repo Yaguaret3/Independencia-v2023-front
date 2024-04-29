@@ -5,19 +5,26 @@ import {Box, Button} from "@mui/material";
 import BarraSuperior from "../control/components/BarraSuperior.jsx";
 import Cuerpo from "../control/components/Cuerpo.jsx";
 import BarraInferior from "../control/components/BarraInferior.jsx";
+import useSocket from "../../hooks/useSocket.jsx";
 
 const Control = () => {
 
     const { setGameData, setControlData } = useContext(ControlContext);
 
+    const fetchData = async () => {
+        const gameData = await service.getGameData();
+        await setGameData(gameData.data);
+        const controlData = await service.getControlData();
+        await setControlData(controlData.data);
+    }
+
+    const {conectarWS} = useSocket({channel:'/actualizar-control',
+                                                    fetchData:fetchData})
+
     useEffect(() => {
-        async function fetchData() {
-            const gameData = await service.getGameData();
-            setGameData(gameData.data);
-            const controlData = await service.getControlData();
-            setControlData(controlData.data);
-        }
+
         fetchData();
+        conectarWS();
     }, []);
 
     return (
