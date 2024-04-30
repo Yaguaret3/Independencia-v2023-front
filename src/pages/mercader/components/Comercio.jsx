@@ -3,13 +3,17 @@ import { MercaderContext } from '../Context';
 import ResourceCard from '../../common/ResourceCard';
 import { Typography, Grid, Button } from '@mui/material';
 import service from '../Service';
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Comercio = () => {
 
-    const { playerData } = useContext(MercaderContext)
+    const { playerData, stompClient } = useContext(MercaderContext)
+    const {disparoControl, disparoMercaderes} = useWebSocket({});
 
-    const handleButton = ({ priceId, puntajeAPagar }) => {
-        service.buyResources({ priceId: priceId, puntajeAPagar: puntajeAPagar })
+    const handleButton = async ({ priceId, puntajeAPagar }) => {
+        await service.buyResources({ priceId: priceId, puntajeAPagar: puntajeAPagar })
+        disparoMercaderes({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
     }
 
     return (
@@ -24,7 +28,7 @@ const Comercio = () => {
 
             <Grid item xs={12}>
                 <Grid container justifyContent={'center'}>
-                    {playerData.preciosDeRecursos && playerData.preciosDeRecursos.map((precio) => (
+                    {playerData?.preciosDeRecursos.map((precio) => (
                         <Grid item>
                             <ResourceCard resourceName={precio.name} />
                             <Button onClick={() => handleButton({ priceId: precio.id, puntajeAPagar: precio.puntajeComercial })}

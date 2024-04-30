@@ -5,19 +5,31 @@ import Cuerpo from './components/Cuerpo'
 import { Box, Button } from '@mui/material'
 import { MercaderContext } from './Context'
 import service from './Service'
+import useWebSocket from "../../hooks/useWebSocket.jsx";
+import SockJS from "sockjs-client";
+import {over} from "stompjs";
 
 const Mercader = () => {
 
-    const { setPlayerData, setGameData } = useContext(MercaderContext);
+    const { setPlayerData, setGameData, setStompClient } = useContext(MercaderContext);
+
+    const fetchData = async () => {
+        const playerData = await service.getPlayerData();
+        const gameData = await service.getGameData();
+        setPlayerData(playerData.data);
+        setGameData(gameData.data);
+    }
+    const {conectarWS} = useWebSocket({channel:'/actualizar-mercaderes',
+        fetchData:fetchData})
 
     useEffect(() => {
-        async function fetchData() {
-            const playerData = await service.getPlayerData();
-            const gameData = await service.getGameData();
-            setPlayerData(playerData.data);
-            setGameData(gameData.data);
-        }
+
+        const socket = new SockJS('http://localhost:8085/ws');
+        const stompClient = over(socket);
+        setStompClient(stompClient);
+
         fetchData();
+        conectarWS({stompClient:stompClient})
     }, []);
 
     return (

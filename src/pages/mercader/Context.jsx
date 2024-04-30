@@ -6,6 +6,7 @@ export default function MercaderContextProvider({ children }) {
 
     const [playerData, setPlayerData] = useState({});
     const [gameData, setGameData] = useState({})
+    const [stompClient, setStompClient] = useState({});
 
     return (
         <MercaderContext.Provider
@@ -13,7 +14,9 @@ export default function MercaderContextProvider({ children }) {
                 playerData,
                 setPlayerData,
                 gameData,
-                setGameData
+                setGameData,
+                stompClient,
+                setStompClient
             }}>
             {children}
         </MercaderContext.Provider>

@@ -3,10 +3,13 @@ import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mu
 import MarketCard from "../../../common/MarketCard.jsx";
 import service from "../../Service.js"
 import {MercaderContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
 
-    const { gameData } = useContext(MercaderContext)
+    const {disparoControl, disparoMercaderes} = useWebSocket({});
+
+    const { gameData, stompClient } = useContext(MercaderContext)
     const allSubregions = gameData.gameRegions?.map(({subRegions}) => subRegions).flat();
     allSubregions?.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0))
 
@@ -74,9 +77,11 @@ const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
         console.log("Hola")
     }
 
-    const handleSendButton = () => {
+    const handleSendButton = async () => {
 
-        service.playTradeRoute({subregionsSelected: subregionsSelected, marketsSelected : marketsInUse.filter(m => m.isSelected)})
+        await service.playTradeRoute({subregionsSelected: subregionsSelected, marketsSelected : marketsInUse.filter(m => m.isSelected)})
+        disparoControl({stompClient:stompClient});
+        disparoMercaderes({stompClient:stompClient});
         handleClose();
     }
 
