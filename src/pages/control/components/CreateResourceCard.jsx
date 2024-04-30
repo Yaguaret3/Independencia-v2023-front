@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Autocomplete, Button, Grid, TextField} from "@mui/material";
 import service from "../Service.js";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../Context.jsx";
 
 const CreateResourceCard = ({playerId}) => {
+
+    const {disparoTodos} = useWebSocket({});
+    const {stompClient} = useContext(ControlContext);
 
     const recursosTypes = ['TEXTIL', 'AGROPECUARIA', 'METALMECANICA', 'CONSTRUCCION', 'COMERCIAL'];
     const [recursoTypeSelected, setRecursoTypeSelected] = useState('');
@@ -10,8 +15,9 @@ const CreateResourceCard = ({playerId}) => {
     const handleSelectRecursoType = ({newValue}) => {
         setRecursoTypeSelected(newValue);
     }
-    const handleCrearNewResourceCard = () => {
-        service.createNewResourceCard({playerId:playerId, resourceType:recursoTypeSelected});
+    const handleCrearNewResourceCard = async () => {
+        await service.createNewResourceCard({playerId:playerId, resourceType:recursoTypeSelected});
+        disparoTodos({stompClient: stompClient});
     }
 
     return (

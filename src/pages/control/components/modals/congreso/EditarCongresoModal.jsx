@@ -1,10 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Autocomplete, Box, Button, Grid, Modal, TextField} from "@mui/material";
 import service from "../../../Service.js";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../../Context.jsx";
 
 const EditarCongresoModal = ({open, handleClose, congreso}) => {
 
-    const [newPresidenteSelected,setNewPresidenteSelected ] = useState();
+    const {stompClient} = useContext(ControlContext);
+    const [newPresidenteSelected,setNewPresidenteSelected ] = useState({});
+
+    const {disparoTodos} = useWebSocket({});
 
     const handleNewPresidenteSelected = ({newValue}) => {
         setNewPresidenteSelected(newValue);
@@ -21,12 +26,20 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
     const handleMilicia = ({newValue}) => {
         setMilicia(newValue)
     }
-    const handleActualizarCongreso = () => {
-        service.updateCongress({congressId:congreso.id,
+    const handleActualizarCongreso = async () => {
+        await service.updateCongress({congressId:congreso.id,
                                                             presidente:newPresidenteSelected,
                                                             plata:plata,
                                                             milicia:milicia});
+        disparoTodos({stompClient:stompClient})
     }
+
+    useEffect(() => {
+        const presidente = congreso?.revolucionarios.find(r => r.playerName === congreso.presidente);
+        if(presidente !== undefined){
+            setNewPresidenteSelected(presidente);
+        }
+    }, []);
 
     return (
         <Modal open={open} onClose={handleClose}>
@@ -67,7 +80,7 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            value = {plata}
+                            value = {plata || congreso?.plata}
                             type = "number"
                             label = "Plata: nuevo valor"
                             onChange = {(event) => handlePlata({newValue:event.target.value})} />
@@ -80,7 +93,7 @@ const EditarCongresoModal = ({open, handleClose, congreso}) => {
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
-                            value = {milicia}
+                            value = {milicia || congreso?.militia}
                             type = "number"
                             label = "Milicia: nuevo valor"
                             onChange = {(event) => handleMilicia({newValue:event.target.value})} />

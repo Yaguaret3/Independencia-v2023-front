@@ -2,10 +2,12 @@ import React, {useContext, useState} from 'react';
 import {Autocomplete, Button, Grid, TextField} from "@mui/material";
 import {ControlContext} from "../Context.jsx";
 import service from "../Service.js";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const CreateRepresentationCard = ({playerId}) => {
 
-    const {gameData} = useContext(ControlContext);
+    const {gameData, stompClient} = useContext(ControlContext);
+    const {disparoGobernadores, disparoRevolucionarios, disparoControl} = useWebSocket({});
 
     const [citySelected, setCitySelected] = useState({});
     const [labelCitySelected, setLabelCitySelected] = useState('');
@@ -15,8 +17,13 @@ const CreateRepresentationCard = ({playerId}) => {
     const handleSelectCityLabel = ({newValue}) => {
         setLabelCitySelected(newValue);
     }
-    const handleCrearNewRepresentationCard = () => {
-        service.createNewRepresentationCard({});
+    const handleCrearNewRepresentationCard = async () => {
+        await service.createNewRepresentationCard({playerId:playerId,
+                                                                cityName:citySelected.name,
+                                                                cityId:citySelected.id});
+        disparoGobernadores({stompClient:stompClient});
+        disparoRevolucionarios({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
     }
 
     return (
@@ -24,8 +31,8 @@ const CreateRepresentationCard = ({playerId}) => {
             <Grid item={6}>
                 <Autocomplete
                     disablePortal
-                    getOptionLabel={(option) => option.name}
-                    options={gameData?.gameRegions?.subRegions?.filter(sr => sr.city !== null)?.city}
+                    getOptionLabel={(option) => option.name || ''}
+                    options={gameData?.gameRegions?.flatMap(r => r.subregions).filter(sr => sr.city !== null)?.flatMap(sr => sr.city)}
                     value={citySelected}
                     onChange={(event, newValue) => {
                         handleSelectCity({newValue: newValue});

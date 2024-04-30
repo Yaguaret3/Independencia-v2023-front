@@ -1,9 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import TableInput from "../../../common/TableInput.jsx";
 import service from "../../Service.js";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../Context.jsx";
 
 const PreciosModal = ({precios, playerRol, show}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoTodos} = useWebSocket({});
 
     const [newPrecios, setNewPrecios] = useState([]);
 
@@ -48,9 +53,9 @@ const PreciosModal = ({precios, playerRol, show}) => {
         setNewPrecios(updatedPrecios);
     }
 
-    const handleGrabar = () => {
+    const handleGrabar = async () => {
 
-        newPrecios.filter(np => np.modificado).forEach((np) => {
+        await newPrecios.filter(np => np.modificado).forEach((np) => {
 
             let body = {};
             attributes.forEach(a => {
@@ -59,9 +64,10 @@ const PreciosModal = ({precios, playerRol, show}) => {
                     [a]: np[a].data};
             });
 
-            service.updatePrices({priceId: np.id, body: body});
+             service.updatePrices({priceId: np.id, body: body});
         })
 
+        disparoTodos({stompClient:stompClient});
     }
 
     return (

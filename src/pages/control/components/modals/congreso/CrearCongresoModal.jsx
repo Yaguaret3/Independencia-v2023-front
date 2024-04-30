@@ -2,10 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Autocomplete, Box, Button, Grid, Modal, TextField} from "@mui/material";
 import {ControlContext} from "../../../Context.jsx";
 import service from "../../../Service.js";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
 
 const CrearCongresoModal = ({handleClose, open}) => {
 
-    const {gameData} = useContext(ControlContext);
+    const {gameData, stompClient} = useContext(ControlContext);
+    const {disparoTodos} = useWebSocket({});
 
     const [ciudades, setCiudades] = useState([]);
     const [diputadosNoSelected, setDiputadosNoSelected] = useState([]);
@@ -90,14 +92,15 @@ const CrearCongresoModal = ({handleClose, open}) => {
     const handleLabelSelectPresidente = ({newValue}) => {
         setLabelPresidente(newValue)
     }
-    const handleCrearCongreso = () => {
-        service.createNewCongress({
+    const handleCrearCongreso = async () => {
+        await service.createNewCongress({
             presidente:presidente.id,
             plata:plata,
             milicia:milicias,
             sede:sedeSelected.id,
             diputados:diputadosSelected.map(d => d.id)
         })
+        disparoTodos({stompClient:stompClient});
     }
 
     return (

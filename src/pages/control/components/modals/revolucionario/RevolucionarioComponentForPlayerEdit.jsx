@@ -1,13 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Autocomplete, Button, Grid, TextareaAutosize, TextField} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
 import RepresentationCard from "../../../../common/RepresentationCard.jsx";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../../Context.jsx";
+import MoverDeCongresoModal from "./MoverDeCongresoModal.jsx";
 
 const RevolucionarioComponentForPlayerEdit = ({player}) => {
 
-    const handleActualizarPlata = ({newValue}) => {
-        service.updatePlata({gobernadorId: player.id, value: newValue});
+    const {disparoRevolucionarios, disparoControl} = useWebSocket({});
+    const {stompClient} = useContext(ControlContext);
+
+    const handleActualizarPlata = async ({newValue}) => {
+        await service.updatePlata({gobernadorId: player.id, value: newValue});
+        disparoControl({stompClient:stompClient});
+        disparoRevolucionarios({stompClient:stompClient});
     }
 
     const voteValues = [
@@ -37,11 +45,26 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
         setLabelNewVoteValue(newValue);
     }
 
-    const handleActualizarVoto = () => {
+    const handleActualizarVoto = async () => {
 
         const vote = player?.congreso?.votations?.find(v => v.active).votos?.find(v => v.revolucionarioName === player.username);
 
-        service.updateVote({voteId: vote.id, newValue: newVoteValue.value});
+        await service.updateVote({voteId: vote.id, newValue: newVoteValue.value});
+        disparoControl({stompClient:stompClient});
+        disparoRevolucionarios({stompClient:stompClient});
+    }
+
+    const [openMoverDeCongresoModal, setOpenMoverDeCongresoModal] = useState(false);
+    const handleOpenMoverDeCongresoModal = () => {
+        setOpenMoverDeCongresoModal(true);
+    }
+    const handleCloseMoverDeCongresoModal = () => {
+        setOpenMoverDeCongresoModal(false);
+    }
+    const handleMoverDeCongresoService = async ({congresoId}) => {
+        await service.moveToCongress({playerId:player.id, congresoId:congresoId});
+        disparoControl({stompClient:stompClient});
+        disparoRevolucionarios({stompClient:stompClient});
     }
 
     return (
@@ -55,9 +78,8 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextareaAutosize readOnly={true}
-                                              placeholder={'Propuesta Activa'}
                                               style={{width: "100%"}}
-                                              value={'Propuesta Activa: ' + player?.congreso?.votations?.find(v => v.active)?.propuesta}/>
+                                              value={'Propuesta Activa: ' + (player?.congreso?.votations?.find(v => v.active)?.propuesta || '')}/>
                         </Grid>
                         <Grid item xs={12}>
                             <Autocomplete
@@ -86,13 +108,20 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
                         })}
                     </Grid>
 
-
                     <Button onClick={handleActualizarVoto}
                             size="small" variant='contained' color='warning' fullWidth
                             disabled={!newVoteValue || newVoteValue === player?.congreso?.votations?.find(v => v.active).votos.find(v => v.revolucionarioName === player.username)}>
                         Actualizar voto</Button>
+                    <Button onClick={handleOpenMoverDeCongresoModal}
+                            size="small" variant='contained' color='warning' fullWidth>
+                        Cambiar de congreso</Button>
                 </Grid>
             </Grid>
+            <MoverDeCongresoModal
+                open={openMoverDeCongresoModal}
+                handleClose={handleCloseMoverDeCongresoModal}
+                handleService={handleMoverDeCongresoService}
+                />
         </>
     );
 };

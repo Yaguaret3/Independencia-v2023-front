@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, Grid, Modal, TextField} from "@mui/material";
 import PlayerCard from "../../../common/playerCards/PlayerCard.jsx";
 import PlayerModalViewForControl from "./PlayerModalViewForControl.jsx";
@@ -15,7 +15,7 @@ const PlayersModal = ({open, handleClose, players} ) => {
         setRolesFilter(e.target.value.toLowerCase());
     }
 
-    const [playerSelected, setPlayerSelected] = useState({});
+    const [playerSelected, setPlayerSelected] = useState();
     const [openSinglePlayerModal, setOpenSinglePlayerModal] = useState(false);
 
     const handleSelectPlayer = (e) => {
@@ -33,6 +33,13 @@ const PlayersModal = ({open, handleClose, players} ) => {
     }
 
     const playersFiltered = players?.filter(p => p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter));
+
+    useEffect(() => {
+        if(playerSelected !== undefined){
+            const selected = players?.find((p) => p.id === playerSelected.id)
+            setPlayerSelected(selected);
+        }
+    }, [players]);
 
     return (
         <>

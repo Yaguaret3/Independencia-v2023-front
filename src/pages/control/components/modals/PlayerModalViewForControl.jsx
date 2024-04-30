@@ -48,7 +48,7 @@ const PlayerModalViewForControl = ({open, handleClose, player}) => {
                         </Grid>
                     </Grid>
 
-                    {player.rol !== "REVOLUCIONARIO" && <PriceComponentForPlayerEdit player={player}/>}
+                    {player?.rol !== "REVOLUCIONARIO" && <PriceComponentForPlayerEdit player={player}/>}
 
 
                 </Box>

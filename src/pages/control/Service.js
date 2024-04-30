@@ -18,9 +18,9 @@ const getControlData = async () => {
         }
     });
 }
-const editarCiudad = async ({gobernadorId, body}) => {
+const editarCiudad = async ({ciudadId, body}) => {
 
-    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/edit-city/',
+    return await axios.post('http://localhost:8085/api/control/'+ciudadId+'/edit-city/',
         body,
         {
             headers: {
@@ -43,7 +43,7 @@ const assignDiputado = async ({revolucionariodId, cityId}) => {
 }
 const removeBuilding = async ({cityId, buildingId}) => {
 
-    return await axios.post('http://localhost:8085/api/control/'+cityId+'/remove-building?buildingId:'+buildingId,
+    return await axios.post('http://localhost:8085/api/control/'+cityId+'/remove-building?buildingId='+buildingId,
         {},
         {
             headers: {
@@ -53,6 +53,7 @@ const removeBuilding = async ({cityId, buildingId}) => {
 }
 const addBuilding = async ({cityId, buildingType}) => {
 
+    debugger
     const body = {
         buildingType:buildingType
     }
@@ -101,8 +102,7 @@ const updateVote = async ({voteId, newValue}) => {
         });
 }
 const updateReserve = async ({playerId, value}) => {
-    debugger
-    const body = {
+        const body = {
         newValue:value
     }
 
@@ -162,9 +162,9 @@ const removeCongress = async({congressId}) => {
 const updateCongress = async({congressId, presidente, plata, milicia}) => {
 
     const body = {
-        presidente:presidente,
-        plata:plata,
-        milicia:milicia
+        presidente:presidente.playerId,
+        plata:+plata,
+        milicia:+milicia
     }
 
     return await axios.patch('http://localhost:8085/api/control/'+congressId+'/update-congress',
@@ -193,6 +193,21 @@ const createNewCongress = async({presidente, plata, milicia, diputados, sede}) =
             }
         });
 }
+const moveToCongress = async({playerId, congresoId}) => {
+
+    const body = {
+        revolucionarioId:playerId,
+        congresoId:congresoId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/move-to-congress',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 const removeCard = async({cardId}) => {
     return await axios.delete('http://localhost:8085/api/control/'+cardId+'/remove-card',
         {
@@ -208,7 +223,7 @@ const moveCard = async({cardId, fromId, toId}) => {
         toId:toId
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+cardId+'/remove-congress',
+    return await axios.post('http://localhost:8085/api/control/'+cardId+'/move-card',
         body,
         {
             headers: {
@@ -216,6 +231,7 @@ const moveCard = async({cardId, fromId, toId}) => {
             }
         });
 }
+
 const createNewResourceCard = async({playerId, resourceType}) => {
 
     const body = {
@@ -325,5 +341,6 @@ export default {
     createNewRepresentationCard,
     createNewExtraCard,
     moveCamp,
-    terminarFase
+    terminarFase,
+    moveToCongress
  }

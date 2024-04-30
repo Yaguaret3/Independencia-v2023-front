@@ -4,14 +4,14 @@ import {ControlContext} from "../Context.jsx";
 import PlayersModal from "./modals/PlayersModal.jsx";
 import CongresosModal from "./modals/CongresosModal.jsx";
 import service from "../Service.js";
-import useSocket from "../../../hooks/useSocket.jsx";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Acciones = () => {
 
     //Context
-    const { gameData, controlData } = useContext(ControlContext);
+    const { gameData, controlData, stompClient } = useContext(ControlContext);
     //WebSocket
-    const {disparoTodos} = useSocket({});
+    const {disparoTodos} = useWebSocket({});
 
     //OpenModal
     const [openPlayersModal, setOpenPlayerModal] = useState(false);
@@ -34,7 +34,7 @@ const Acciones = () => {
 
         if(confirm(message)){
             await service.terminarFase();
-            disparoTodos();
+            disparoTodos({stompClient:stompClient});
         }
     }
 

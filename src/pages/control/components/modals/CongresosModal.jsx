@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -15,8 +15,13 @@ import {
 import service from "../../Service.js";
 import EditarCongresoModal from "./congreso/EditarCongresoModal.jsx";
 import CrearCongresoModal from "./congreso/CrearCongresoModal.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../Context.jsx";
 
 const CongresosModal = ({open, handleClose, congresos}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoTodos} = useWebSocket({});
 
     const [openEditarCongresoModal, setOpenEditarCongresoModal] = useState(false);
     const [congresoSelected, setCongresoSelected] = useState();
@@ -28,8 +33,9 @@ const CongresosModal = ({open, handleClose, congresos}) => {
     const handleCloseEditarCongresoModal = () => {
         setOpenEditarCongresoModal(false);
     }
-    const handleBorrarCongreso = ({congresoId}) => {
-        service.removeCongress({congresoId:congresoId});
+    const handleBorrarCongreso = async ({congresoId}) => {
+        await service.removeCongress({congresoId:congresoId});
+        disparoTodos({stompClient:stompClient});
     }
     const [openCrearCongresoModal, setOpenCrearCongresoModal] = useState(false);
     const handleOpenCrearCongresoModal = () => {
@@ -38,6 +44,13 @@ const CongresosModal = ({open, handleClose, congresos}) => {
     const handleCloseCrearCongresoModal = () => {
         setOpenCrearCongresoModal(false);
     }
+
+    useEffect(() => {
+        if(congresoSelected !== undefined){
+            const selected = congresos?.find((p) => p.id === congresoSelected.id)
+            setCongresoSelected(selected);
+        }
+    }, [congresos]);
 
     return (
         <>
@@ -75,7 +88,7 @@ const CongresosModal = ({open, handleClose, congresos}) => {
                                                     {congreso.sede.name}
                                                 </TableCell>
                                                 <TableCell padding='none' align="center">
-                                                    {congreso.presidente}
+                                                    {congreso.revolucionarios?.find(r => r.presidente)?.playerName}
                                                 </TableCell>
                                                 <TableCell padding='none' align="center">
                                                     <Button onClick={() => handleOpenEditarCongresoModal({congreso:congreso})}

@@ -88,7 +88,7 @@ const Congreso = () => {
                 </Grid>}
                 <Grid item xs={4}>
                     <Button onClick={handleOpenVotarModal}
-                        disabled={!votation.active || (votation.votos.filter(v => v.revolucionarioId === playerData.id) !== 0)}
+                        disabled={!votation.active || (votation.votos.find(v => v.revolucionarioId === playerData.id) !== undefined)}
                         size="small" variant='contained' color='warning' fullWidth>
                         Votar
                     </Button>

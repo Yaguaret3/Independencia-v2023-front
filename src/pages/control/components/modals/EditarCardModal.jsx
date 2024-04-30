@@ -6,15 +6,19 @@ import MarketCard from "../../../common/MarketCard.jsx";
 import RepresentationCard from "../../../common/RepresentationCard.jsx";
 import service from "../../Service.js";
 import {ControlContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const EditarCardModal = ({open, handleClose, card, playerId}) => {
 
-    const {gameData} = useContext(ControlContext);
+    const {disparoTodos} = useWebSocket({});
+
+    const {gameData, stompClient} = useContext(ControlContext);
     const [playerToSelected, setPlayerToSelected] = useState({});
     const [labelPlayerToSelected, setLabelPlayerToSelected] = useState('');
 
-    const handleBorrarCarta = () => {
-        service.removeCard({cardId:card.id});
+    const handleBorrarCarta = async () => {
+        await service.removeCard({cardId:card.id});
+        disparoTodos({stompClient:stompClient});
     }
     const handleSelectPlayerTo = ({newValue}) => {
         setPlayerToSelected(newValue)
@@ -22,8 +26,9 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
     const handleSelectPlayerToLabel = ({newValue}) => {
         setLabelPlayerToSelected(newValue)
     }
-    const handleMoverCarta = () => {
-        service.moveCard({cardId:card.id, fromId:playerId, toId:playerToSelected.id});
+    const handleMoverCarta = async () => {
+        await service.moveCard({cardId:card.id, fromId:playerId, toId:playerToSelected.id});
+        disparoTodos({stompClient:stompClient});
     }
 
     return (
@@ -42,29 +47,34 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
                 >
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            {card.recursos &&
-                                <ResourceCard resourceName={card.resourceTypeEnum}/>
-                            }
-                            {card.mercado &&
-                                <MarketCard cityName={card?.cityName} level={card?.level}/>
-                            }
-                            {card.representacion &&
-                                <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion}/>
-                            }
-                            {card.extra &&
-                                <ExtraCard nombre={card.nombre} descripcion={card.descripcion}
-                                           bonificacion={card.bonificacion}/>
-                            }
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    {card.recursos &&
+                                        <ResourceCard resourceName={card.resourceTypeEnum}/>
+                                    }
+                                    {card.mercado &&
+                                        <MarketCard cityName={card?.cityName} level={card?.level}/>
+                                    }
+                                    {card.representacion &&
+                                        <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion}/>
+                                    }
+                                    {card.extra &&
+                                        <ExtraCard nombre={card.nombre} descripcion={card.descripcion}
+                                                   bonificacion={card.bonificacion}/>
+                                    }
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Button onClick={handleBorrarCarta}
+                                            size="small" variant='contained' color='warning'>
+                                        Borrar Carta
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button onClick={handleBorrarCarta}
-                                    size="small" variant='contained' color='warning'>
-                                Borrar Carta
-                            </Button>
-                            Dar carta al jugador:
                             <Autocomplete
                                 disablePortal
-                                getOptionLabel={(option) => option.username}
+                                getOptionLabel={(option) => option.username || ''}
                                 options={gameData?.playersData}
                                 value={playerToSelected}
                                 onChange={(event, newValue) => {
@@ -74,7 +84,7 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
                                 onInputChange={(event, newInputValue) => {
                                     handleSelectPlayerToLabel({newValue:newInputValue});
                                 }}
-                                renderInput={(params) => <TextField {...params} label="Jugadores"/>}
+                                renderInput={(params) => <TextField {...params} label="Dar carta al jugador:"/>}
                             />
                             <Button onClick={handleMoverCarta}
                                     size="small" variant='contained' color='warning'>

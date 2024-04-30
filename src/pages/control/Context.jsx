@@ -6,6 +6,7 @@ export default function ControlContextProvider({ children }) {
 
     const [gameData, setGameData] = useState({})
     const [controlData, setControlData] = useState({});
+    const [stompClient, setStompClient] = useState({});
 
     return (
         <ControlContext.Provider
@@ -13,7 +14,9 @@ export default function ControlContextProvider({ children }) {
                 gameData,
                 setGameData,
                 controlData,
-                setControlData
+                setControlData,
+                stompClient,
+                setStompClient
             }}>
             {children}
         </ControlContext.Provider>

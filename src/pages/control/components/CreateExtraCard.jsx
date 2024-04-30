@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Grid, TextareaAutosize, TextField} from "@mui/material";
 import service from "../Service.js";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../Context.jsx";
 
 const CreateExtraCard = ({playerId}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoTodos} = useWebSocket({});
 
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -18,9 +23,12 @@ const CreateExtraCard = ({playerId}) => {
         setBonificacion(e.target.value);
     }
 
-    const handleCrear = () => {
-        service.createNewExtraCard({playerId:playerId,
-        nombre:nombre, descripcion:descripcion, bonificacion:bonificacion})
+    const handleCrear = async () => {
+        await service.createNewExtraCard({playerId:playerId,
+                                                                    nombre:nombre,
+                                                                    descripcion:descripcion,
+                                                                    bonificacion:bonificacion})
+        disparoTodos({stompClient:stompClient});
     }
 
     return (

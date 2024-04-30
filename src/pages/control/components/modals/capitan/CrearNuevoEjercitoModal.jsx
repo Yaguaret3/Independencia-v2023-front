@@ -42,8 +42,8 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
                     <Grid item xs={6}>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.name ? option.name : ''}
-                            options={gameData?.gameRegions.map(r => r.subRegions).flatMap(sr => sr)}
+                            getOptionLabel={(option) => option.name || ''}
+                            options={gameData?.gameRegions.flatMap(r => r.subregions)}
                             value={subregionSelected}
                             onChange={(event, newValue) => {
                                 handleSubregionSelected({subRegion:newValue});

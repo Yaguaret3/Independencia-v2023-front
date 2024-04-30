@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Grid} from "@mui/material";
+import {Button, Grid, TextField} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import RutasModal from "./RutasModal.jsx";
 
@@ -22,8 +22,18 @@ const MercaderComponentForPlayerEdit = ({player}) => {
             <Grid item xs={12}>
 
                 <Grid container spacing={2}>
-                    <SingleAttributeEdit nombre={'Puntaje Comercial Actual'} valorActual={player?.puntajeComercial} />
-                    <SingleAttributeEdit nombre={'Puntaje Comercial Acumulado'} valorActual={player?.puntajeComercialAcumulado} />
+                    <Grid item xs={12}>
+                        <TextField
+                            value = {player?.puntajeComercial}
+                            label = {'Puntaje Comercial'}
+                            disabled={true} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            value = {player?.puntajeComercialAcumulado}
+                            label = {'Puntaje Comercial Acumulado'}
+                            disabled={true} />
+                    </Grid>
 
                 </Grid>
             </Grid>

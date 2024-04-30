@@ -1,40 +1,38 @@
 import SockJS from "sockjs-client";
 import {over} from "stompjs";
 
-const useSocket = ({channel, fetchData}) => {
+const useWebSocket = ({channel, fetchData}) => {
 
-    const socket = new SockJS('http://localhost:8085/ws');
-    const stompClient = over(socket);
 
-    const conectarWS = async () => {
+    const conectarWS = ({stompClient}) => {
+
         stompClient.connect({}, function (frame) {
-            console.log(channel)
-            stompClient.subscribe(channel, async function (valorFinal) {
-                await fetchData();
+            stompClient.subscribe(channel, function (valorFinal) {
+                fetchData();
             });
-            stompClient.subscribe('/actualizar-todos', async function (valorFinal) {
-                await fetchData();
+            stompClient.subscribe('/actualizar-todos', function (valorFinal) {
+                console.log('Entra y...')
+                fetchData();
             });
         });
     }
 
-
-    const disparoControl = () =>{
+    const disparoControl = ({stompClient}) =>{
         stompClient.send('/actualizar-control', {}, JSON.stringify({ 'mensaje': '' }));
     }
-    const disparoGobernadores = () => {
+    const disparoGobernadores = ({stompClient}) => {
         stompClient.send('/actualizar-gobernadores', {}, JSON.stringify({ 'mensaje': '' }));
     }
-    const disparoCapitanes = () =>{
+    const disparoCapitanes = ({stompClient}) =>{
         stompClient.send('/actualizar-capitanes', {}, JSON.stringify({ 'mensaje': '' }));
     }
-    const disparoMercaderes = () =>{
+    const disparoMercaderes = ({stompClient}) =>{
         stompClient.send('/actualizar-mercaderes', {}, JSON.stringify({ 'mensaje': '' }));
     }
-    const disparoRevolucionarios = () =>{
+    const disparoRevolucionarios = ({stompClient}) =>{
         stompClient.send('/actualizar-revolucionarios', {}, JSON.stringify({ 'mensaje': '' }));
     }
-    const disparoTodos = () =>{
+    const disparoTodos = ({stompClient}) =>{
         stompClient.send('/actualizar-todos', {}, JSON.stringify({ 'mensaje': "" }));
     }
 
@@ -51,4 +49,4 @@ const useSocket = ({channel, fetchData}) => {
     };
 };
 
-export default useSocket;
+export default useWebSocket;

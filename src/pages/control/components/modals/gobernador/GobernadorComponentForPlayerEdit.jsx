@@ -1,10 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Grid} from "@mui/material";
 import CiudadModal from "./CiudadModal.jsx";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../../Context.jsx";
 
 const GobernadorComponentForPlayerEdit = ({player}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoGobernadores, disparoControl} = useWebSocket({});
 
     const [openCiudadModal, setOpenCiudadModal] = useState(false);
     const handleOpenCiudadModal = () => {
@@ -13,11 +18,15 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
     const handleCloseCiudadModal = () => {
         setOpenCiudadModal(false);
     }
-    const handleActualizarMilicia = ({newValue}) => {
-        service.updateReserve({value: newValue, playerId:player.id});
+    const handleActualizarMilicia = async ({newValue}) => {
+        await service.updateReserve({value: newValue, playerId:player.id});
+        disparoGobernadores({stompClient:stompClient});
+        disparoControl({stompClient:stompClient})
     }
-    const handleActualizarPlata = ({newValue}) => {
-        service.updatePlata({gobernadorId:player.id, value:newValue});
+    const handleActualizarPlata = async ({newValue}) => {
+        await service.updatePlata({gobernadorId:player.id, value:newValue});
+        disparoGobernadores({stompClient:stompClient});
+        disparoControl({stompClient:stompClient})
     }
 
     return (
@@ -40,7 +49,6 @@ const GobernadorComponentForPlayerEdit = ({player}) => {
                 handleClose={handleCloseCiudadModal}
                 ciudad={player?.ciudad}
                 rolJugador={player?.rol}
-                idJugador={player?.id}
                 nombreJugador={player?.username}/>
         </>
     );

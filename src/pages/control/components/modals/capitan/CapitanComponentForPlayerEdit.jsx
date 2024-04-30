@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
 import TableInput from "../../../../common/TableInput.jsx";
 import CrearNuevoEjercitoModal from "./CrearNuevoEjercitoModal.jsx";
 import MoveCampModal from "./MoveCampModal.jsx";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
+import {ControlContext} from "../../../Context.jsx";
 
 const CapitanComponentForPlayerEdit = ({player}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoCapitanes, disparoControl} = useWebSocket({});
 
     const [ejercitos, setEjercitos] = useState([{}]);
     const [modificaciones, setModificaciones] = useState(false)
@@ -27,8 +32,14 @@ const CapitanComponentForPlayerEdit = ({player}) => {
         setEjercitos(ejercitosConModif);
     }, []);
 
-    const handleActualizarReserva = ({newValue}) => {
-        service.updateReserve({value:newValue, playerId:player.id});
+    useEffect(() => {
+        setModificaciones(false);
+    }, [player]);
+
+    const handleActualizarReserva = async ({newValue}) => {
+        await service.updateReserve({value:newValue, playerId:player.id});
+        disparoControl({stompClient:stompClient});
+        disparoCapitanes({stompClient:stompClient});
     }
 
     const handleInputChange = ({event, id}) => {
@@ -48,22 +59,27 @@ const CapitanComponentForPlayerEdit = ({player}) => {
             return ej;
         });
 
+        debugger
         setModificaciones(updatedEjercitos.filter(e => e.modif).length > 0)
         setEjercitos(updatedEjercitos);
     }
 
-    const handleGrabarEjercitos = () => {
+    const handleGrabarEjercitos = async () => {
 
-        ejercitos.forEach(e => {
+        await ejercitos.forEach(e => {
             if(e.modif){
                 service.assignMilitiaToArmy({armyId:e.id, milicias:e.milicias.data})
             }
         });
+        disparoControl({stompClient:stompClient});
+        disparoCapitanes({stompClient:stompClient});
     }
-    const handleBorrarEjercito = ({army}) => {
+    const handleBorrarEjercito = async ({army}) => {
 
-        if(confirm('¿Desea borrar el ejército de ' + army.capitanName + ' en ' + army.gameSubRegionName)){
-            service.deleteArmy({armyId:army.id});
+        if(confirm('¿Desea borrar el ejército de ' + army.capitanName + ' en ' + army.gameSubRegionName +'?')){
+            await service.deleteArmy({armyId:army.id});
+            disparoControl({stompClient:stompClient});
+            disparoCapitanes({stompClient:stompClient});
         }
 
     }
@@ -75,9 +91,11 @@ const CapitanComponentForPlayerEdit = ({player}) => {
     const handleCloseCrearNuevoEjercitoModal = () => {
         setOpenCrearNuevoEjercitoModal(false);
     }
-    const handleCrearNuevoEjercito = ({subregionId, milicias}) => {
+    const handleCrearNuevoEjercito = async ({subregionId, milicias}) => {
 
-        service.createNewArmy({capitanId:player.id, subregionId:subregionId, milicias:milicias});
+        await service.createNewArmy({capitanId:player.id, subregionId:subregionId, milicias:milicias});
+        disparoControl({stompClient:stompClient});
+        disparoCapitanes({stompClient:stompClient});
     }
 
     const [openMoveCampModal, setOpemMoveCampModal] = useState(false);
@@ -87,8 +105,10 @@ const CapitanComponentForPlayerEdit = ({player}) => {
     const handleCloseMoveCampModal = () => {
         setOpemMoveCampModal(false);
     }
-    const handleMoveCampService = ({gameSubregionId}) => {
-        service.moveCamp({playerId:player.id, gameSubregionId:gameSubregionId});
+    const handleMoveCampService = async ({gameSubregionId}) => {
+        await service.moveCamp({playerId:player.id, gameSubregionId:gameSubregionId});
+        disparoControl({stompClient:stompClient});
+        disparoCapitanes({stompClient:stompClient});
     }
 
 

@@ -22,16 +22,8 @@ const RutasModal = ({nombreJugador, rolJugador, rutas, handleClose, open}) => {
             }}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <Typography>Username</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
                         <TextField disabled={'true'} label={"Username"} fullWidth value={nombreJugador}
                                    variant={"standard"}/>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Typography>Rol</Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <TextField disabled={'true'} label={"Rol"} fullWidth value={rolJugador}
