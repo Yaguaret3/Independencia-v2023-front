@@ -8,8 +8,13 @@ import RepresentationCard from '../../common/RepresentationCard';
 import NuevaPropuestaModal from './modals/NuevaPropuestaModal';
 import VotarModal from './modals/VotarModal';
 import service from "../Service.js";
+import {ControlContext} from "../../control/Context.jsx";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Congreso = () => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoControl, disparoRevolucionarios} = useWebSocket({});
 
     const { playerData } = useContext(RevolucionarioContext);
     const [currentVotation, setCurrentVotation] = useState({});
@@ -55,9 +60,12 @@ const Congreso = () => {
     const handleCloseVotarModal = () => {
         setOpenVotarModal(false);
     }
-    const handleCloseVotacion = () => {
-        confirm("¿Quiere cerrar la votación vigente definitivamente?")
-        service.closeVotation();
+    const handleCloseVotacion = async () => {
+        if(confirm("¿Quiere cerrar la votación vigente definitivamente?")){
+            await service.closeVotation();
+            disparoControl({stompClient:stompClient});
+            disparoRevolucionarios({stompClient:stompClient});
+        }
     }
 
     return (

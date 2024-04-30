@@ -7,6 +7,7 @@ export default function RevolucionarioContextProvider({ children }) {
     const [playerData, setPlayerData] = useState({});
     const [gameData, setGameData] = useState({})
     const [congresosData, setCongresosData] = useState({})
+    const [stompClient, setStompClient] = useState({});
 
     return (
         <RevolucionarioContext.Provider
@@ -16,7 +17,9 @@ export default function RevolucionarioContextProvider({ children }) {
                 gameData,
                 setGameData,
                 congresosData,
-                setCongresosData
+                setCongresosData,
+                stompClient,
+                setStompClient
             }}>
             {children}
         </RevolucionarioContext.Provider>

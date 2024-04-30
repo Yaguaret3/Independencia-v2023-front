@@ -1,20 +1,27 @@
 import { TextField, Modal, Box, Button, Grid } from '@mui/material';
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import service from '../../Service';
+import {ControlContext} from "../../../control/Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const NuevaPropuestaModal = ({ open, handleClose }) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoControl, disparoRevolucionarios} = useWebSocket({});
 
     const [textField, setTextField] = useState('')
 
     const handleTextField = (e) => {
         setTextField(e.target.value)
     }
-    const handleService = () => {
+    const handleService = async () => {
         if (textField === '' || textField === null) {
             alert('Por favor, enviar propuesta correctamente')
             return;
         }
-        service.propose({ proposal: textField })
+        await service.propose({ proposal: textField })
+        disparoControl({stompClient:stompClient});
+        disparoRevolucionarios({stompClient:stompClient});
         handleClose();
     }
 

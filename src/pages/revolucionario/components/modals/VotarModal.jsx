@@ -1,12 +1,19 @@
 import { Modal, Box, Button, Grid, Typography } from '@mui/material';
-import React from 'react'
+import React, {useContext} from 'react'
 import service from '../../Service';
+import {ControlContext} from "../../../control/Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const VotarModal = ({ open, handleClose, currentVotation }) => {
 
-    const handleService = (voteType) => {
+    const {stompClient} = useContext(ControlContext);
+    const {disparoControl, disparoRevolucionarios} = useWebSocket({});
+
+    const handleService = async (voteType) => {
         if(confirm("¿Enviar voto " + voteType+"?")){
-            service.vote({ votationId: currentVotation.id, voteType: voteType })
+            await service.vote({ votationId: currentVotation.id, voteType: voteType })
+            disparoRevolucionarios({stompClient:stompClient});
+            disparoControl({stompClient:stompClient});
             handleClose();
         }
     }
