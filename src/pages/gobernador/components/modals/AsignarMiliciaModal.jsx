@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import { Modal, Grid, Autocomplete, TextField, Box, Button } from '@mui/material'
 import service from '../../Service'
+import {GobernadorContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
+
+    const {stompClient} = useContext(GobernadorContext);
+    const {disparoControl, disparoGobernadores, disparoCapitanes} = useWebSocket({});
 
     const [capitanSelected, setCapitanSelected] = useState({})
     const [labelCapitanSelected, setLabelCapitanSelected] = useState('');
@@ -18,7 +23,7 @@ const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
         setCantidadMiliciasSelected(value);
     }
 
-    const handleService = () => {
+    const handleService = async () => {
         if (capitanSelected === '' || capitanSelected === null) {
             alert('Por favor, elegir un capitán')
             return;
@@ -27,7 +32,10 @@ const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
             alert('Por favor, seleccionar cantidad de milicias')
             return;
         }
-        service.asignarMilicia({ idJugadorDestino: capitanSelected.playerId, cantidadMilicias: cantidadMiliciasSelected })
+        await service.asignarMilicia({ idJugadorDestino: capitanSelected.playerId, cantidadMilicias: cantidadMiliciasSelected })
+        disparoControl({stompClient:stompClient});
+        disparoGobernadores({stompClient:stompClient});
+        disparoCapitanes({stompClient:stompClient});
     }
 
     return (

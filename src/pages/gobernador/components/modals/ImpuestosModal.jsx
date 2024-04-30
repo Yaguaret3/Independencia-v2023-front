@@ -1,11 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Modal, Grid, Box, Button } from '@mui/material'
 import service from '../../Service'
+import {GobernadorContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const ImpuestosModal = ({ open, handleClose, label, aumentar, disminuir}) => {
-    
-    const handleService = () => {
-        service.cambiarImpuestos({ aumentar: aumentar, disminuir: disminuir })
+
+    const {stompClient} = useContext(GobernadorContext);
+    const {disparoControl, disparoGobernadores} = useWebSocket({});
+    const handleService = async () => {
+        await service.cambiarImpuestos({ aumentar: aumentar, disminuir: disminuir })
+        disparoGobernadores({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
     }
 
     return (

@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import { Modal, Grid, Box, Button, Typography, Tooltip } from '@mui/material'
 import PagarModal from '../../../common/PagarModal.jsx'
 import service from '../../Service'
+import {GobernadorContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const CrearEdificioModal = ({ open, handleClose, buildings, recursos }) => {
+
+    const {stompClient} = useContext(GobernadorContext);
+    const {disparoControl, disparoGobernadores} = useWebSocket({});
 
     const [buildingSelectedOpen, setBuildingSelectedOpen] = useState(false)
     const [buildingSelected, setBuildingSelected] = useState({})
@@ -16,12 +21,14 @@ const CrearEdificioModal = ({ open, handleClose, buildings, recursos }) => {
         setBuildingSelectedOpen(false);
     }
 
-    const handleService = ({ plata, resourcesIds }) => {
-        service.crearEdificio({
+    const handleService = async ({ plata, resourcesIds }) => {
+        await service.crearEdificio({
             priceId: buildingSelected.id,
             plata: plata,
             resourcesIds: resourcesIds
         })
+        disparoControl({stompClient:stompClient});
+        disparoGobernadores({stompClient:stompClient});
     }
 
     return (

@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, {useContext, useState} from 'react'
 import { Modal, Grid, Autocomplete, TextField, Box, Button } from '@mui/material'
 import service from '../../Service'
+import {GobernadorContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
 const EntregarMercadoModal = ({ open, handleClose, mercaderes, mercados }) => {
+
+    const {stompClient} = useContext(GobernadorContext);
+    const {disparoControl, disparoGobernadores, disparoMercaderes} = useWebSocket({});
 
     const [mercaderSeleccionado, setMercaderSeleccionado] = useState({})
     const [mercadoSeleccionado, setMercadoSeleccionado] = useState({})
@@ -21,7 +26,7 @@ const EntregarMercadoModal = ({ open, handleClose, mercaderes, mercados }) => {
     const handleLabelMercaderSeleccionado = (value) => {
         setLabelMercaderSeleccionado(value);
     }
-    const handleService = () => {
+    const handleService = async () => {
         if(mercaderSeleccionado === '' || mercaderSeleccionado === null){
             alert('Por favor, elegir un mercader')
             return;
@@ -30,7 +35,10 @@ const EntregarMercadoModal = ({ open, handleClose, mercaderes, mercados }) => {
             alert('Por favor, elegir un mercado')
             return;
         }
-        service.entregarMercado({ idJugadorDestino: mercaderSeleccionado.playerId, idMarketCard: mercadoSeleccionado.id })
+        await service.entregarMercado({ idJugadorDestino: mercaderSeleccionado.playerId, idMarketCard: mercadoSeleccionado.id })
+        disparoMercaderes({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
+        disparoGobernadores({stompClient:stompClient});
     }
 
     return (
