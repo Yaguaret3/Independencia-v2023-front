@@ -13,7 +13,7 @@ import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Congreso = () => {
 
-    const {stompClient} = useContext(ControlContext);
+    const {stompClient} = useContext(RevolucionarioContext);
     const {disparoControl, disparoRevolucionarios} = useWebSocket({});
 
     const { playerData } = useContext(RevolucionarioContext);

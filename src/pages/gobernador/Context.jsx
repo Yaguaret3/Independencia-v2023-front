@@ -6,7 +6,7 @@ export default function GobernadorContextProvider ({children}) {
     
     const [playerData, setPlayerData] = useState({});
     const [gameData, setGameData] = useState({});
-    const [stompClient, setStompCliente] = useState({});
+    const [stompClient, setStompClient] = useState({});
 
     return (
         <GobernadorContext.Provider value={
@@ -16,7 +16,7 @@ export default function GobernadorContextProvider ({children}) {
                 gameData, 
                 setGameData,
                 stompClient,
-                setStompCliente
+                setStompClient
             }}>
             {children}
         </GobernadorContext.Provider>

@@ -3,6 +3,7 @@ import { Box, Grid } from '@mui/material'
 import Acciones from './Acciones'
 import VirreinatoMap from '../../common/VirreinatoMap'
 import { RevolucionarioContext } from '../Context'
+import Cartas from "./Cartas.jsx";
 
 const Cuerpo = () => {
 
@@ -15,7 +16,15 @@ const Cuerpo = () => {
           <VirreinatoMap gameData={gameData}/>
         </Grid>
         <Grid item xs={8}>
-          <Acciones />
+          <Grid container spacing={2} direction='column'>
+            <Grid item xs={6}>
+              <Acciones />
+            </Grid>
+            <Grid item xs={6}>
+              <Cartas />
+            </Grid>
+          </Grid>
+
         </Grid>
       </Grid>
     </Box>

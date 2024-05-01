@@ -6,11 +6,13 @@ import Cuerpo from './components/Cuerpo'
 import service from './Service';
 import {GobernadorContext} from './Context';
 import useWebSocket from "../../hooks/useWebSocket.jsx";
+import SockJS from "sockjs-client";
+import {over} from "stompjs";
 
 
 const Gobernador = () => {
 
-    const {setPlayerData, setGameData} = useContext(GobernadorContext);
+    const {setPlayerData, setGameData, setStompClient} = useContext(GobernadorContext);
 
     const fetchData = async () => {
         const playerData = await service.getPlayerData();
@@ -19,10 +21,14 @@ const Gobernador = () => {
         setGameData(gameData.data);
     }
 
-    const {conectarWS} = useWebSocket({channel:'/actualizar-mercaderes',
+    const {conectarWS} = useWebSocket({channel:'/actualizar-gobernadores',
     fetchData:fetchData})
 
     useEffect(() => {
+
+        const socket = new SockJS('http://localhost:8085/ws');
+        const stompClient = over(socket);
+        setStompClient(stompClient);
 
         conectarWS({stompClient:stompClient});
         fetchData();

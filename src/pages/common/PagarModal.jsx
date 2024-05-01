@@ -124,7 +124,7 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
                                 </TextField>
                             </Grid>
                             {recursos?.map((recurso) => (
-                                <Grid item xs={6}>
+                                <Grid item xs={6} key={recurso.id}>
                                     <Card onClick={() => handleCardClick(recurso)}
                                         sx={{ border: recurso.selected ? 'solid green' : 'solid black' }}>
                                         <CardActionArea>

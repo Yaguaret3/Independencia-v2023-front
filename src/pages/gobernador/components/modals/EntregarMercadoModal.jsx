@@ -58,7 +58,7 @@ const EntregarMercadoModal = ({ open, handleClose, mercaderes, mercados }) => {
                     <Grid item xs={7}>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.playerName ? option.playerName : ''}
+                            getOptionLabel={(option) => option.playerName || ''}
                             options={mercaderes}
                             value={mercaderSeleccionado}
                             onChange={(event, newValue) => {
@@ -74,7 +74,7 @@ const EntregarMercadoModal = ({ open, handleClose, mercaderes, mercados }) => {
                     <Grid item xs={5}>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.level ? "Nivel: " + option.level : ''}
+                            getOptionLabel={(option) => 'Nivel: ' + (option.level || '')}
                             options={mercados}
                             value={mercadoSeleccionado}
                             onChange={(event, newValue) => {

@@ -3,10 +3,11 @@ import React, {useContext} from 'react'
 import service from '../../Service';
 import {ControlContext} from "../../../control/Context.jsx";
 import useWebSocket from "../../../../hooks/useWebSocket.jsx";
+import {RevolucionarioContext} from "../../Context.jsx";
 
 const VotarModal = ({ open, handleClose, currentVotation }) => {
 
-    const {stompClient} = useContext(ControlContext);
+    const {stompClient} = useContext(RevolucionarioContext);
     const {disparoControl, disparoRevolucionarios} = useWebSocket({});
 
     const handleService = async (voteType) => {

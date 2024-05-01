@@ -24,7 +24,8 @@ const Mercados = () => {
     return (
         <>
             <Grid container direction="row"
-                justifyContent="space-evenly">
+                justifyContent="space-evenly"
+                spacing={2}>
 
                 <Grid item xs={12}>
                     <Typography textAlign={'center'}>
@@ -41,8 +42,8 @@ const Mercados = () => {
                         ))}
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Button onClick={handleButton} size="medium" variant='contained' color='warning' fullWidth>Planificar Ruta Comercial</Button>
+                <Grid item xs={12} >
+                    <Button onClick={handleButton} size="medium" variant='contained' color='warning'>Planificar Ruta Comercial</Button>
                 </Grid>
             </Grid>
             <PlanificarRutaComercialModal
