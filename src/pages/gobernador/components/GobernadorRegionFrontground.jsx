@@ -4,13 +4,13 @@ import GobernadorSubRegion from './GobernadorSubRegion';
 const GobernadorRegionFrontground = ({gameRegion}) => {
 
     return (
-        <svg height={gameRegion && gameRegion.fgHeight} width={gameRegion && gameRegion.fgHeight}
-             viewBox={gameRegion && gameRegion.fgViewBox}
+        <svg height={gameRegion?.fgHeight} width={gameRegion?.fgHeight}
+             viewBox={gameRegion?.fgViewBox}
              style={{
                  position: 'absolute',
                  zIndex: 1,
-                 top: gameRegion && gameRegion.fgTop,
-                 left: gameRegion && gameRegion.fgLeft
+                 top: gameRegion?.fgTop,
+                 left: gameRegion?.fgLeft
              }}>
 
             {gameRegion?.subRegions.map((subregion) => {

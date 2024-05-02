@@ -15,12 +15,12 @@ const GobernadorRegionBackground = () => {
                 alt="BackgroundImage"
                 style={{
                     position: 'relative',
-                    top: playerData && playerData.gameRegion && playerData.gameRegion.bgTop,
-                    left: playerData && playerData.gameRegion && playerData.gameRegion.bgLeft,
-                    scale: playerData && playerData.gameRegion && playerData.gameRegion.bgScale
+                    top: playerData?.gameRegion?.bgTop,
+                    left: playerData?.gameRegion?.bgLeft,
+                    scale: playerData?.gameRegion?.bgScale
                 }}
             />
-            <GobernadorRegionFrontground gameRegion={playerData && playerData.gameRegion}/>
+            <GobernadorRegionFrontground gameRegion={playerData?.gameRegion}/>
         </Box>
     )
 }

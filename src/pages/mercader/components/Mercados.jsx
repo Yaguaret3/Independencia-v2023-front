@@ -36,7 +36,7 @@ const Mercados = () => {
                 <Grid item xs={12}>
                     <Grid container justifyContent={'center'}>
                         {playerData.mercados?.map((mercado) => (
-                            <Grid item xs={6}>
+                            <Grid item xs={6} key={mercado.id}>
                                 <MarketCard level={mercado.level} cityName={mercado.cityName} />
                             </Grid>
                         ))}
