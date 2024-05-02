@@ -317,6 +317,25 @@ const terminarFase = async() => {
             }
         });
 }
+const createBattle = async({capitanes, subregionId}) => {
+    const body = {
+        combatientes:capitanes.map(c => {
+            return {
+                id: c.id,
+                ataque: c.ataca
+            }
+        }),
+        gameSubRegionId:subregionId
+    };
+
+    return await axios.post('http://localhost:8085/api/control/create-battle',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
     getControlData,
@@ -342,5 +361,6 @@ export default {
     createNewExtraCard,
     moveCamp,
     terminarFase,
-    moveToCongress
+    moveToCongress,
+    createBattle
  }

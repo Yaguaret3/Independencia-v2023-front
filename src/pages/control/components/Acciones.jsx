@@ -5,6 +5,9 @@ import PlayersModal from "./modals/PlayersModal.jsx";
 import CongresosModal from "./modals/CongresosModal.jsx";
 import service from "../Service.js";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
+import AccionesMilitares from "./modals/resoluciones/AccionesMilitares.jsx";
+import BatallasModal from "./modals/resoluciones/BatallasModal.jsx";
+import RutasComercialesModal from "./modals/resoluciones/RutasComercialesModal.jsx";
 
 const Acciones = () => {
 
@@ -38,6 +41,28 @@ const Acciones = () => {
         }
     }
 
+    const [openAccionesMilitaresModal, setOpenAccionesMilitaresModal] = useState(false);
+    const handleOpenAccionesMilitaresModal = () => {
+        setOpenAccionesMilitaresModal(true);
+    }
+    const handleCloseAccionesMilitaresModal = () => {
+        setOpenAccionesMilitaresModal(false);
+    }
+    const [openBatallasModal, setOpenBatallasModal] = useState(false);
+    const handleOpenBatallasModal = () => {
+        setOpenBatallasModal(true);
+    }
+    const handleCloseBatallasModal = () => {
+        setOpenBatallasModal(false);
+    }
+    const [openRutasComercialesModal, setOpenRutasComercialesModal] = useState(false);
+    const handleOpenRutasComercialesModal = () => {
+        setOpenRutasComercialesModal(true);
+    }
+    const handleCloseRutasComercialesModal = () => {
+        setOpenRutasComercialesModal(false);
+    }
+
     return (
         <>
             <Grid container
@@ -47,19 +72,45 @@ const Acciones = () => {
                   spacing={1}
             >
                 <Grid item>
-                    <Button onClick={handleOpenPlayersModal}
-                            size="small" variant='contained' color='warning' >
-                        Jugadores
-                    </Button>
-                    <Button onClick={handleOpenCongresosModal}
-                            size="small" variant='contained' color='warning' >
-                        Congresos
-                    </Button>
                     <Button onClick={handleTerminarFase}
                             size="small" variant='contained' color='warning' >
                         {controlData?.siguienteFaseSolicitada ? 'Reabrir fase' : 'Terminar fase'}
                     </Button>
                 </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenPlayersModal}
+                            size="small" variant='contained' color='warning' >
+                        Jugadores
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenCongresosModal}
+                            size="small" variant='contained' color='warning' >
+                        Congresos
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenAccionesMilitaresModal}
+                            size="small" variant='contained' color='info'
+                            disabled={gameData?.fase === 'PLANNING'}>
+                        Acciones a resolver
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenBatallasModal}
+                            size="small" variant='contained' color='info'
+                            disabled={gameData?.fase === "MOVING" || gameData?.fase === 'PLANNING'}>
+                        Batallas
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenRutasComercialesModal}
+                            size="small" variant='contained' color='info'
+                            disabled={gameData?.fase === "MOVING" || gameData?.fase === 'PLANNING'}>
+                        Rutas Comerciales
+                    </Button>
+                </Grid>
+
             </Grid>
             <PlayersModal
                 open={openPlayersModal}
@@ -70,6 +121,18 @@ const Acciones = () => {
                 open={openCongresosModal}
                 handleClose={handleCloseCongresosModal}
                 congresos={gameData?.congresos}
+            />
+            <AccionesMilitares
+                open={openAccionesMilitaresModal}
+                handleClose={handleCloseAccionesMilitaresModal}
+            />
+            <BatallasModal
+                open={openBatallasModal}
+                handleClose={handleCloseBatallasModal}
+            />
+            <RutasComercialesModal
+                open={openRutasComercialesModal}
+                handleClose={handleCloseRutasComercialesModal}
             />
         </>
     )
