@@ -13,9 +13,10 @@ const Regiones = ({gameData}) => {
 				height: '96%'
 			}}>
 
-			{gameData && gameData.gameRegions && gameData.gameRegions.map((r) => (
+			{gameData?.gameRegions?.map((r) => (
 				<Region 
 					region={r}
+					key={r.id}
 				/>
 			))}
 

@@ -1,10 +1,14 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
-const BattleCard = ({battleCardName}) => {
+const BattleCard = ({battleCardName, color='black', handleFunction=(()=>{})}) => {
+
+    const cardBorder = {
+        border: 'solid '+color
+    }
 
     return (
-        <Card sx={{ border: 'solid black' }}>
+        <Card sx={cardBorder} onClick={handleFunction}>
             <CardActionArea>
               <CardContent sx={{ backgroundColor: 'gray', paddingY: 0 }}>
                 <Typography variant="button" color={'white'} fontSize={10}>

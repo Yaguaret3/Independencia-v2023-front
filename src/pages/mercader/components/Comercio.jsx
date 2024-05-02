@@ -29,7 +29,7 @@ const Comercio = () => {
             <Grid item xs={12}>
                 <Grid container justifyContent={'center'}>
                     {playerData?.preciosDeRecursos?.map((precio) => (
-                        <Grid item>
+                        <Grid item key={precio.id}>
                             <ResourceCard resourceName={precio.name} />
                             <Button onClick={() => handleButton({ priceId: precio.id, puntajeAPagar: precio.puntajeComercial })}
                                 size="small" variant='contained' color='warning' fullWidth >

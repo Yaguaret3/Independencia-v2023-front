@@ -8,7 +8,7 @@ import { RevolucionarioContext } from '../Context';
 
 const BarraInferior = () => {
 
-  const {playerData} = useContext(RevolucionarioContext);
+  //const {playerData} = useContext(RevolucionarioContext);
 
   return (
     <AppBar position="static" color="warning" sx={{ top: 'auto', bottom: 0, height: '10vh' }}>
@@ -21,27 +21,15 @@ const BarraInferior = () => {
             <Table style={{ tableLayout: 'fixed' }}>
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    Milicia
-                  </TableCell>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    Impuestos
-                  </TableCell>
                   <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                    Plata
+
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    {playerData && playerData.milicia}
-                  </TableCell>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    {playerData && playerData.city && playerData.city.taxesLevel}
-                  </TableCell>
                   <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                    {playerData && playerData.plata}
+
                   </TableCell>
                 </TableRow>
               </TableBody>

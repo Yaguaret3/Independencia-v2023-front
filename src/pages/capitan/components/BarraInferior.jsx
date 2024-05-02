@@ -8,7 +8,7 @@ import { CapitanContext } from '../Context';
 
 const BarraInferior = () => {
 
-  const {playerData} = useContext(CapitanContext);
+  //const {playerData} = useContext(CapitanContext);
 
   return (
     <AppBar position="static" color="warning" sx={{ top: 'auto', bottom: 0, height: '10vh' }}>
@@ -22,26 +22,14 @@ const BarraInferior = () => {
               <TableHead>
                 <TableRow>
                   <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    Milicia
-                  </TableCell>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    Impuestos
-                  </TableCell>
-                  <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                    Plata
+
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    {playerData && playerData.milicia}
-                  </TableCell>
-                  <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                    {playerData && playerData.city && playerData.city.taxesLevel}
-                  </TableCell>
                   <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                    {playerData && playerData.plata}
+
                   </TableCell>
                 </TableRow>
               </TableBody>
