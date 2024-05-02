@@ -1,14 +1,21 @@
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
     AppBar, Toolbar, Typography, Box, Table,
     TableHead, TableRow, TableCell, TableContainer, TableBody
 } from '@mui/material';
 import { MercaderContext } from '../Context'
+import useTimer from "../../../hooks/useTimer.jsx";
 
 
 const BarraSuperior = (props) => {
 
-    const { playerData } = useContext(MercaderContext)
+    const { playerData, gameData } = useContext(MercaderContext);
+
+    const {initTimer, minutes, seconds} = useTimer({futureDate:gameData?.nextEndOfTurn});
+
+    useEffect(() => {
+        initTimer();
+    });
 
     return (
         <AppBar position="static" color='warning' style={{ height: '10vh' }}>
@@ -25,6 +32,15 @@ const BarraSuperior = (props) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
+                                        Turno
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        Fase
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        Próximo turno en
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
                                         Puntaje Comercial Actual
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
@@ -35,10 +51,19 @@ const BarraSuperior = (props) => {
                             <TableBody>
                                 <TableRow>
                                     <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        {playerData && playerData.puntajeComercial}
+                                        {gameData?.turno }
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {playerData && playerData.puntajeComercialAcumulado}
+                                        {gameData?.fase}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        {minutes + " : " + seconds}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
+                                        {playerData?.puntajeComercial}
+                                    </TableCell>
+                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
+                                        {playerData?.puntajeComercialAcumulado}
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

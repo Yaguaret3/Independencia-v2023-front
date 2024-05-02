@@ -1,15 +1,21 @@
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
     AppBar, Toolbar, Typography, Box, Table,
     TableHead, TableRow, TableCell, TableContainer, TableBody
 } from '@mui/material';
 import { CapitanContext } from '../Context';
+import useTimer from "../../../hooks/useTimer.jsx";
 
 
 const BarraSuperior = (props) => {
 
-    const { playerData } = useContext(CapitanContext);
+    const { playerData, gameData } = useContext(CapitanContext);
 
+    const {initTimer, minutes, seconds} = useTimer({futureDate:gameData?.nextEndOfTurn});
+
+    useEffect(() => {
+        initTimer();
+    });
 
     return (
         <AppBar position="static" color='warning' style={{ height: '10vh' }}>
@@ -26,38 +32,26 @@ const BarraSuperior = (props) => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Ciudad
+                                        Turno
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Prestigio
+                                        Fase
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Opinión Pública
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Mercados
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Diputado
+                                        Próximo turno en
                                     </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 <TableRow>
                                     <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        {playerData.city && playerData.city.name}
+                                        {gameData?.turno }
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {playerData.city && playerData.city.prestige}
+                                        {gameData?.fase}
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {playerData.city && playerData.city.publicOpinion}
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {playerData.city && playerData.city.marketLevel}
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {(playerData.city && playerData.city.diputado) ? playerData.city.diputado : "Sin Asignar"}
+                                        {minutes + " : " + seconds}
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

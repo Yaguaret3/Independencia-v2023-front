@@ -1,6 +1,3 @@
-import SockJS from "sockjs-client";
-import {over} from "stompjs";
-
 const useWebSocket = ({channel, fetchData}) => {
 
 
