@@ -3,16 +3,16 @@ import Subregion from './Subregion'
 
 const Subregiones = ({region}) => {
 	return (
-		<svg id={region && region.nombre} 
-			viewBox={region && region.fgViewBox}
+		<svg id={region?.nombre}
+			viewBox={region?.fgViewBox}
 			style={{
 				position: 'absolute',
-				height: region && region.fgHeight,
-				top: region && region.fgTop,
-				left: region && region.fgLeft
+				height: region?.fgHeight,
+				top: region?.fgTop,
+				left: region?.fgLeft
 			}}>
-            {region && region.subRegions && region.subRegions.map((subregion)=> (
-                <Subregion subregion={subregion} />
+            {region?.subRegions?.map((subregion)=> (
+                <Subregion subregion={subregion} key={subregion.id}/>
             ))}
 			
 		</svg>

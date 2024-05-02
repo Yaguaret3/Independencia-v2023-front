@@ -8,14 +8,19 @@ const Subregion = ({subregion}) => {
     const opacity = 0.3;
 
     const handleMouseOver = () => {
+		console.log()
         setColor(subregion.color)
     }
     const handleMouseOut = () => {
         setColor('black')
     }
 
+	const title= '';
+
+
+
 	return (
-		<Tooltip title={subregion.nombre}>
+		<Tooltip title="hola \n te extraño">
 			<g id={subregion.nombre}>
 				<path
 					style={{ fill: color, opacity: opacity }}

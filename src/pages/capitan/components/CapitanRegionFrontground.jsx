@@ -17,9 +17,7 @@ const CapitanRegionFrontground = ({ gameRegion }) => {
         return (
           <CapitanSubRegion
             key={subregion.id}
-            color={subregion.color}
-            area={subregion.area}
-            title={subregion.nombre}
+            subregion={subregion}
           />
         )
       })}
