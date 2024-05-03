@@ -47,12 +47,6 @@ const BarraSuperior = (props) => {
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
                                         Próximo turno en
                                     </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
-                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -65,12 +59,6 @@ const BarraSuperior = (props) => {
                                     </TableCell>
                                     <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
                                         {minutes + ' : ' + seconds}
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem Ipsum...
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

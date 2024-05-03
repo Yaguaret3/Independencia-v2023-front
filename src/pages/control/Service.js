@@ -365,6 +365,20 @@ const createBattle = async({capitanes, subregionId}) => {
             }
         });
 }
+const updateRoute = async({route}) => {
+    const body = {
+        finalValue:route.finalValue,
+        comentario:route.comentario
+    };
+
+    return await axios.post('http://localhost:8085/api/control/'+route.id+'/update-route',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
     getControlData,
@@ -393,5 +407,6 @@ export default {
     moveCamp,
     terminarFase,
     moveToCongress,
-    createBattle
+    createBattle,
+    updateRoute
  }

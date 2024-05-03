@@ -37,15 +37,18 @@ const buyResources = async({priceId, puntajeAPagar}) => {
     });
 }
 
-const playTradeRoute = async ({subregionSelected, marketsSelected}) => {
+const playTradeRoute = async ({subregionsSelected, marketsSelected}) => {
 
-    const body = subregionSelected.map(s => {
-        return {
-            position: s.index + 1,
-            id: s.id,
-            cityMarketCardId: marketsSelected.find(mr => mr.cityName === s.nombre).id
-        };
-    });
+    const body = {
+        subregions:subregionsSelected.filter(s => s.id !== undefined).map((s, index) => {
+
+            return {
+                position: index + 1,
+                id: s.id,
+                cityMarketCardId: marketsSelected.find(mr => mr.cityName === s.nombre)?.id
+            };
+        })
+    }
 
     return await axios.post('http://localhost:8085/api/comercio/play-trade-routes',
         body,{

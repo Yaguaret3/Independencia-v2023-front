@@ -17,28 +17,10 @@ const BarraInferior = () => {
                         <Table style={{ tableLayout: 'fixed' }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 <TableRow>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Lorem ipsum...
-                                    </TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>

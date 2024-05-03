@@ -79,7 +79,7 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                                             renderInput={(params) => <TextField {...params} label=""/>}
                                         />Recurso
                                     </Grid>
-                                    <Grid item={6}>
+                                    <Grid item xs={6}>
                                         <Button onClick={handleCrearNewResourceCard}
                                                 size="small" variant='contained' color='warning'>
                                             Crear

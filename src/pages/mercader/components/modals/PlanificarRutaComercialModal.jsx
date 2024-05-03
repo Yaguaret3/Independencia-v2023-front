@@ -10,8 +10,9 @@ const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
     const {disparoControl, disparoMercaderes} = useWebSocket({});
 
     const { gameData, stompClient } = useContext(MercaderContext)
-    const allSubregions = gameData.gameRegions?.map(({subRegions}) => subRegions).flat();
-    allSubregions?.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0))
+
+    const [allSubregions, setAllSubregions] = useState([])
+
 
     const [subregionsSelected, setSubregionsSelected] = useState([{}]);
     const [subregionsAdjacent, setSubregionsAdjacent] = useState([[{}]])
@@ -21,7 +22,13 @@ const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
 
 
     useEffect(() => {
-        let initialSubregions = allSubregions?.filter(s => markets.some(m => m.cityName === s.nombre));
+
+        let allSubregionList = gameData?.gameRegions?.flatMap(r => r.subregions);
+        allSubregionList?.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0));
+
+        setAllSubregions(allSubregionList);
+
+        let initialSubregions = allSubregions?.filter(s => markets.some(m => m.cityName === s?.nombre));
         setSubregionsAdjacent([initialSubregions]);
         setMarketsInUse(markets)
     }, [gameData])
@@ -118,7 +125,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
                                                 <Autocomplete
                                                     readOnly={index !== subregionsSelected.length-1}
                                                     disablePortal
-                                                    getOptionLabel={(option) => option.nombre ? option.nombre : ''}
+                                                    getOptionLabel={(option) => option.nombre || ''}
                                                     options={subregionsAdjacent[index]}
                                                     value={subregionsSelected[index]}
                                                     onChange={(event, newValue) => {
