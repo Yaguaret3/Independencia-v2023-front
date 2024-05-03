@@ -292,6 +292,35 @@ const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) 
             }
         });
 }
+const createNewActionCard = async({playerId, action}) => {
+
+    const body = {
+        actionType:action
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-action-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const createNewBattleCard = async({playerId, battleType}) => {
+
+    const body = {
+        cityName:cityName,
+        cityId:cityId
+    }
+
+    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-battle-card',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 const moveCamp = async({playerId, gameSubregionId}) => {
     const body = {
         capitanId:playerId,
@@ -359,6 +388,8 @@ export default {
     createNewMarketCard,
     createNewRepresentationCard,
     createNewExtraCard,
+    createNewActionCard,
+    createNewBattleCard,
     moveCamp,
     terminarFase,
     moveToCongress,

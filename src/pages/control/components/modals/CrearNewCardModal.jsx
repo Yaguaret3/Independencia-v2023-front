@@ -4,10 +4,12 @@ import service from "../../Service.js";
 import CreateResourceCard from "../CreateResourceCard.jsx";
 import CreateMarketCard from "../CreateMarketCard.jsx";
 import CreateRepresentationCard from "../CreateRepresentationCard.jsx";
+import CreateActionCard from "../CreateActionCard.jsx";
+import CreateBattleCard from "../CreateBattleCard.jsx";
 
 const CrearNewCardModal = ({open, handleClose, playerId}) => {
 
-    const types = ['recursos', 'mercado', 'representacion', 'extra'];
+    const types = ['Recursos', 'Mercado', 'Representacion', 'Extra', 'Accion', 'Batalla'];
     const [typeSelected, setTypeSelected] = useState('');
 
     const handleSelectType = ({newValue}) => {
@@ -24,44 +26,47 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                 bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
-                borderRadius: 3
+                borderRadius: 3,
+                width: '40%'
             }}
             >
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
-                                Seleccionar tipo de carta
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Autocomplete
-                                    disablePortal
-                                    getOptionLabel={(option) => option}
-                                    options={types}
-                                    value={typeSelected}
-                                    onChange={(event, newValue) => {
-                                        handleSelectType({newValue: newValue});
-                                    }}
-                                    inputValue={typeSelected}
-                                    renderInput={(params) => <TextField {...params} label="Tipo de carta"/>}
-                                />
-                            </Grid>
+                            <Autocomplete
+                                fullWidth
+                                disablePortal
+                                getOptionLabel={(option) => option}
+                                options={types}
+                                value={typeSelected}
+                                onChange={(event, newValue) => {
+                                    handleSelectType({newValue: newValue});
+                                }}
+                                inputValue={typeSelected}
+                                renderInput={(params) => <TextField {...params} label="Tipo de carta"/>}
+                            />
                         </Grid>
                     </Grid>
                     <Grid item xs={6}>
                         <Grid container spacing={2}>
-                            {typeSelected === 'recursos' &&
+                            {typeSelected === 'Recursos' &&
                                 <CreateResourceCard playerId={playerId}/>
                             }
-                            {typeSelected === 'mercado' &&
+                            {typeSelected === 'Mercado' &&
                                 <CreateMarketCard playerId={playerId}/>
                             }
-                            {typeSelected === 'representacion' &&
-                               <CreateRepresentationCard playerId={playerId}/>
+                            {typeSelected === 'Representacion' &&
+                                <CreateRepresentationCard playerId={playerId}/>
                             }
-                            {typeSelected === 'extra' &&
+                            {typeSelected === 'Accion' &&
+                                <CreateActionCard playerId={playerId}/>
+                            }
+                            {typeSelected === 'Batalla' &&
+                                <CreateBattleCard playerId={playerId}/>
+                            }
+                            {typeSelected === 'Extra' &&
                                 <>
-                                    <Grid item={6}>
+                                    <Grid item xs={6}>
                                         <Autocomplete
                                             disablePortal
                                             getOptionLabel={(option) => option}
@@ -71,12 +76,12 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                                                 handleSelectRecursoType({newValue: newValue});
                                             }}
                                             inputValue={recursoTypeSelected}
-                                            renderInput={(params) => <TextField {...params} label="Recurso"/>}
-                                        />
+                                            renderInput={(params) => <TextField {...params} label=""/>}
+                                        />Recurso
                                     </Grid>
                                     <Grid item={6}>
                                         <Button onClick={handleCrearNewResourceCard}
-                                                size="small" variant='contained' color='warning' >
+                                                size="small" variant='contained' color='warning'>
                                             Crear
                                         </Button>
                                     </Grid>

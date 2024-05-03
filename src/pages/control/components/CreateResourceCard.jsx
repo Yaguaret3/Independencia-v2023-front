@@ -22,7 +22,7 @@ const CreateResourceCard = ({playerId}) => {
 
     return (
         <>
-            <Grid item={6}>
+            <Grid item xs={6}>
                 <Autocomplete
                     disablePortal
                     getOptionLabel={(option) => option}
@@ -35,7 +35,7 @@ const CreateResourceCard = ({playerId}) => {
                     renderInput={(params) => <TextField {...params} label="Recurso"/>}
                 />
             </Grid>
-            <Grid item={6}>
+            <Grid item xs={6}>
                 <Button onClick={handleCrearNewResourceCard}
                         size="small" variant='contained' color='warning' >
                     Crear
