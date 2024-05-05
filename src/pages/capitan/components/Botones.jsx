@@ -126,7 +126,7 @@ const Botones = () => {
                 open={openBatallas}
                 handleClose={handleCloseBatallas}
                 batallas={gameData?.ownBattles}
-                cards={playerData?.battleCards}
+                player={playerData}
             />
         </>
     )

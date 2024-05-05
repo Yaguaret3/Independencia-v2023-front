@@ -1,164 +1,162 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import service from '../../Service'
-import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
-import ActionCard from "../../../common/ActionCard.jsx";
+import {
+    Box,
+    Button,
+    Grid,
+    Modal,
+    Table, TableBody,
+    TableCell,
+    TableHead,
+    TableRow
+} from "@mui/material";
+import BattleCard from "../../../common/BattleCard.jsx";
+import AsignarMiliciasModal from "./AsignarMiliciasModal.jsx";
+import {CapitanContext} from "../../Context.jsx";
+import useWebSocket from "../../../../hooks/useWebSocket.jsx";
+import EnviarOrdenBatallaModal from "./EnviarOrdenBatallaModal.jsx";
 
-const SingleBattleModal = ({open, handleClose, batalla, cards, maxMilitia}) => {
+const SingleBattleModal = ({open, handleClose, batalla, player}) => {
 
-    const [cardSelected, setCardSelected] = useState({});
-    const handleCardSelected = ({card}) => {
-        if(cardSelected === card){
-            card.isSelected=false;
-            setCardSelected({});
-        } else {
-            card.isSelected=true;
-            setCardSelected(card);
-        }
+    const {stompClient} = useContext(CapitanContext);
+    const {disparoCapitanes, disparoControl} = useWebSocket({});
+
+    const [openAsignacionMiliciasModal, setOpenAsignacionMiliciasModal] = useState(false);
+    const handleOpenAsignacionMiliciasModal = () => {
+        setOpenAsignacionMiliciasModal(true);
     }
-    const handlePlayBattleCardService = () => {
-        if(cardSelected === undefined){
-            alert('Por favor, seleccione una orden de batalla');
+    const handleCloseAsignacionMiliciasModal = () => {
+        setOpenAsignacionMiliciasModal(false);
+    }
+    const [openEnviarOrdenBatallaModal, setOpenEnviarOrdenBatallaModal] = useState(false);
+    const handleOpenEnviarOrdenBatallaModal = () => {
+        setOpenEnviarOrdenBatallaModal(true);
+    }
+    const handleCloseEnviarOrdenBatallaModal = () => {
+        setOpenEnviarOrdenBatallaModal(false);
+    }
+
+    const handlePlayBattleCardService = async ({cardSelected}) => {
+
+        await service.playBattleCard({cardId: cardSelected?.id, battleId: batalla.id});
+        disparoCapitanes({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
+    }
+
+
+    const handleAssignMilitiaService = async ({milicia}) => {
+        if(milicia > player?.reserva){
+            alert('Reserva insuficiente');
             return;
         }
-        service.playBattleCard({cardId: cardSelected?.id, battleId: batalla.id});
-    }
-
-    const [maxMilitiaArray, setMaxMilitiaArray] = useState([0]);
-    useEffect(() => {
-
-        const newOptions = Array.from({ length: maxMilitia + 1 }, (_, index) => ({
-            value: index,
-            label: index.toString(),
-        }));
-
-        setMaxMilitiaArray(newOptions);
-    }, [maxMilitia]);
-
-    const [militiaSelected, setMilitiaSelected] = useState(0);
-    const handleSelectMilitia = (militiaSelected) => {
-        setMilitiaSelected(militiaSelected);
-    }
-    const [labelMilitiaSelected, setLabelMilitiaSelected] = useState('');
-    const handleLabelMilitiaSelected = (newValue) => {
-        setLabelMilitiaSelected(newValue);
-    }
-    const handleAssignMilitiaService = () => {
         confirm('¿Estás seguro? Una vez asignada la milicia no se puede re-asignar para esta batalla');
-        service.assignMilitia({militia: militiaSelected, battleId:batalla.id})
+        await service.assignMilitia({militia: milicia, battleId: batalla.id})
+        disparoCapitanes({stompClient:stompClient});
+        disparoControl({stompClient:stompClient});
     }
 
     return (
-        <Modal open={open} onClose={handleClose}>
-            <Box sx={{
-                position: 'absolute',
-                top: '50vh',
-                left: '50vw',
-                transform: 'translate(-50%, -50%)',
-                bgcolor: 'background.paper',
-                boxShadow: 24,
-                p: 4,
-                borderRadius: 3
-            }}
-            >
+        <>
+            <Modal open={open} onClose={handleClose}>
+                <Box sx={{
+                    position: 'absolute',
+                    top: '50vh',
+                    left: '50vw',
+                    transform: 'translate(-50%, -50%)',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: 3,
+                    width: '80%'
+                }}
+                >
 
-                <Grid container spacing={1}>
-                    <Grid item xs={12}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                    <Grid container spacing={2} direction={'column'}>
+                        <Grid item xs={2}>
+                            Batalla en {batalla?.subregionName}
+                        </Grid>
+                        <Grid item>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell padding='none' align="center">
+                                            Capitán
+                                        </TableCell>
+                                        {batalla?.combatientes?.map(c =>
+                                            <TableCell padding='none' align="center" key={c.id}>
+                                                {c.capitanName}
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
 
-                                {batalla?.combatientes?.map((ejercito, index) => {
-                                    return (
-                                        <Grid item xs={6} key={index}>
-                                            <Grid container spacing={1}>
-
-                                                <Grid item xs={12}>
-                                                    <Typography >
-                                                        {ejercito.ataque ? 'ATAQUE' : ''}
-                                                    </Typography>
-                                                </Grid>
-
-                                                <Grid item xs={12}>
-                                                    <Typography >
-                                                        {ejercito.capitanName}
-                                                    </Typography>
-                                                </Grid>
-
-                                                <Grid item xs={12}>
-                                                    <Typography >
-                                                        'DADO INICIAL: ' + {ejercito.valorAzar}
-                                                    </Typography>
-                                                </Grid>
-
-                                                <Grid item xs={12}>
-                                                    <Typography >
-                                                        'MILICIA ASIGNADA: ' + {ejercito.milicias}
-                                                    </Typography>
-                                                </Grid>
-
-                                                <Grid item xs={12}>
-                                                    <Typography >
-                                                        'VALOR PROVISORIO: ' + {ejercito.valorProvisorio}
-                                                    </Typography>
-                                                </Grid>
-
-                                                {ejercito.cartasJugadas?.map( (c, index )=> {
-                                                    return <Grid item xs={4} key={index}>
-                                                        <ActionCard actionName={c.actionType} />
-                                                    </Grid>
-                                                })}
-                                            </Grid>
-                                        </Grid>)
-                                })}
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell padding='none' align="center">
+                                            Milicias involucradas
+                                        </TableCell>
+                                        {batalla?.combatientes?.map(c =>
+                                            <TableCell padding='none' align="center" key={c.id}>
+                                                {c.milicias}
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell padding='none' align="center">
+                                            Ataque inicial
+                                        </TableCell>
+                                        {batalla?.combatientes?.map(c =>
+                                            <TableCell padding='none' align="center" key={c.id}>
+                                                {c.valorAzar || 0}
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell padding='none' align="center">
+                                            Órdenes de batalla
+                                        </TableCell>
+                                        {batalla?.combatientes?.map(c =>
+                                            <TableCell padding='none' align="center" key={c.id}>
+                                                {c.cartasDeCombate?.map(o =>
+                                                    <div><BattleCard battleCardName={o.nombre}/></div>
+                                                )}
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </Grid>
+                        <Grid item>
+                            <Grid container spacing={2}>
+                                <Grid item xs={6}>
+                                    <Button onClick={handleOpenAsignacionMiliciasModal}
+                                            size="small" variant='contained' color='warning' fullWidth>
+                                        Asignar milicia a la batalla
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button onClick={handleOpenEnviarOrdenBatallaModal}
+                                            size="small" variant='contained' color='warning' fullWidth>
+                                        Ordenar acción
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-
-                    <Grid item xs={12}>
-                        <Grid container spacing={1}>
-                            {cards?.map( (c, index )=> {
-                                return <Grid item xs={4} key={index}>
-                                    <Button onClick={() => handleCardSelected(c)}
-                                            size="small" variant='contained' color='warning' fullWidth>
-                                        <ActionCard actionName={c.actionType} />
-                                    </Button>
-                                </Grid>
-                            })}
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Autocomplete
-                            disablePortal
-                            getOptionLabel={(option) => option}
-                            options={maxMilitiaArray}
-                            value={militiaSelected}
-                            onChange={(event, newValue) => {
-                                handleSelectMilitia(newValue);
-                            }}
-                            inputValue={labelMilitiaSelected}
-                            onInputChange={(event, newInputValue) => {
-                                handleLabelMilitiaSelected(newInputValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} label="Subregiones" />}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-
-
-                        {/*TODO DESHABILITAR cuando milicia ya asignada */}
-                        <Button onClick={handleAssignMilitiaService}
-                                size="small" variant='contained' color='warning' fullWidth>Asignar Milicias</Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button onClick={handlePlayBattleCardService}
-                                size="small" variant='contained' color='warning' fullWidth>Enviar orden de batalla</Button>
-                        <Button onClick={handleClose}
-                                size="small" variant='contained' color='warning' fullWidth>Cancelar</Button>
-                    </Grid>
-                </Grid>
-
-
-        </Box>
-    </Modal>
+                </Box>
+            </Modal>
+            <AsignarMiliciasModal
+                    open={openAsignacionMiliciasModal}
+                    handleClose={handleCloseAsignacionMiliciasModal}
+                    handleService={handleAssignMilitiaService}
+            />
+            <EnviarOrdenBatallaModal
+                open={openEnviarOrdenBatallaModal}
+                handleClose={handleCloseEnviarOrdenBatallaModal}
+                handleService={handlePlayBattleCardService}
+                battleCards={player?.battleCards}
+                />
+        </>
     );
 };
 

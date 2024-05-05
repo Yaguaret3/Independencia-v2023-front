@@ -57,8 +57,7 @@ const MoveCampModal = ({open, handleClose, gameSubregionName, handleService}) =>
                     </Grid>
                     <Grid item xs={12}>
                         <Button onClick={() => handleService({gameSubregionId:subregionSelected.id})}
-                                size="small" variant='contained' color='warning' fullWidth>Trasladar campamento
-                            a</Button>
+                                size="small" variant='contained' color='warning' fullWidth>Trasladar campamento</Button>
                     </Grid>
 
                 </Grid>
