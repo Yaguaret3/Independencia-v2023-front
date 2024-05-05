@@ -6,10 +6,10 @@ import RepresentationCard from "../../common/RepresentationCard.jsx";
 import EditarCardModal from "./modals/EditarCardModal.jsx";
 import ExtraCard from "../../common/ExtraCard.jsx";
 import CrearNewCardModal from "./modals/CrearNewCardModal.jsx";
+import BattleCard from "../../common/BattleCard.jsx";
+import ActionCard from "../../common/ActionCard.jsx";
 
 const CardsComponentForPlayerEdit = ({player}) => {
-
-    //TODO agregar carta
 
     const [cardSelected, setCardSelected] = useState({});
     const handleCardSelected = ({card, cardType}) => {
@@ -56,6 +56,18 @@ const CardsComponentForPlayerEdit = ({player}) => {
                         <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'extra'})}>
                             <ExtraCard nombre={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
                         </Button>
+                ))}
+
+                {/*TODO Battle & Action cards */}
+                {player?.battleCards?.map((card) => (
+                    <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'batalla'})}>
+                        <BattleCard battleCardName={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
+                    </Button>
+                ))}
+                {player?.actionCards?.map((card) => (
+                    <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'accion'})}>
+                        <ActionCard actionName={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
+                    </Button>
                 ))}
             </Grid>
             <Button onClick={handleOpenCrearNewCardModal}

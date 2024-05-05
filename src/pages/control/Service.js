@@ -293,10 +293,8 @@ const createNewActionCard = async({playerId, action}) => {
         });
 }
 const createNewBattleCard = async({playerId, battleType}) => {
-
     const body = {
-        cityName:cityName,
-        cityId:cityId
+        battleType:battleType
     }
 
     return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-battle-card',

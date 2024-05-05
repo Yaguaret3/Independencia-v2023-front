@@ -15,8 +15,8 @@ const CreateBattleCard = ({playerId}) => {
     const handleSelectBattleType = ({newValue}) => {
         setBattleTypeSelected(newValue);
     }
-    const handleCrearNewBattleCard = async ({newValue}) => {
-        await service.createNewBattleCard({action:newValue, playerId:playerId});
+    const handleCrearNewBattleCard = async () => {
+        await service.createNewBattleCard({battleType:battleTypeSelected, playerId:playerId});
         disparoTodos({stompClient:stompClient});
     }
     return (

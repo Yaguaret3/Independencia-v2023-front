@@ -24,18 +24,14 @@ const EnviarOrdenBatallaModal = ({open, handleClose, handleService, battleCards}
             }}
             >
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Grid container spacing={2}>
-                            {battleCards?.map(bc =>
-                                <Grid item xs={3} key={bc.id}>
-                                    <BattleCard battleCardName={bc.nombre}
-                                                color={bc.id === cardSelected.id ? 'green' : 'black'}
-                                                handleFunction={() => handleCardSelected({newValue:bc})}/>
-                                </Grid>)
-                            }
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
+                    {battleCards?.map(bc =>
+                        <Grid item xs={6} key={bc.id}>
+                            <BattleCard battleCardName={bc.nombre}
+                                        color={bc.id === cardSelected?.id ? 'green' : 'black'}
+                                        handleFunction={() => handleCardSelected({newValue:bc})}/>
+                        </Grid>)
+                    }
+                    <Grid item xs={12}>
                         <Button onClick={() => handleService({cardSelected: cardSelected})}
                                 size="small" variant='contained' color='warning' fullWidth>
                             Enviar orden de batalla
