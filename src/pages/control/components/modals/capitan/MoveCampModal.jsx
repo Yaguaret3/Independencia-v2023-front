@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {Autocomplete, Box, Button, Grid, Modal, TextField, Typography} from "@mui/material";
 import {ControlContext} from "../../../Context.jsx";
 
-const MoveCampModal = ({open, handleClose, handleService}) => {
+const MoveCampModal = ({open, handleClose, gameSubregionName, handleService}) => {
 
     const {gameData} = useContext(ControlContext);
 
@@ -34,7 +34,12 @@ const MoveCampModal = ({open, handleClose, handleService}) => {
                             Seleccionar carta de acción y destino
                         </Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={6}>
+                        <TextField size="mFGr" disabled={true} label={"Desde"} fullWidth
+                                   value={gameSubregionName}
+                                   variant={"standard"}/>
+                    </Grid>
+                    <Grid item xs={6}>
                         <Autocomplete
                             disablePortal
                             getOptionLabel={(option) => option.name || ''}
@@ -47,8 +52,7 @@ const MoveCampModal = ({open, handleClose, handleService}) => {
                             onInputChange={(event, newInputValue) => {
                                 handleSelectSubregionLabel({newValue:newInputValue});
                             }}
-                            renderInput={(params) => <TextField {...params} label="Subregiones"
-                                                                sx={{width: "250%"}}/>}
+                            renderInput={(params) => <TextField {...params} label="Hacia"/>}
                         />
                     </Grid>
                     <Grid item xs={12}>

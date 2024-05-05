@@ -1,5 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    Button,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField
+} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import service from "../../../Service.js";
 import TableInput from "../../../../common/TableInput.jsx";
@@ -96,7 +107,12 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                 <Button onClick={handleOpenCrearNuevoEjercitoModal}
                         size="small" variant='contained' color='warning' fullWidth>Asignar Nuevo Ejército</Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
+                <TextField size="mFGr" disabled={true} label={"Campamento en"} fullWidth
+                           value={player?.campamento?.gameSubregionName}
+                           variant={"standard"}/>
+            </Grid>
+            <Grid item xs={6}>
                 <Button onClick={handleOpenMoveCampModal}
                         size="small" variant='contained' color='warning' fullWidth>Mover campamento</Button>
             </Grid>
@@ -109,6 +125,7 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                 open={openMoveCampModal}
                 handleClose={handleCloseMoveCampModal}
                 handleService={handleMoveCampService}
+                gameSubregionName={player?.campamento?.gameSubregionName}
             />
         </>
     );
