@@ -114,19 +114,6 @@ const updateReserve = async ({playerId, value}) => {
             }
         });
 }
-const assignMilitiaToArmy = async ({armyId, milicias}) => {
-    const body = {
-        newValue:milicias
-    }
-
-    return await axios.post('http://localhost:8085/api/control/'+armyId+'/assign-militia',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
-}
 const deleteArmy = async ({armyId}) => {
 
     return await axios.delete('http://localhost:8085/api/control/'+armyId,
@@ -136,9 +123,8 @@ const deleteArmy = async ({armyId}) => {
             }
         });
 }
-const createNewArmy = async ({capitanId, subregionId, milicias}) => {
+const createNewArmy = async ({capitanId, subregionId}) => {
     const body = {
-        milicias:milicias,
         gameSubRegionId:subregionId,
         capitanId:capitanId
     }
@@ -335,7 +321,7 @@ const moveCamp = async({playerId, gameSubregionId}) => {
             }
         });
 }
-const terminarFase = async() => {
+const concludePhase = async() => {
     const body = {};
 
     return await axios.post('http://localhost:8085/api/control/conclude-phase',
@@ -379,6 +365,31 @@ const updateRoute = async({route}) => {
             }
         });
 }
+const assignRandomValues = async({battleId}) => {
+    const body = {};
+
+    return await axios.post('http://localhost:8085/api/control/'+battleId+'/assign-random-values-battle',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
+const solveBattle = async({battleId, resultados}) => {
+    const body = {
+        battleId:battleId,
+        resultados:resultados
+    };
+
+    return await axios.post('http://localhost:8085/api/control/solve-battle',
+        body,
+        {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+}
 export default {
     getGameData,
     getControlData,
@@ -390,7 +401,6 @@ export default {
     updatePlata,
     updateVote,
     updateReserve,
-    assignMilitiaToArmy,
     deleteArmy,
     createNewArmy,
     removeCongress,
@@ -405,8 +415,10 @@ export default {
     createNewActionCard,
     createNewBattleCard,
     moveCamp,
-    terminarFase,
+    concludePhase,
     moveToCongress,
     createBattle,
-    updateRoute
+    updateRoute,
+    assignRandomValues,
+    solveBattle
  }

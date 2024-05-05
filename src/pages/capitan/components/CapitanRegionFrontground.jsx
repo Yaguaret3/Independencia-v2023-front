@@ -13,7 +13,7 @@ const CapitanRegionFrontground = ({ gameRegion }) => {
         left: gameRegion?.fgLeft
       }}>
 
-      {gameRegion?.subRegions?.map((subregion) => {
+      {gameRegion?.subregions?.map((subregion) => {
         return (
           <CapitanSubRegion
             key={subregion.id}

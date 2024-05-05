@@ -36,7 +36,7 @@ const Acciones = () => {
         let message = controlData?.siguienteFaseSolicitada ? "¿Está seguro que quiere reabrir la fase?" : "¿Está seguro que quiere terminar la fase?";
 
         if(confirm(message)){
-            await service.terminarFase();
+            await service.concludePhase();
             disparoTodos({stompClient:stompClient});
         }
     }

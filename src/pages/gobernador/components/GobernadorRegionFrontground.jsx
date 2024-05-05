@@ -13,7 +13,7 @@ const GobernadorRegionFrontground = ({gameRegion}) => {
                  left: gameRegion?.fgLeft
              }}>
 
-            {gameRegion?.subRegions.map((subregion) => {
+            {gameRegion?.subregions.map((subregion) => {
                 return (
                     <GobernadorSubRegion
                         key={subregion.id}

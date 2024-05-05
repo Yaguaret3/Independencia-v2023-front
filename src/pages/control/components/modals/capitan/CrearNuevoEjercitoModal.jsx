@@ -5,12 +5,6 @@ import {ControlContext} from "../../../Context.jsx";
 const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) => {
 
    const {gameData} = useContext(ControlContext);
-
-    const [milicias, setMilicias] = useState(0);
-
-    const handleMilicias = (e) => {
-        setMilicias(e.target.value);
-    }
     const [subregionSelected, setSubregionSelected] = useState({});
     const handleSubregionSelected = ({subRegion}) => {
         setSubregionSelected(subRegion);
@@ -56,10 +50,7 @@ const CrearNuevoEjercitoModal = ({open, handleClose, handleCrearNuevoEjercito}) 
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField onBlur={handleMilicias} fullWidth placeholder={"Milicias"} variant={"standard"} type='number'/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button onClick={() => handleCrearNuevoEjercito({milicias:milicias, subregionId:subregionSelected.id})}
+                        <Button onClick={() => handleCrearNuevoEjercito({subregionId:subregionSelected.id})}
                                 size="small" variant='contained' color='warning' fullWidth>Crear</Button>
                     </Grid>
                 </Grid>

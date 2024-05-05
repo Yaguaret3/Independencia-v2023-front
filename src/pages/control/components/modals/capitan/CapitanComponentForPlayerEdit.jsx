@@ -13,64 +13,8 @@ const CapitanComponentForPlayerEdit = ({player}) => {
     const {stompClient} = useContext(ControlContext);
     const {disparoCapitanes, disparoControl} = useWebSocket({});
 
-    const [ejercitos, setEjercitos] = useState([{}]);
-    const [modificaciones, setModificaciones] = useState(false)
-
-    useEffect(() => {
-
-        const ej = player?.armies.map(e => ({...e}))
-        const ejercitosConModif = ej.map(e => {
-
-            return{
-                ...e,
-                milicias: {
-                    data: e.milicias,
-                    modif: false
-                }
-            }
-        });
-        setEjercitos(ejercitosConModif);
-    }, []);
-
-    useEffect(() => {
-        setModificaciones(false);
-    }, [player]);
-
     const handleActualizarReserva = async ({newValue}) => {
         await service.updateReserve({value:newValue, playerId:player.id});
-        disparoControl({stompClient:stompClient});
-        disparoCapitanes({stompClient:stompClient});
-    }
-
-    const handleInputChange = ({event, id}) => {
-        const attribute = event.target.name;
-        const newValue = event.target.value;
-
-        const updatedEjercitos = [...ejercitos].map(ej => {
-
-            if (id === ej.id) {
-                return {
-                    ...ej,
-                    [attribute]: {data:newValue,
-                                 modificado:parseInt(newValue) !== player.armies.find(a => a.id === id)[attribute]},
-                    modif: parseInt(newValue) !== player.armies.find(a => a.id === id)[attribute]
-                };
-            }
-            return ej;
-        });
-
-        debugger
-        setModificaciones(updatedEjercitos.filter(e => e.modif).length > 0)
-        setEjercitos(updatedEjercitos);
-    }
-
-    const handleGrabarEjercitos = async () => {
-
-        await ejercitos.forEach(e => {
-            if(e.modif){
-                service.assignMilitiaToArmy({armyId:e.id, milicias:e.milicias.data})
-            }
-        });
         disparoControl({stompClient:stompClient});
         disparoCapitanes({stompClient:stompClient});
     }
@@ -91,9 +35,9 @@ const CapitanComponentForPlayerEdit = ({player}) => {
     const handleCloseCrearNuevoEjercitoModal = () => {
         setOpenCrearNuevoEjercitoModal(false);
     }
-    const handleCrearNuevoEjercito = async ({subregionId, milicias}) => {
+    const handleCrearNuevoEjercito = async ({subregionId}) => {
 
-        await service.createNewArmy({capitanId:player.id, subregionId:subregionId, milicias:milicias});
+        await service.createNewArmy({capitanId:player.id, subregionId:subregionId});
         disparoControl({stompClient:stompClient});
         disparoCapitanes({stompClient:stompClient});
     }
@@ -128,7 +72,6 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell align="center">Ejército en</TableCell>
-                            <TableCell align="center">Milicias</TableCell>
                             <TableCell align="center">Borrar</TableCell>
                         </TableRow>
                     </TableHead>
@@ -138,14 +81,6 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                             <TableRow key={ejercito.id}>
                                 <TableCell align="center" component="th" scope="row">
                                     {ejercito?.gameSubRegionName}
-                                </TableCell>
-                                <TableCell align="center">
-                                    <TableInput name='milicias'
-                                                value={{data:ejercito?.milicias}}
-                                                onChange={(e) => handleInputChange({
-                                        id:ejercito.id,
-                                        event:e
-                                    })} />
                                 </TableCell>
                                 <TableCell align="center" component="th" scope="row">
                                     <Button onClick={() => handleBorrarEjercito({army:ejercito})}
@@ -157,11 +92,6 @@ const CapitanComponentForPlayerEdit = ({player}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Grid item xs={12}>
-                <Button onClick={handleGrabarEjercitos}
-                        disabled={!modificaciones}
-                        size="small" variant='contained' color='warning' fullWidth>Grabar Ejércitos</Button>
-            </Grid>
             <Grid item xs={12}>
                 <Button onClick={handleOpenCrearNuevoEjercitoModal}
                         size="small" variant='contained' color='warning' fullWidth>Asignar Nuevo Ejército</Button>
