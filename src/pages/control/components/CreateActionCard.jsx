@@ -15,8 +15,8 @@ const CreateActionCard = ({playerId}) => {
     const handleSelectActionType = ({newValue}) => {
         setActionTypeSelected(newValue);
     }
-    const handleCrearNewActionCard = async ({newValue}) => {
-        await service.createNewActionCard({action:newValue, playerId:playerId});
+    const handleCrearNewActionCard = async () => {
+        await service.createNewActionCard({action:actionTypeSelected, playerId:playerId});
         disparoTodos({stompClient:stompClient});
     }
 

@@ -10,7 +10,7 @@ const RouteComponentForPlayerEdit = ({route}) => {
             <Grid item xs={12}>
                 <SingleAttributeEdit nombre={'Valor de Ruta Comercial'} valorActual={route?.tradeScore} />
             </Grid>
-            {route?.subregions.map((subregion) => (
+            {route?.subregions?.map((subregion) => (
                 <Grid item xs={3} key={subregion.id}>
                     <MarketCard cityName={subregion.nombre}/>
                 </Grid>

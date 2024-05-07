@@ -58,14 +58,14 @@ const playTradeRoute = async ({subregionsSelected, marketsSelected}) => {
     });
 }
 
-const giveResources = async ({idJugadorDestino, idResourceCard}) => {
+const giveCard = async ({idJugadorDestino, idResourceCard}) => {
 
     const body = {
-        idJugadorDestino: idJugadorDestino,
-        resourceIds: [idResourceCard]
+        playerToId: idJugadorDestino,
+        cardId: idResourceCard
     }
 
-    return await axios.post('http://localhost:8085/api/comercio/give-resources',
+    return await axios.post('http://localhost:8085/api/player/give-card',
         body,
         {
             headers: {
@@ -78,6 +78,6 @@ export default {
     getGameData,
     getPlayerData,
     buyResources,
-    giveResources,
+    giveCard,
     playTradeRoute
 }

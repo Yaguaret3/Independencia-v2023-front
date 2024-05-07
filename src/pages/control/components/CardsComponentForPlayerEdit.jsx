@@ -66,7 +66,7 @@ const CardsComponentForPlayerEdit = ({player}) => {
                 ))}
                 {player?.actionCards?.map((card) => (
                     <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'accion'})}>
-                        <ActionCard actionName={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
+                        <ActionCard actionName={card.actionType} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
                     </Button>
                 ))}
             </Grid>

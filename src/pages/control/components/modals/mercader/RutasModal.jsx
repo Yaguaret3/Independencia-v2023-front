@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Box, Grid, Modal, TextField, Typography} from "@mui/material";
+import {Box, Grid, Modal, TextField} from "@mui/material";
 import RouteComponentForPlayerEdit from "./RouteComponentForPlayerEdit.jsx";
 import {ControlContext} from "../../../Context.jsx";
 
@@ -36,7 +36,7 @@ const RutasModal = ({nombreJugador, rolJugador, rutas, handleClose, open}) => {
                     {rutas?.map((route) => (
                         <Grid item xs={12} key={route.id}>
                             <RouteComponentForPlayerEdit
-                                route={route.filter(route => route.turn === turno)} />
+                                route={rutas?.filter(route => route.turn === turno)} />
                         </Grid>
                     ))}
                 </Grid>

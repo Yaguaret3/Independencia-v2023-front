@@ -1,14 +1,12 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import { Modal, Grid, Autocomplete, TextField, Box, Button } from '@mui/material'
-import service from '../../Service'
-import ResourceCard from '../../../common/ResourceCard'
-import {MercaderContext} from "../../Context.jsx";
-import useWebSocket from "../../../../hooks/useWebSocket.jsx";
+import ResourceCard from './ResourceCard.jsx'
+import MarketCard from "./MarketCard.jsx";
+import RepresentationCard from "./RepresentationCard.jsx";
+import ActionCard from "./ActionCard.jsx";
+import BattleCard from "./BattleCard.jsx";
 
-const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
-
-    const {stompClient}= useContext(MercaderContext);
-    const {disparoTodos} = useWebSocket({});
+const EntregarCartaModal = ({ open, handleClose, players, card, handleService=()=>{}, cardType}) => {
 
     const [playerSelected, setPlayerSelected] = useState({})
     const [labelPlayerSelected, setLabelPlayerSelected] = useState('');
@@ -19,15 +17,22 @@ const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
     const handleLabelPlayerSelected = (value) => {
         setLabelPlayerSelected(value);
     }
-    const handleService = async () => {
-        if (playerSelected === '' || playerSelected === null) {
-            alert('Por favor, elegir un jugador')
-            return;
+
+    const renderCard = () => {
+        switch(cardType){
+            case "recurso":
+                return <ResourceCard resourceName={card?.resourceTypeEnum}/>
+            case "mercado":
+                return <MarketCard cityName={card?.cityName} level={card?.level}/>;
+            case "representacion":
+                return <RepresentationCard poblacion={card?.poblacion} ciudad={card?.ciudad}/>;
+            case "accion":
+                return <ActionCard actionName={card?.actionName}/>;
+            case "batalla":
+                return <BattleCard battleCardName={card?.battleCardName}/>;
         }
-        await service.giveResources({ idJugadorDestino: playerSelected.playerId, idResourceCard: resource.id })
-        disparoTodos({stompClient:stompClient});
-        handleClose();
     }
+
 
     return (
         <Modal open={open} onClose={handleClose}>
@@ -44,7 +49,7 @@ const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
             >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
-                        <ResourceCard resourceName={resource && resource.resourceTypeEnum}/>
+                        {renderCard}
                     </Grid>
                     <Grid item xs={12}>
                         <Autocomplete
@@ -63,7 +68,7 @@ const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button onClick={handleService}
+                        <Button onClick={() => handleService({playerSelected:playerSelected, card:card})}
                             size="small" variant='contained' color='warning' fullWidth>Elegir Jugador</Button>
                     </Grid>
                 </Grid>
@@ -73,4 +78,4 @@ const EntregarRecursoModal = ({ open, handleClose, players, resource }) => {
     )
 }
 
-export default EntregarRecursoModal;
+export default EntregarCartaModal;

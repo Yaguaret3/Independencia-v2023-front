@@ -279,7 +279,6 @@ const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) 
         });
 }
 const createNewActionCard = async({playerId, action}) => {
-
     const body = {
         actionType:action
     }
