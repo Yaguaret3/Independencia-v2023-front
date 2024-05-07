@@ -165,12 +165,12 @@ const Botones = () => {
                 </Grid>
                 <Grid item>
                     <Button
-                        size="small" variant='contained' color='warning' >
+                        size="small" variant='contained' color='warning' disabled={true}>
                         Promover Corrupción
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button size="small" variant='contained' color='warning' >
+                    <Button size="small" variant='contained' color='warning' disabled={true}>
                         Financiar Congreso
                     </Button>
                 </Grid>

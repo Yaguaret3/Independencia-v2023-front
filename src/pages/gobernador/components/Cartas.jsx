@@ -69,7 +69,7 @@ const Cartas = () => {
                 card={resource}
                 cardType={'recurso'}
                 handleService={handleDarCartaService}
-                players={gameData?.players.filter(p => p.rol === 'REVOLUCIONARIO' || p.rol === 'CAPITAN')}
+                players={gameData?.players?.filter(p => p.rol === 'REVOLUCIONARIO' || p.rol === 'CAPITAN')}
             />
         </>
 
