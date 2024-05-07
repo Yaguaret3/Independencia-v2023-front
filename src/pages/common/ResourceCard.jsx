@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
-const ResourceCard = ({resourceName, handleService=()=> {}}) => {
+const ResourceCard = ({resourceName, handleFunction=()=> {}}) => {
 
     const renderColorCard = (resourceName) => {
         switch (resourceName) {
@@ -14,7 +14,7 @@ const ResourceCard = ({resourceName, handleService=()=> {}}) => {
       }
 
     return (
-        <Card sx={{ border: 'solid black' }} onClick={handleService}>
+        <Card sx={{ border: 'solid black' }} onClick={handleFunction}>
             <CardActionArea>
               <CardContent sx={{ backgroundColor: 'purple', paddingY: 0 }}>
                 <Typography variant="button" color={'white'} fontSize={10}>

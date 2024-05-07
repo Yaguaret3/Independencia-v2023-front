@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { MercaderContext } from '../Context';
 import ResourceCard from '../../common/ResourceCard';
-import { Typography, Grid, Button } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import EntregarCartaModal from '../../common/EntregarCartaModal.jsx';
 import service from "../Service.js";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
@@ -49,7 +49,7 @@ const Recursos = () => {
                 <Grid item xs={12}>
                     <Grid container justifyContent={'center'}>
                         {playerData?.recursos?.map((recurso) => (
-                            <ResourceCard resourceName={recurso?.resourceTypeEnum} handleService={() => handleOpen({resource: recurso})}/>
+                            <ResourceCard resourceName={recurso?.resourceTypeEnum} handleFunction={() => handleOpen({resource: recurso})}/>
                         ))}
                     </Grid>
                 </Grid>

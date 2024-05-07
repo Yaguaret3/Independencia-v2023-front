@@ -11,7 +11,7 @@ import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Cartas = () => {
 
-    const {playerData, stompClient} = useContext(GobernadorContext);
+    const {playerData, gameData, stompClient} = useContext(GobernadorContext);
     const [openEntregarCartaModal, setOpenEntregarCartaModal] = useState(false);
     const [resource, setResource] = useState();
 
@@ -50,7 +50,7 @@ const Cartas = () => {
                     {playerData?.recursos?.map((recurso) => (
 
                         <ResourceCard resourceName={recurso.resourceTypeEnum} key={recurso.id}
-                                      handleService={() => handleOpenEntregarCartaModal({resource: recurso})}/>
+                                      handleFunction={() => handleOpenEntregarCartaModal({resource: recurso})}/>
                     ))}
 
                     {playerData?.mercados?.map((mercado) => (
@@ -69,6 +69,7 @@ const Cartas = () => {
                 card={resource}
                 cardType={'recurso'}
                 handleService={handleDarCartaService}
+                players={gameData?.players.filter(p => p.rol === 'REVOLUCIONARIO' || p.rol === 'CAPITAN')}
             />
         </>
 
