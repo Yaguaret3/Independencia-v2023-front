@@ -1,43 +1,78 @@
-import { Card, CardActionArea, Typography, CardContent, Grid, Tooltip } from '@mui/material';
-import React, { useContext } from 'react';
-import { GobernadorContext } from '../Context';
+import {Grid} from '@mui/material';
+import React, {useContext, useState} from 'react';
+import {GobernadorContext} from '../Context';
 import ResourceCard from '../../common/ResourceCard';
 import MarketCard from '../../common/MarketCard';
 import RepresentationCard from '../../common/RepresentationCard';
 import BuildingCard from "../../common/BuildingCard.jsx";
+import EntregarCartaModal from "../../common/EntregarCartaModal.jsx";
+import service from "../../mercader/Service.js";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Cartas = () => {
 
-  const { playerData } = useContext(GobernadorContext);
+    const {playerData, stompClient} = useContext(GobernadorContext);
+    const [openEntregarCartaModal, setOpenEntregarCartaModal] = useState(false);
+    const [resource, setResource] = useState();
 
-  return (
-    <Grid container spacing={4}>
+    const {disparoTodos} = useWebSocket({});
 
-      <Grid item xs={6}>
-        {playerData?.city?.buildings.map((building) => (
+    const handleOpenEntregarCartaModal = ({resource}) => {
+        setResource(resource);
+        setOpenEntregarCartaModal(true);
+    }
 
-          <BuildingCard building={building} />
-        ))}
-      </Grid>
+    const handleCloseEntregarCartaModal = () => {
+        setOpenEntregarCartaModal(false);
+    }
+    const handleDarCartaService = async ({playerSelected, card}) => {
+        if (playerSelected === '' || playerSelected === null) {
+            alert('Por favor, elegir un jugador')
+            return;
+        }
+        await service.giveCard({idJugadorDestino: playerSelected.playerId, idResourceCard: card.id})
+        disparoTodos({stompClient: stompClient});
+        handleCloseEntregarCartaModal();
+    }
 
-      <Grid item xs={6}>
-        {playerData?.recursos?.map((recurso) => (
+    return (
+        <>
+            <Grid container spacing={4}>
 
-          <ResourceCard resourceName={recurso.resourceTypeEnum} key={recurso.id}/>
-        ))}
+                <Grid item xs={6}>
+                    {playerData?.city?.buildings.map((building) => (
 
-        {playerData?.mercados?.map((mercado) => (
+                        <BuildingCard building={building}/>
+                    ))}
+                </Grid>
 
-          <MarketCard level={mercado.level} cityName={mercado.cityName}  key={mercado.id}/>
-        ))}
+                <Grid item xs={6}>
+                    {playerData?.recursos?.map((recurso) => (
 
-        {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion.poblacion}
-          ciudad={playerData.representacion?.ciudad}/>)}
-      </Grid>
+                        <ResourceCard resourceName={recurso.resourceTypeEnum} key={recurso.id}
+                                      handleService={() => handleOpenEntregarCartaModal({resource: recurso})}/>
+                    ))}
 
-    </Grid>
+                    {playerData?.mercados?.map((mercado) => (
 
-  );
+                        <MarketCard level={mercado.level} cityName={mercado.cityName} key={mercado.id}/>
+                    ))}
+
+                    {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion?.poblacion}
+                                                                       ciudad={playerData.representacion?.ciudad}/>)}
+                </Grid>
+
+            </Grid>
+            <EntregarCartaModal
+                open={openEntregarCartaModal}
+                handleClose={handleCloseEntregarCartaModal}
+                card={resource}
+                cardType={'recurso'}
+                handleService={handleDarCartaService}
+            />
+        </>
+
+    );
 };
 
 export default Cartas;

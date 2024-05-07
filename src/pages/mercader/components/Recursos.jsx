@@ -8,7 +8,7 @@ import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Recursos = () => {
 
-    const { playerData, gameData, stompClient } = useContext(MercaderContext)
+    const { playerData, gameData, stompClient } = useContext(MercaderContext);
     const [openModal, setOpenModal] = useState(false);
     const [resource, setResource] = useState();
 
