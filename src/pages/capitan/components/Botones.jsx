@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react'
-import { Grid, Button } from '@mui/material'
-import { CapitanContext } from '../Context'
+import React, {useContext, useState} from 'react'
+import {Grid, Button} from '@mui/material'
+import {CapitanContext} from '../Context'
 import CambiarRegionModal from "./modals/CambiarRegionModal.jsx";
 import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
 import ComprarCartaModal from "./modals/ComprarCartaModal.jsx";
 import BatallasModal from "./modals/BatallasModal.jsx";
+import LogsModal from "../../common/LogsModal.jsx";
 
 const Botones = () => {
 
     //Context
-    const { gameData, playerData } = useContext(CapitanContext)
+    const {gameData, playerData} = useContext(CapitanContext)
 
-    //Entregar Mercado
+    //Cambiar Región
     const [openCambiarRegionModal, setOpenCambiarRegionModal] = useState(false);
     const handleOpenCambiarRegionModal = () => {
         setOpenCambiarRegionModal(true)
@@ -51,44 +52,58 @@ const Botones = () => {
     const handleCloseBatallas = () => {
         setOpenBatallas(false);
     }
+    //Abrir Historial
+    const [openLogsModal, setOpenLogsModal] = useState(false);
+    const handleOpenLogsModal = () => {
+        setOpenLogsModal(true);
+    }
+    const handleCloseLogsModal = () => {
+        setOpenLogsModal(false);
+    }
 
     return (
         <>
             <Grid container
-                direction={'column'}
-                justifyContent={'space-between'}
-                alignItems={'flex-end'}
-                spacing={1}
+                  direction={'column'}
+                  justifyContent={'space-between'}
+                  alignItems={'flex-end'}
+                  spacing={1}
             >
                 <Grid item>
                     <Button onClick={handleOpenCambiarRegionModal}
-                        size="small" variant='contained' color='warning' >
+                            size="small" variant='contained' color='warning'>
                         Trasladar campamento
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button onClick={handleOpenOrdenarAccionModal}
-                            size="small" variant='contained' color='warning' >
+                            size="small" variant='contained' color='warning'>
                         Ordenar Acción
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button onClick={handleOpenComprarAccionModal}
-                            size="small" variant='contained' color='warning' >
+                            size="small" variant='contained' color='warning'>
                         Comprar Acción
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button onClick={handleOpenComprarOrdenBatallaModal}
-                            size="small" variant='contained' color='warning' >
+                            size="small" variant='contained' color='warning'>
                         Comprar Orden de Batalla
                     </Button>
                 </Grid>
                 <Grid item>
                     <Button disabled={!gameData?.ownBattles || gameData?.ownBattles?.length === 0}
                             onClick={handleOpenBatallas}
-                            size="small" variant='contained' color='warning' >
+                            size="small" variant='contained' color='warning'>
                         ¡Batallas!
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenLogsModal}
+                            size="small" variant='contained' color='warning'>
+                        Abrir Historial
                     </Button>
                 </Grid>
             </Grid>
@@ -127,6 +142,11 @@ const Botones = () => {
                 handleClose={handleCloseBatallas}
                 batallas={gameData?.ownBattles}
                 player={playerData}
+            />
+            <LogsModal
+                open={openLogsModal}
+                handleClose={handleCloseLogsModal}
+                logs={playerData?.historial}
             />
         </>
     )

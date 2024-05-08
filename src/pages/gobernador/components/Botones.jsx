@@ -8,6 +8,7 @@ import CrearEdificioModal from './modals/CrearEdificioModal'
 import PagarModal from '../../common/PagarModal.jsx'
 import ElegirDiputadoModal from './modals/ElegirDiputadoModal'
 import AsignarMiliciaModal from './modals/AsignarMiliciaModal'
+import LogsModal from "../../common/LogsModal.jsx";
 
 const Botones = () => {
 
@@ -101,6 +102,15 @@ const Botones = () => {
         setOpenAsignarMiliciaModal(false)
     }
 
+    //Logs
+    const [openLogsModal, setOpenLogsModal] = useState(false);
+    const handleOpenLogsModal= () =>{
+        setOpenLogsModal(true);
+    }
+    const handleCloseLogsModal = () => {
+        setOpenLogsModal(false);
+    }
+
     return (
         <>
             <Grid container
@@ -174,6 +184,11 @@ const Botones = () => {
                         Financiar Congreso
                     </Button>
                 </Grid>
+                <Grid item>
+                    <Button size="small" variant='contained' color='warning' onClick={handleOpenLogsModal}>
+                        Abrir historial
+                    </Button>
+                </Grid>
             </Grid>
             <EntregarMercadoModal
                 open={openEntregarMercadoModal}
@@ -213,6 +228,11 @@ const Botones = () => {
                 handleClose={handleCloseAsignarMiliciaModal}
                 capitanes={gameData && gameData.players && gameData.players.filter((p) => p.rol === 'CAPITAN')}
             />
+            <LogsModal
+                open={openLogsModal}
+                handleClose={handleCloseLogsModal}
+                logs={playerData?.historial}
+                />
         </>
     )
 }

@@ -3,6 +3,7 @@ import { MercaderContext } from '../Context';
 import { Typography, Grid, Button } from '@mui/material';
 import MarketCard from '../../common/MarketCard';
 import PlanificarRutaComercialModal from "./modals/PlanificarRutaComercialModal.jsx";
+import LogsModal from "../../common/LogsModal.jsx";
 
 const Mercados = () => {
 
@@ -19,6 +20,13 @@ const Mercados = () => {
 
     const handleClose = () => {
         setOpenModal(false);
+    }
+    const [openLogsModal, setOpenLogsModal] = useState(false);
+    const handleOpenLogsModal = () => {
+        setOpenLogsModal(true)
+    }
+    const handleCloseLogsModal = () => {
+        setOpenLogsModal(false);
     }
 
     return (
@@ -45,12 +53,20 @@ const Mercados = () => {
                 <Grid item xs={12} >
                     <Button onClick={handleButton} size="medium" variant='contained' color='warning'>Planificar Ruta Comercial</Button>
                 </Grid>
+                <Grid item xs={12} >
+                    <Button onClick={handleOpenLogsModal} size="medium" variant='contained' color='warning'>Abrir Historial</Button>
+                </Grid>
             </Grid>
             <PlanificarRutaComercialModal
                 open={openModal}
                 handleClose={handleClose}
                 markets={playerData.mercados}
             />
+            <LogsModal
+                open={openLogsModal}
+                handleClose={handleCloseLogsModal}
+                logs={playerData?.historial}
+                />
         </>
     )
 }
