@@ -110,7 +110,7 @@ const BatallasModal = ({open, handleClose}) => {
                                 </TableHead>
                                 <TableBody>
                                     {batallasFiltradas?.map(b =>
-                                        <TableRow>
+                                        <TableRow key={b.id}>
                                             <TableCell padding='none' align="center">
                                                 {b.subregionName}
                                             </TableCell>

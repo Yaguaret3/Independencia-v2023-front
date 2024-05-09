@@ -138,14 +138,14 @@ const RutasComercialesModal = ({open, handleClose}) => {
                                         </TableCell>
                                         <TableCell padding='none' align="center">
                                             {ruta?.subregions.map(sr =>
-                                                <div>
+                                                <div key={sr.id}>
                                                     {sr.nombre}
                                                 </div>
                                             )}
                                         </TableCell>
                                         <TableCell padding='none' align="center" width={'15%'}>
                                             {ruta?.subregions.map(sr =>
-                                                <div>
+                                                <div key={sr.id}>
                                                     <u>{sr.ejercitos?.map(e => e.capitanName).join(", ")}</u>
                                                 </div>
                                             )}

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const token = localStorage.getItem('independencia-token');
 
 const getGameData = async () => {
 

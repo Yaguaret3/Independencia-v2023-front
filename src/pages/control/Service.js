@@ -1,55 +1,27 @@
-import axios from "axios";
-
-const token = localStorage.getItem('independencia-token');
+import {axiosControlInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axios.get('http://localhost:8085/api/control/game/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosControlInstance.get('control/game/');
 }
 const getControlData = async () => {
 
-    return await axios.get('http://localhost:8085/api/control/control-data/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosControlInstance.get('control/control-data/');
 }
 const editarCiudad = async ({ciudadId, body}) => {
 
-    return await axios.post('http://localhost:8085/api/control/'+ciudadId+'/edit-city/',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance('control/'+ciudadId+'/edit-city/', body);
 }
 const assignDiputado = async ({revolucionariodId, cityId}) => {
 
     const body = {
         diputadoId:revolucionariodId
     }
-    return await axios.post('http://localhost:8085/api/control/'+cityId+'/assign-diputado',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+cityId+'/assign-diputado', body);
 }
 const removeBuilding = async ({cityId, buildingId}) => {
 
-    return await axios.post('http://localhost:8085/api/control/'+cityId+'/remove-building?buildingId='+buildingId,
-        {},
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+cityId+'/remove-building?buildingId='+buildingId, {});
 }
 const addBuilding = async ({cityId, buildingType}) => {
 
@@ -58,70 +30,35 @@ const addBuilding = async ({cityId, buildingType}) => {
         buildingType:buildingType
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+cityId+'/add-building',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+cityId+'/add-building', body);
 }
 const updatePrices = async ({priceId, body}) => {
-    return await axios.post('http://localhost:8085/api/control/'+priceId+'/update-price',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+priceId+'/update-price', body);
 }
 const updatePlata = async ({value, gobernadorId}) => {
     const body = {
         newValue:value
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+gobernadorId+'/update-plata',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+gobernadorId+'/update-plata', body);
 }
 const updateVote = async ({voteId, newValue}) => {
     const body = {
         voteType:newValue
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+voteId+'/update-vote',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+voteId+'/update-vote', body);
 }
 const updateReserve = async ({playerId, value}) => {
         const body = {
         newValue:value
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/assign-reserve',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/assign-reserve', body);
 }
 const deleteArmy = async ({armyId}) => {
 
-    return await axios.delete('http://localhost:8085/api/control/'+armyId,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.delete('control/'+armyId);
 }
 const createNewArmy = async ({capitanId, subregionId}) => {
     const body = {
@@ -129,21 +66,10 @@ const createNewArmy = async ({capitanId, subregionId}) => {
         capitanId:capitanId
     }
 
-    return await axios.post('http://localhost:8085/api/control/new-army',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/new-army', body);
 }
 const removeCongress = async({congressId}) => {
-    return await axios.delete('http://localhost:8085/api/control/'+congressId+'/remove-congress',
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.delete('control/'+congressId+'/remove-congress');
 }
 const updateCongress = async({congressId, presidente, plata, milicia}) => {
 
@@ -153,13 +79,7 @@ const updateCongress = async({congressId, presidente, plata, milicia}) => {
         milicia:+milicia
     }
 
-    return await axios.patch('http://localhost:8085/api/control/'+congressId+'/update-congress',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.patch('control/'+congressId+'/update-congress', body);
 }
 const createNewCongress = async({presidente, plata, milicia, diputados, sede}) => {
 
@@ -171,13 +91,7 @@ const createNewCongress = async({presidente, plata, milicia, diputados, sede}) =
         sedeId:sede
     }
 
-    return await axios.post('http://localhost:8085/api/control/create-new-congress',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/create-new-congress', body);
 }
 const moveToCongress = async({playerId, congresoId}) => {
 
@@ -186,21 +100,10 @@ const moveToCongress = async({playerId, congresoId}) => {
         congresoId:congresoId
     }
 
-    return await axios.post('http://localhost:8085/api/control/move-to-congress',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/move-to-congress', body);
 }
 const removeCard = async({cardId}) => {
-    return await axios.delete('http://localhost:8085/api/control/'+cardId+'/remove-card',
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.delete('control/'+cardId+'/remove-card');
 }
 const moveCard = async({cardId, fromId, toId}) => {
 
@@ -209,13 +112,7 @@ const moveCard = async({cardId, fromId, toId}) => {
         toId:toId
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+cardId+'/move-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+cardId+'/move-card', body);
 }
 
 const createNewResourceCard = async({playerId, resourceType}) => {
@@ -224,13 +121,7 @@ const createNewResourceCard = async({playerId, resourceType}) => {
         resourceType:resourceType
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-resource-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-resource-card', body);
 }
 const createNewMarketCard = async({playerId, cityName, level}) => {
 
@@ -239,13 +130,7 @@ const createNewMarketCard = async({playerId, cityName, level}) => {
         level:level
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-market-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-market-card', body);
 }
 const createNewRepresentationCard = async({playerId, cityName, cityId}) => {
 
@@ -254,13 +139,7 @@ const createNewRepresentationCard = async({playerId, cityName, cityId}) => {
         cityId:cityId
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-representation-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-representation-card', body);
 }
 const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) => {
 
@@ -270,39 +149,21 @@ const createNewExtraCard = async({playerId, nombre, descripcion, bonificacion}) 
         bonificacion:bonificacion
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-extra-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-extra-card', body);
 }
 const createNewActionCard = async({playerId, action}) => {
     const body = {
         actionType:action
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-action-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-action-card', body);
 }
 const createNewBattleCard = async({playerId, battleType}) => {
     const body = {
         battleType:battleType
     }
 
-    return await axios.post('http://localhost:8085/api/control/'+playerId+'/create-give-battle-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+playerId+'/create-give-battle-card', body);
 }
 const moveCamp = async({playerId, gameSubregionId}) => {
     const body = {
@@ -310,24 +171,13 @@ const moveCamp = async({playerId, gameSubregionId}) => {
         gameSubregionId:gameSubregionId
     }
 
-    return await axios.post('http://localhost:8085/api/control/move-camp',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/move-camp', body);
 }
 const concludePhase = async() => {
     const body = {};
 
-    return await axios.post('http://localhost:8085/api/control/conclude-phase',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/conclude-phase',
+        body);
 }
 const createBattle = async({capitanes, subregionId}) => {
     const body = {
@@ -340,13 +190,7 @@ const createBattle = async({capitanes, subregionId}) => {
         gameSubRegionId:subregionId
     };
 
-    return await axios.post('http://localhost:8085/api/control/create-battle',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/create-battle', body);
 }
 const updateRoute = async({route}) => {
     const body = {
@@ -354,24 +198,12 @@ const updateRoute = async({route}) => {
         comentario:route.comentario
     };
 
-    return await axios.post('http://localhost:8085/api/control/'+route.id+'/update-route',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+route.id+'/update-route', body);
 }
 const assignRandomValues = async({battleId}) => {
     const body = {};
 
-    return await axios.post('http://localhost:8085/api/control/'+battleId+'/assign-random-values-battle',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/'+battleId+'/assign-random-values-battle', body);
 }
 const solveBattle = async({battleId, resultados}) => {
     const body = {
@@ -379,13 +211,7 @@ const solveBattle = async({battleId, resultados}) => {
         resultados:resultados
     };
 
-    return await axios.post('http://localhost:8085/api/control/solve-battle',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosControlInstance.post('control/solve-battle', body);
 }
 export default {
     getGameData,
