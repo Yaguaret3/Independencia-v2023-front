@@ -1,5 +1,5 @@
 import React from 'react'
-import Subregion from './Subregion'
+import Subregion from './Subregion.jsx'
 
 const Subregiones = ({region}) => {
 	return (

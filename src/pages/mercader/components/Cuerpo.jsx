@@ -1,25 +1,23 @@
-import React, { useContext } from 'react'
-import { Box, Grid } from '@mui/material'
+import React, {useContext} from 'react'
+import {Box, Grid} from '@mui/material'
 import Acciones from './Acciones'
-import VirreinatoMap from '../../common/VirreinatoMap'
-import { MercaderContext } from '../Context'
+import VirreinatoMap from "../../common/virreinatoMap/VirreinatoMap.jsx";
+import {MercaderContext} from '../Context'
 
 const Cuerpo = () => {
 
-  const {gameData} = useContext(MercaderContext);
+    const {gameData} = useContext(MercaderContext);
 
-  return (
-    <Box sx={{ flexGrow: 1, padding: 0, height: '80vh', position: 'relative', overflow: 'hidden' }}>
-      <Grid container spacing={5}>
-        <Grid item xs={4} >
-          <VirreinatoMap gameData={gameData}/>
-        </Grid>
-        <Grid item xs={8}>
-          <Acciones />
-        </Grid>
-      </Grid>
-    </Box>
-  )
+    return (
+        <Box width={'100%'} maxHeight={'100vh'}>
+            <Grid container maxHeight={'100vh'}>
+                <VirreinatoMap gameData={gameData} xs={9}/>
+                <Grid item xs={3}>
+                    <Acciones/>
+                </Grid>
+            </Grid>
+        </Box>
+    )
 }
 
 export default Cuerpo

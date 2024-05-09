@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
-import Region from "../../../../control/components/map/regiones/Region.jsx";
-import {ControlContext} from "../../../Context.jsx";
+import Region from "./Region.jsx";
+import {ControlContext} from "../../../control/Context.jsx";
 
-const Regiones = () => {
-
-    const {gameData} = useContext(ControlContext);
+const Regiones = ({gameData}) => {
 
     return (
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

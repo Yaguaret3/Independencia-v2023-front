@@ -2,7 +2,7 @@ import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axiosCommonInstance.get('/get-game-data');
+    return await axiosCommonInstance.get('comercio/get-game-data');
 }
 
 const getPlayerData = async () => {

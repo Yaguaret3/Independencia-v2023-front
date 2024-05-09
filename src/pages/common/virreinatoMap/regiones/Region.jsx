@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Tooltip, Modal, Box } from '@mui/material';
-import Subregiones from './Subregiones';
+import Subregiones from './Subregiones.jsx';
 
 const Region = ({ region }) => {
     const [color, setColor] = useState('black');
@@ -23,11 +23,11 @@ const Region = ({ region }) => {
         setOpen(false);
     };
 
-    const backgroundRegion =  encodeURI('src/assets/img/'+region.name+'.jpg');
+    const backgroundRegion =  encodeURI('src/assets/img/'+region.nombre+'.jpg');
 
     return (
         <>
-            <Tooltip title={region.name}>
+            <Tooltip title={region.nombre}>
                 <g>
                     <path
                         style={{

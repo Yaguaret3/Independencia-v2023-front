@@ -5,11 +5,11 @@ import service from "../../Service.js"
 import {MercaderContext} from "../../Context.jsx";
 import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 
-const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
+const PlanificarRutaComercialModal = ({ open, handleClose}) => {
 
     const {disparoControl, disparoMercaderes} = useWebSocket({});
 
-    const { gameData, stompClient } = useContext(MercaderContext)
+    const { playerData, gameData, stompClient } = useContext(MercaderContext)
 
     const [allSubregions, setAllSubregions] = useState([])
 
@@ -28,10 +28,10 @@ const PlanificarRutaComercialModal = ({ open, handleClose, markets}) => {
 
         setAllSubregions(allSubregionList);
 
-        let initialSubregions = allSubregions?.filter(s => markets.some(m => m.cityName === s?.nombre));
+        let initialSubregions = allSubregions?.filter(s => playerData?.mercados.some(m => m.cityName === s?.nombre));
         setSubregionsAdjacent([initialSubregions]);
-        setMarketsInUse(markets)
-    }, [gameData])
+        setMarketsInUse(playerData?.mercados)
+    }, [playerData])
 
     const handleLabelSubregionSelected = (newValue, index) => {
 
