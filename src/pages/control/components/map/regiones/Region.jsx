@@ -23,6 +23,8 @@ const Region = ({ region }) => {
         setOpen(false);
     };
 
+    const backgroundRegion =  encodeURI('src/assets/img/'+region.name+'.jpg');
+
     return (
         <>
             <Tooltip title={region.name}>
@@ -41,18 +43,18 @@ const Region = ({ region }) => {
             <Modal open={open} onClose={handleClose}>
                 <Box style={{
                     position: 'absolute',
-                    left: '20vw',
-                    maxHeigth: '100vh',
-                    maxWidth: '60vw',
-                    color: 'black',
-                    overflow: 'hidden'
+                    top: '50vh',
+                    left: '50vw',
+                    transform: 'translate(-50%, -50%)',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    borderRadius: 3,
+                    height:'95vh',
+                    overflow:"hidden"
+
                 }}>
-                    <img src='src\assets\img\map_independencia_recortado.jpg' style={{
-                        position: 'relative',
-                        left: region.bgLeft,
-                        top: region.bgTop,
-                        scale: region.bgScale
-                    }} />
+                    <img src={backgroundRegion} height={'100%'}/>
                     <Subregiones region={region}/>
                 </Box>
             </Modal>

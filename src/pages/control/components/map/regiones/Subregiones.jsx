@@ -11,7 +11,7 @@ const Subregiones = ({region}) => {
 				top: region?.fgTop,
 				left: region?.fgLeft
 			}}>
-            {region?.subRegions?.map((subregion)=> (
+            {region?.subregions?.map((subregion)=> (
                 <Subregion subregion={subregion} key={subregion.id}/>
             ))}
 			
