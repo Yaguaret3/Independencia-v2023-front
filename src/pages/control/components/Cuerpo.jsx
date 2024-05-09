@@ -7,12 +7,10 @@ import {ControlContext} from "../Context.jsx";
 const Cuerpo = () => {
 
     return (
-        <Box sx={{ flexGrow: 1, padding: 0, height: '80vh', position: 'relative', overflow: 'hidden' }}>
-            <Grid container spacing={5}>
-                <Grid item xs={4} >
-                    <VirreinatoMap/>
-                </Grid>
-                <Grid item xs={8}>
+        <Box width={'100%'} maxHeight={'100vh'}>
+            <Grid container maxHeight={'100vh'}>
+                <VirreinatoMap/>
+                <Grid item xs={3}>
                     <Acciones />
                 </Grid>
             </Grid>

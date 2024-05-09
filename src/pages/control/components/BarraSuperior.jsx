@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
     AppBar,
-    Box,
+    Box, Grid,
     Table,
     TableBody,
-    TableCell,
-    TableContainer,
+    TableCell, TableContainer,
     TableHead,
     TableRow,
     Toolbar,
@@ -14,62 +13,50 @@ import {
 import {ControlContext} from "../Context.jsx";
 import useTimer from "../../../hooks/useTimer.jsx";
 
-const BarraSuperior = (props) => {
+const BarraSuperior = () => {
 
-    const { gameData } = useContext(ControlContext);
+    const {gameData} = useContext(ControlContext);
 
-    const {initTimer, minutes, seconds} = useTimer({futureDate:gameData?.nextEndOfTurn});
+    const {initTimer, minutes, seconds} = useTimer({futureDate: gameData?.nextEndOfTurn});
 
     useEffect(() => {
         initTimer();
     });
 
     return (
-        <AppBar position="static" color='warning' style={{ height: '10vh' }}>
+        <AppBar position="static" color='warning'>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    {props.titulo}
-                </Typography>
-                <Box sx={{
-                    mr: 3, height: '100%', display: 'flex', alignItems: 'center',
-                    paddingLeft: '5vh'
-                }}>
-                    <TableContainer style={{ height: '100%', maxHeight: '100%', overflow: 'hidden', alignItems: 'center' }}>
-                        <Table style={{ tableLayout: 'fixed' }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        Turno
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Fase
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        Próximo turno en
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell style={{ color: 'white', padding: '0.6vh', textAlign: 'center' }}>
-                                        {gameData?.turno}
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {gameData?.fase}
-                                    </TableCell>
-                                    <TableCell style={{ color: 'white', padding: 0, textAlign: 'center' }}>
-                                        {minutes + ' : ' + seconds}
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
+                <Grid container spacing={2}>
 
-                        </Table>
-                    </TableContainer>
-                </Box>
-                {props.botonesNavegacion}
+                    <Grid item xs={2}>
+                        <Typography variant="h6">
+                            Independencia: El Megajuego!
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={10}>
+                        <TableContainer>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align={"center"} sx={{color: 'white'}}>
+                                            Turno: {gameData?.turno}
+                                        </TableCell>
+                                        <TableCell align={"center"} sx={{color: 'white'}}>
+                                            Fase: {gameData?.fase}
+                                        </TableCell>
+                                        <TableCell align={"center"} sx={{color: 'white'}}>
+                                            Próximo turno en: {minutes + ' : ' + seconds}
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
+                </Grid>
             </Toolbar>
         </AppBar>
-    );
+    )
+        ;
 };
 
 export default BarraSuperior;
