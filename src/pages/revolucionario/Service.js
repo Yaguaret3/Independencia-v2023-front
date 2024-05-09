@@ -1,31 +1,18 @@
-import axios from "axios";
-
+import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axios.get('http://localhost:8085/api/revolucion/game/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/revolucion/game/');
 }
 
 const getPlayerData = async () => {
 
-    return await axios.get('http://localhost:8085/api/revolucion/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/revolucion/');
 }
 
 const getCongresosData = async () => {
 
-    return await axios.get('http://localhost:8085/api/revolucion/congresos/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/revolucion/congresos/');
 }
 
 const propose = async ({proposal}) => {
@@ -34,13 +21,7 @@ const propose = async ({proposal}) => {
         proposal:proposal
     }
 
-    return await axios.post('http://localhost:8085/api/revolucion/propose',
-    body,
-    {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.post('/revolucion/propose', body);
 }
 const vote = async ({votationId, voteType}) => {
 
@@ -49,22 +30,11 @@ const vote = async ({votationId, voteType}) => {
         voteType:voteType
     }
 
-    return await axios.post('http://localhost:8085/api/revolucion/vote',
-    body,
-    {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.post('/revolucion/vote', body);
 }
 const closeVotation = async () => {
 
-    return await axios.post('http://localhost:8085/api/revolucion/close-votation', {},
-        {
-            headers:{
-                Authorization: 'Bearer ' + token
-            }
-        })
+    return await axiosCommonInstance.post('/revolucion/close-votation', {})
 }
 
 export default {

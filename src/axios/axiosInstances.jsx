@@ -16,7 +16,34 @@ axiosCommonInstance.interceptors.response.use(
         return responseBody;
     },
     error => {
-        toast.error('🦄 Wow so easy!', {
+
+        toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
+)
+
+const axiosGetInstance = axios.create({
+    baseURL: "http://localhost:8085/api/",
+    headers: {
+        Authorization: 'Bearer ' + token
+    }
+});
+
+axiosGetInstance.interceptors.response.use(
+    responseBody => {
+        return responseBody;
+    },
+    error => {
+        toast.error(error.response.data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -39,7 +66,7 @@ const axiosControlInstance = axios.create({
 
 axiosControlInstance.interceptors.response.use(
     responseBody => {
-        toast.success('🦄 Wow so easy!', {
+        toast.success(responseBody.data, {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -53,7 +80,7 @@ axiosControlInstance.interceptors.response.use(
         return responseBody;
     },
     error => {
-        toast.error('🦄 Wow so easy!', {
+        toast.error(error.response.data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -67,4 +94,4 @@ axiosControlInstance.interceptors.response.use(
     }
 )
 
-export {axiosCommonInstance, axiosControlInstance};
+export {axiosCommonInstance, axiosGetInstance, axiosControlInstance};

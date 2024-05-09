@@ -1,22 +1,12 @@
-import axios from "axios";
-
-const token = localStorage.getItem('independencia-token');
+import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const getPlayerData = async () => {
 
-    return await axios.get('http://localhost:8085/api/ciudad', {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/ciudad');
 }
 const getGameData = async () => {
 
-    return await axios.get('http://localhost:8085/api/ciudad/game/', {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/ciudad/game/');
 }
 
 const cambiarImpuestos = async ({aumentar, disminuir}) => {
@@ -26,13 +16,7 @@ const cambiarImpuestos = async ({aumentar, disminuir}) => {
         disminuir:disminuir
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/change-taxes',
-            body,
-            {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            });
+    return await axiosCommonInstance.post('/ciudad/change-taxes', body);
     
 }
 
@@ -43,13 +27,7 @@ const entregarMercado = async ({ idJugadorDestino, idMarketCard }) => {
         idMarketCard: idMarketCard
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/sell-marketplace',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/sell-marketplace', body);
 }
 const crearEdificio = async ({priceId, plata, puntajeComercial, disciplina, resourcesIds}) => {
 
@@ -63,13 +41,7 @@ const crearEdificio = async ({priceId, plata, puntajeComercial, disciplina, reso
         }
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/build-new-building',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/build-new-building', body);
 }
 const mejorarMercado = async ({plata, puntajeComercial, disciplina, resourcesIds}) => {
 
@@ -80,13 +52,7 @@ const mejorarMercado = async ({plata, puntajeComercial, disciplina, resourcesIds
         resourcesIds: resourcesIds
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/upgrade-marketplace',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/upgrade-marketplace', body);
 }
 const elegirDiputado = async ({idJugadorDestino, idRepresentationCard}) => {
 
@@ -95,13 +61,7 @@ const elegirDiputado = async ({idJugadorDestino, idRepresentationCard}) => {
         idRepresentationCard: idRepresentationCard
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/give-representation-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/give-representation-card', body);
 }
 const reclutarMilicia = async ({plata, puntajeComercial, disciplina, resourcesIds}) => {
 
@@ -112,13 +72,7 @@ const reclutarMilicia = async ({plata, puntajeComercial, disciplina, resourcesId
         resourcesIds: resourcesIds
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/recruit-militia',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/recruit-militia', body);
 }
 const asignarMilicia = async ({idJugadorDestino, cantidadMilicias}) => {
 
@@ -127,13 +81,7 @@ const asignarMilicia = async ({idJugadorDestino, cantidadMilicias}) => {
         cantidadMilicias:cantidadMilicias
     }
 
-    return await axios.post('http://localhost:8085/api/ciudad/assign-militia',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/ciudad/assign-militia', body);
 }
 
 export default {

@@ -1,16 +1,16 @@
-import {axiosControlInstance} from '../../axios/axiosInstances.jsx';
+import {axiosControlInstance, axiosGetInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axiosControlInstance.get('control/game/');
+    return await axiosGetInstance.get('control/game/');
 }
 const getControlData = async () => {
 
-    return await axiosControlInstance.get('control/control-data/');
+    return await axiosGetInstance.get('control/control-data/');
 }
 const editarCiudad = async ({ciudadId, body}) => {
 
-    return await axiosControlInstance('control/'+ciudadId+'/edit-city/', body);
+    return await axiosControlInstance.post('control/'+ciudadId+'/edit-city/', body);
 }
 const assignDiputado = async ({revolucionariodId, cityId}) => {
 

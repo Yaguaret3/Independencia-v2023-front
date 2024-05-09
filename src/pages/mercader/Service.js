@@ -1,23 +1,13 @@
-import axios from "axios";
-
-const token = localStorage.getItem('independencia-token');
+import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axios.get('http://localhost:8085/api/comercio/get-game-data',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/get-game-data');
 }
 
 const getPlayerData = async () => {
 
-    return await axios.get('http://localhost:8085/api/comercio',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/comercio');
 }
 
 const buyResources = async({priceId, puntajeAPagar}) => {
@@ -29,12 +19,7 @@ const buyResources = async({priceId, puntajeAPagar}) => {
         priceId: priceId
     }
 
-    return await axios.post('http://localhost:8085/api/comercio/buy-resources',
-        body, {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.post('/comercio/buy-resources', body);
 }
 
 const playTradeRoute = async ({subregionsSelected, marketsSelected}) => {
@@ -50,12 +35,7 @@ const playTradeRoute = async ({subregionsSelected, marketsSelected}) => {
         })
     }
 
-    return await axios.post('http://localhost:8085/api/comercio/play-trade-routes',
-        body,{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.post('/comercio/play-trade-routes', body);
 }
 
 const giveCard = async ({idJugadorDestino, idResourceCard}) => {
@@ -65,13 +45,7 @@ const giveCard = async ({idJugadorDestino, idResourceCard}) => {
         cardId: idResourceCard
     }
 
-    return await axios.post('http://localhost:8085/api/player/give-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/player/give-card', body);
 }
 
 export default {

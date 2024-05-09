@@ -1,23 +1,13 @@
-import axios from "axios";
-
-const token = localStorage.getItem('independencia-token');
+import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axios.get('http://localhost:8085/api/militares/game/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/militares/game/');
 }
 
 const getPlayerData = async () => {
 
-    return await axios.get('http://localhost:8085/api/militares/',{
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    });
+    return await axiosCommonInstance.get('/militares/');
 }
 const moverCampamento = async ({cardId, regionToId}) => {
 
@@ -26,13 +16,7 @@ const moverCampamento = async ({cardId, regionToId}) => {
         regionToId: regionToId
     }
 
-    return await axios.post('http://localhost:8085/api/militares/move',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/move', body);
 
 }
 const playActionCard = async ({cardId, subregionId}) => {
@@ -42,13 +26,7 @@ const playActionCard = async ({cardId, subregionId}) => {
         subregionId: subregionId
     }
 
-    return await axios.post('http://localhost:8085/api/militares/play-action-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/play-action-card', body);
 }
 const comprarActionCard = async ({cardTypeId, plata, puntajeComercial, disciplina, resourcesIds}) => {
 
@@ -62,13 +40,7 @@ const comprarActionCard = async ({cardTypeId, plata, puntajeComercial, disciplin
         }
     }
 
-    return await axios.post('http://localhost:8085/api/militares/buy-action-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/buy-action-card', body);
 }
 const comprarBattleCard = async ({cardTypeId, plata, puntajeComercial, disciplina, resourcesIds}) => {
 
@@ -82,13 +54,7 @@ const comprarBattleCard = async ({cardTypeId, plata, puntajeComercial, disciplin
         }
     }
 
-    return await axios.post('http://localhost:8085/api/militares/buy-action-card',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/buy-action-card', body);
 }
 const assignMilitia = async ({militia, battleId}) => {
 
@@ -97,13 +63,7 @@ const assignMilitia = async ({militia, battleId}) => {
         battleId:battleId
     }
 
-    return await axios.post('http://localhost:8085/api/militares/assign-militia-battle',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/assign-militia-battle', body);
 }
 const playBattleCard = async ({cardId, battleId}) => {
 
@@ -112,13 +72,7 @@ const playBattleCard = async ({cardId, battleId}) => {
         battleId:battleId
     }
 
-    return await axios.post('http://localhost:8085/api/militares/play-battle-cards',
-        body,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        });
+    return await axiosCommonInstance.post('/militares/play-battle-cards', body);
 }
 
 
