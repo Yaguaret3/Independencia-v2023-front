@@ -1,34 +1,54 @@
-import React, { useContext } from 'react'
-import { Box, Grid } from '@mui/material'
-import Acciones from './Acciones'
-import VirreinatoMap from '../../common/VirreinatoMap'
-import { RevolucionarioContext } from '../Context'
+import React, {useContext, useState} from 'react'
+import {Box, Button, Grid} from '@mui/material'
+import VirreinatoMap from "../../common/virreinatoMap/VirreinatoMap.jsx";
+import {RevolucionarioContext} from '../Context'
 import Cartas from "./Cartas.jsx";
+import LogsModal from "../../common/LogsModal.jsx";
+import Congreso from "./Congreso.jsx";
 
 const Cuerpo = () => {
 
-  const {gameData} = useContext(RevolucionarioContext);
+    const {gameData, playerData} = useContext(RevolucionarioContext);
 
-  return (
-    <Box sx={{ flexGrow: 1, padding: 0, height: '80vh', position: 'relative', overflow: 'hidden' }}>
-      <Grid container spacing={5}>
-        <Grid item xs={4} >
-          <VirreinatoMap gameData={gameData}/>
-        </Grid>
-        <Grid item xs={8}>
-          <Grid container spacing={2} direction='column'>
-            <Grid item xs={6}>
-              <Acciones />
-            </Grid>
-            <Grid item xs={6}>
-              <Cartas />
-            </Grid>
-          </Grid>
+    const [openLogsModal, setOpenLogsModal] = useState(false);
+    const handleOpenLogsModal = () => {
+        setOpenLogsModal(true);
+    }
+    const handleCloseLogsModal = () => {
+        setOpenLogsModal(false);
+    }
 
-        </Grid>
-      </Grid>
-    </Box>
-  )
+    return (
+        <>
+            <Box width={'100%'} maxHeight={'100vh'}>
+                <Grid container maxHeight={'100vh'}>
+                    <VirreinatoMap gameData={gameData} xs={9} xl={6}/>
+                    <Grid item xs={3} xl={6}>
+                        <Grid container spacing={2} direction={'column'}>
+                            <Grid item>
+                                <Congreso/>
+                            </Grid>
+                            <Grid item>
+                                <Cartas/>
+                            </Grid>
+                            <Grid item>
+                                <Button onClick={handleOpenLogsModal}
+                                        size="small" variant='contained' color='warning' fullWidth>
+                                    Abrir Historial
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+            </Box>
+            <LogsModal
+                open={openLogsModal}
+                handleClose={handleCloseLogsModal}
+                logs={playerData?.historial}
+            />
+        </>
+    )
 }
 
 export default Cuerpo

@@ -48,7 +48,7 @@ const RutasComercialesModal = ({open, handleClose}) => {
         let newList = gameData?.playersData?.filter(p => p.rol === 'MERCADER').flatMap(m => m.routes)
         newList?.forEach(r => r.finalValue = r.tradeScore);
 
-        setRutasSelected(newList);
+        setRutasSelected(newList || []);
     }, [gameData]);
 
     const handleFinalValue = ({newValue, rutaId}) => {

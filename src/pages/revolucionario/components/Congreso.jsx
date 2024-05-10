@@ -2,8 +2,8 @@ import {
     Table, TableContainer, TableHead, TableRow, TableCell, TableBody,
     TextField, Autocomplete, Button, Grid
 } from '@mui/material'
-import React, { useState, useContext, useEffect } from 'react'
-import { RevolucionarioContext } from '../Context';
+import React, {useState, useContext, useEffect} from 'react'
+import {RevolucionarioContext} from '../Context';
 import RepresentationCard from '../../common/RepresentationCard';
 import NuevaPropuestaModal from './modals/NuevaPropuestaModal';
 import VotarModal from './modals/VotarModal';
@@ -16,15 +16,15 @@ const Congreso = () => {
     const {stompClient} = useContext(RevolucionarioContext);
     const {disparoControl, disparoRevolucionarios} = useWebSocket({});
 
-    const { playerData } = useContext(RevolucionarioContext);
+    const {playerData} = useContext(RevolucionarioContext);
     const [currentVotation, setCurrentVotation] = useState({});
     const [votation, setVotation] = useState({});
     const [labelVotationSelected, setLabelVotationSelected] = useState('');
 
     useEffect(() => {
-        
+
         setCurrentVotation(playerData?.congreso?.votations.find(v => v.active))
-      }, [playerData]);
+    }, [playerData]);
 
     const handleVotationSelected = (newValue) => {
         setVotation(newValue);
@@ -61,10 +61,10 @@ const Congreso = () => {
         setOpenVotarModal(false);
     }
     const handleCloseVotacion = async () => {
-        if(confirm("¿Quiere cerrar la votación vigente definitivamente?")){
+        if (confirm("¿Quiere cerrar la votación vigente definitivamente?")) {
             await service.closeVotation();
-            disparoControl({stompClient:stompClient});
-            disparoRevolucionarios({stompClient:stompClient});
+            disparoControl({stompClient: stompClient});
+            disparoRevolucionarios({stompClient: stompClient});
         }
     }
 
@@ -85,19 +85,21 @@ const Congreso = () => {
                         onInputChange={(event, newInputValue) => {
                             handleLabelVotationSelected(newInputValue);
                         }}
-                        renderInput={(params) => <TextField {...params} label="Votaciones" />}
+                        renderInput={(params) => <TextField {...params} label="Votaciones"/>}
                     />
                 </Grid>
-                {(playerData?.congreso?.presidenteId === playerData.id) && <Grid item xs={4}>
-                    <Button onClick={handleOpenNuevaPropuestaModal}
-                            size="small" variant='contained' color='warning' fullWidth>
-                        Nueva Propuesta
-                    </Button>
-                </Grid>}
+                {(playerData?.congreso?.presidenteId === playerData.id) &&
+                    <Grid item xs={4}>
+                        <Button onClick={handleOpenNuevaPropuestaModal}
+                                size="small" variant='contained' color='warning' fullWidth>
+                            Nueva Propuesta
+                        </Button>
+                    </Grid>
+                }
                 <Grid item xs={4}>
                     <Button onClick={handleOpenVotarModal}
-                        disabled={!votation.active || (votation.votos.find(v => v.revolucionarioId === playerData.id) !== undefined)}
-                        size="small" variant='contained' color='warning' fullWidth>
+                            disabled={!votation.active || (votation.votos.find(v => v.revolucionarioId === playerData.id) !== undefined)}
+                            size="small" variant='contained' color='warning' fullWidth>
                         Votar
                     </Button>
                 </Grid>
@@ -109,8 +111,9 @@ const Congreso = () => {
                     </Button>
                 </Grid>}
                 <Grid item>
-                    <TableContainer style={{ height: '100%', maxHeight: '100%', overflow: 'hidden', alignItems: 'center' }}>
-                        <Table style={{ tableLayout: 'fixed' }}>
+                    <TableContainer
+                        style={{height: '100%', maxHeight: '100%', overflow: 'hidden', alignItems: 'center'}}>
+                        <Table style={{tableLayout: 'fixed'}}>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>
@@ -136,7 +139,7 @@ const Congreso = () => {
                                         <TableCell>
                                             {v.representacionResponse?.map((c) => (
                                                 <RepresentationCard key={c.id} poblacion={c.poblacion}
-                                                    ciudad={c.ciudad} />
+                                                                    ciudad={c.ciudad}/>
                                             ))}
                                         </TableCell>
                                     </TableRow>
@@ -146,11 +149,11 @@ const Congreso = () => {
                     </TableContainer>
                 </Grid>
             </Grid>
-            <NuevaPropuestaModal 
+            <NuevaPropuestaModal
                 open={openNuevaPropuestaModal}
                 handleClose={handleCloseNuevaPropuestaModal}
             />
-            <VotarModal 
+            <VotarModal
                 open={openVotarModal}
                 handleClose={handleCloseVotarModal}
                 currentVotation={currentVotation}

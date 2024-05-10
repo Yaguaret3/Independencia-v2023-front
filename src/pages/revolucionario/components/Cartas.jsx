@@ -38,13 +38,18 @@ const Cartas = () => {
             <Grid container spacing={2}>
                 {playerData?.recursos?.map((recurso) => (
 
-                    <ResourceCard resourceName={recurso.resourceTypeEnum} key={recurso.id}
-                                  handleFunction={() => handleOpen({resource: recurso})}/>
+                    <Grid item sm={12} lg={6} xl={3} key={recurso.id}>
+                        <ResourceCard resourceName={recurso.resourceTypeEnum}
+                                      handleFunction={() => handleOpen({resource: recurso})}/>
+                    </Grid>
+
                 ))}
                 {playerData?.representacion?.map(r =>
-                    <RepresentationCard poblacion={r.poblacion}
-                                        ciudad={r.ciudad}
-                                        key={r.id}/>
+                    <Grid item sm={12} lg={6} xl={3} key={r.id}>
+                        <RepresentationCard poblacion={r.poblacion}
+                                            ciudad={r.ciudad}/>
+                    </Grid>
+
                 )}
             </Grid>
             <EntregarCartaModal
