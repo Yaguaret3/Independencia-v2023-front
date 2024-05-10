@@ -1,6 +1,6 @@
-import axios from "axios";
+import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
 
 const login = async (props) => {
-    return await axios.post('http://localhost:8085/api/auth/login', props)
+    return await axiosCommonInstance.post('auth/login', props)
 }
 export default login;

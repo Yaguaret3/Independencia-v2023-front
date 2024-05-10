@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { TextField } from '@mui/material';
-import { Grid } from '@mui/material';
-import { amber } from '@mui/material/colors';
-import { Link, useLocation } from 'wouter';
+import {Box, TextField} from '@mui/material';
+import {Grid} from '@mui/material';
+import {amber} from '@mui/material/colors';
+import {Link, useLocation} from 'wouter';
 import login from './Service';
+import {Bounce, toast} from "react-toastify";
 
 export default function Login() {
 
@@ -32,33 +33,59 @@ export default function Login() {
             'password': password
         }
         const response = await login(data);
+        if(!response.data.playerAllowed){
+            toast.error('No estás incluido en ninguna partida activa. Contactate con Megajuegos Argentina.', {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
+            return
+        }
+
         localStorage.setItem('independencia-token', response.data.token)
         response.data.roles.map(r => {
-           switch (r){
-               case "CONTROL":
-                   setLocation('/control');
-                   return;
-               case "GOBERNADOR":
-                   setLocation('/gobernador');
-                   return;
-               case "CAPITAN":
-                   setLocation('/capitan');
-                   return;
-               case "REVOLUCIONARIO":
-                   setLocation('/revolucionario');
-                   return;
-               case "MERCADER":
-                   setLocation('/mercader');
-                   return;
-               default:
-                   return;
-           }
+            switch (r) {
+                case "CONTROL":
+                    setLocation('/control');
+                    return;
+                case "GOBERNADOR":
+                    setLocation('/gobernador');
+                    return;
+                case "CAPITAN":
+                    setLocation('/capitan');
+                    return;
+                case "REVOLUCIONARIO":
+                    setLocation('/revolucionario');
+                    return;
+                case "MERCADER":
+                    setLocation('/mercader');
+                    return;
+                default:
+                    return;
+            }
         });
     }
 
 
     return (
-        <div style={{ backgroundColor: amber.A700 }}>
+        <Box sx={{
+            position: 'absolute',
+            top: '50vh',
+            left: '50vw',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 3,
+            backgroundColor: amber.A700
+        }}
+        >
             <Grid
                 container
                 spacing={0}
@@ -66,12 +93,13 @@ export default function Login() {
                 alignItems="center"
                 justifyContent="center"
                 justify="center"
-                style={{ minHeight: '100vh' }}>
+                height={'100vh'}
+                width={'100vw'}>
                 <Grid item xs={3}>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{maxWidth: 345}}>
                         <CardMedia
                             component="img"
-                            sx={{ height: 100, }}
+                            sx={{height: 100,}}
                             image="https://i.ebayimg.com/images/g/QpoAAOSwaB9fyTC~/s-l500.jpg"
                             title="moneda peso"
                         />
@@ -79,19 +107,23 @@ export default function Login() {
                             <Typography gutterBottom variant="h5" component="div" align='center'>
                                 ¡INDEPENDENCIA!
                             </Typography>
-                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"} variant={"standard"} type='email' />
-                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth placeholder={"Contraseña"} variant={"standard"} type={'password'} />
+                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
+                                       variant={"standard"} type='email'/>
+                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
+                                       placeholder={"Contraseña"} variant={"standard"} type={'password'}/>
                         </CardContent>
                         <CardActions>
-                            <Button onClick={handleButton} size="medium" variant='contained' color='warning' fullWidth>Iniciá Sesión</Button>
+                            <Button onClick={handleButton} size="medium" variant='contained' color='warning'
+                                    fullWidth>Iniciá Sesión</Button>
 
                             <Link href='/register'>
-                                <Button size="medium" variant='outlined' color='warning' fullWidth>Registrate</Button>
+                                <Button size="medium" variant='outlined' color='warning'
+                                        fullWidth>Registrate</Button>
                             </Link>
                         </CardActions>
                     </Card>
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     );
 }
