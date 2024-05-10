@@ -5,11 +5,11 @@ import Botones from "./Botones.jsx";
 
 const Actions = () => {
     return (
-        <Grid container direction={'row'} spacing={4}>
-                <Grid item xs={7}>
+        <Grid container spacing={2}>
+                <Grid item xs={6} xl={7}>
                     <Cartas/>
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={6} xl={5}>
                     <Botones/>
                 </Grid>
         </Grid >

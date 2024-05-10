@@ -11,8 +11,8 @@ const Cuerpo = () => {
     return (
         <Box width={'100%'} maxHeight={'100vh'}>
             <Grid container maxHeight={'100vh'}>
-                <VirreinatoMap gameData={gameData} xs={9}/>
-                <Grid item xs={3}>
+                <VirreinatoMap gameData={gameData} xs={9} xl={6}/>
+                <Grid item xs={3} xl={6}>
                     <Acciones/>
                 </Grid>
             </Grid>
