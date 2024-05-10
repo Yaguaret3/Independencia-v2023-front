@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {Box, Button, Grid} from '@mui/material'
-import VirreinatoMap from "../../common/virreinatoMap/VirreinatoMap.jsx";
+import VirreinatoMapComplete from "../../common/virreinatoMap/complete/VirreinatoMapComplete.jsx";
 import {RevolucionarioContext} from '../Context'
 import Cartas from "./Cartas.jsx";
 import LogsModal from "../../common/LogsModal.jsx";
@@ -22,7 +22,7 @@ const Cuerpo = () => {
         <>
             <Box width={'100%'} maxHeight={'100vh'}>
                 <Grid container maxHeight={'100vh'}>
-                    <VirreinatoMap gameData={gameData} xs={9} xl={6}/>
+                    <VirreinatoMapComplete gameData={gameData} xs={9} xl={6}/>
                     <Grid item xs={3} xl={6}>
                         <Grid container spacing={2} direction={'column'}>
                             <Grid item>

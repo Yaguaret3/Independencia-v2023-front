@@ -3,7 +3,7 @@ import Regiones from "./regiones/Regiones.jsx";
 import {Grid} from "@mui/material";
 
 
-const VirreinatoMap = ({gameData, xs, xl}) => {
+const VirreinatoMapComplete = ({gameData, xs, xl}) => {
     const backgroundSrc = "src/assets/img/map_independencia_recortado.jpg";
 
     const backgroundMapComponent =
@@ -17,4 +17,4 @@ const VirreinatoMap = ({gameData, xs, xl}) => {
     )
 };
 
-export default VirreinatoMap;
+export default VirreinatoMapComplete;

@@ -1,7 +1,7 @@
 import React from 'react'
-import CapitanSubRegion from "./CapitanSubRegion.jsx";
+import SubRegionBody from "./SubRegionBody.jsx";
 
-const CapitanRegionFrontground = ({ gameRegion }) => {
+const RegionBodyFrontground = ({ gameRegion }) => {
 
   return (
     <svg height={gameRegion?.fgHeight} width={gameRegion?.fgHeight}
@@ -15,7 +15,7 @@ const CapitanRegionFrontground = ({ gameRegion }) => {
 
       {gameRegion?.subregions?.map((subregion) => {
         return (
-          <CapitanSubRegion
+          <SubRegionBody
             key={subregion.id}
             subregion={subregion}
           />
@@ -25,4 +25,4 @@ const CapitanRegionFrontground = ({ gameRegion }) => {
   )
 }
 
-export default CapitanRegionFrontground
+export default RegionBodyFrontground

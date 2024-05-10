@@ -2,7 +2,7 @@ import React from 'react'
 import { Tooltip } from '@mui/material';
 import { useState } from 'react';
 
-const CapitanSubRegion = ({subregion }) => {
+const SubRegionBody = ({subregion }) => {
 
     const [currentColor, setCurrentColor] = useState('black')
     const opacity = 0.3;
@@ -46,4 +46,4 @@ const CapitanSubRegion = ({subregion }) => {
     )
 }
 
-export default CapitanSubRegion
+export default SubRegionBody

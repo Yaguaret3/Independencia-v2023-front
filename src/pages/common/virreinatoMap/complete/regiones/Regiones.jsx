@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import Region from "./Region.jsx";
-import {ControlContext} from "../../../control/Context.jsx";
+import {ControlContext} from "../../../../control/Context.jsx";
 
 const Regiones = ({gameData}) => {
 
