@@ -96,7 +96,7 @@ const RutasComercialesModal = ({open, handleClose}) => {
                     <Grid item>
                         <Autocomplete
                             disablePortal
-                            getOptionLabel={(option) => option.name || ''}
+                            getOptionLabel={(option) => option.nombre || ''}
                             options={gameData?.gameRegions}
                             value={filtro}
                             onChange={(event, newOption) => {
