@@ -70,7 +70,7 @@ const Botones = () => {
         setItemWanted({})
     }
     const handlePayingService = ({ plata, resourcesIds }) => {
-        if (payingActionLabel === 'Mejorar Mercado') {
+        if (payingActionLabel === 'Mejorar Nivel Comercial') {
             service.mejorarMercado({
                 plata: plata,
                 resourcesIds: resourcesIds
@@ -145,11 +145,11 @@ const Botones = () => {
                 </Grid>
                 <Grid item>
                     <Button onClick={() => handleOpenPagarModal({
-                        label: 'Mejorar Mercado',
+                        label: 'Mejorar Nivel Comercial',
                         itemWanted: playerData.precios.marketPrice
                     })}
                         size="small" variant='contained' color='warning' >
-                        Mejorar Mercado
+                        Mejorar Nivel Comercial
                     </Button>
                 </Grid>
                 <Grid item>
