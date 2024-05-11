@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from 'react'
 import BarraSuperior from './components/BarraSuperior'
 import BarraInferior from './components/BarraInferior'
 import Cuerpo from './components/Cuerpo'
-import {Box, Button} from '@mui/material'
 import service from './Service'
 import {RevolucionarioContext} from './Context'
 import useWebSocket from "../../hooks/useWebSocket.jsx";

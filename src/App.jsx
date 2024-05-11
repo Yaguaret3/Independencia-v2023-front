@@ -9,6 +9,7 @@ import WrapperContextControl from "./pages/control/WrapperContextControl.jsx";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
+import WrapperContextSettings from "./pages/settings/WrapperContextSettings.jsx";
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/revolucionario" component={WrapperContextRevolucionario}/>
             <Route path="/capitan" component={WrapperContextCapitan}/>
             <Route path="/control" component={WrapperContextControl}/>
+            <Route path="/settings" component={WrapperContextSettings}/>
 
             <ToastContainer/>
         </>

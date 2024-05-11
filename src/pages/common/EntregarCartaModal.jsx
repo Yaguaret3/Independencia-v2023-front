@@ -64,7 +64,7 @@ const EntregarCartaModal = ({ open, handleClose, players, card, handleService=()
                             onInputChange={(event, newInputValue) => {
                                 handleLabelPlayerSelected(newInputValue);
                             }}
-                            renderInput={(params) => <TextField {...params} label="Jugadores" />}
+                            renderInput={(params) => <TextField {...params} label="Users" />}
                         />
                     </Grid>
                     <Grid item xs={12}>

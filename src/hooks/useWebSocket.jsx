@@ -32,6 +32,9 @@ const useWebSocket = ({channel, fetchData}) => {
     const disparoTodos = ({stompClient}) =>{
         stompClient.send('/actualizar-todos', {}, JSON.stringify({ 'mensaje': "" }));
     }
+    const disparoSettings = ({stompClient}) =>{
+        stompClient.send('/actualizar-settings', {}, JSON.stringify({ 'mensaje': "" }));
+    }
 
 
 
@@ -42,7 +45,8 @@ const useWebSocket = ({channel, fetchData}) => {
         disparoCapitanes,
         disparoMercaderes,
         disparoRevolucionarios,
-        disparoTodos
+        disparoTodos,
+        disparoSettings
     };
 };
 
