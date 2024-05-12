@@ -4,6 +4,7 @@ import {SettingsContext} from "../Context.jsx";
 import VerJugadoresAsignadosModal from "./modals/VerJugadoresAsignadosModal.jsx";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
 import service from "../Service.js";
+import CreateGameModal from "./modals/CreateGameModal.jsx";
 
 const Partidas = () => {
 
@@ -20,29 +21,35 @@ const Partidas = () => {
     const handleCloseVerJugadoresAsignados = () => {
         setOpenVerJugadoresAsignadosModal(false);
     }
-    const handleCreateGame = async () => {
-        await service.createGame();
-        disparoSettings({stompClient: stompClient})
-    }
     const handleDesactivarPartida = async ({id}) => {
-        await service.deactivateGame({id:id});
-        disparoSettings({stompClient:stompClient});
+        await service.deactivateGame({id: id});
+        disparoSettings({stompClient: stompClient});
     }
     const handleEliminarPartida = async ({id}) => {
-        await service.deleteGame({id:id});
-        disparoSettings({stompClient:stompClient});
+        await service.deleteGame({id: id});
+        disparoSettings({stompClient: stompClient});
+    }
+    const [openCreateGameModal, setOpenCreateGameModal] = useState(false);
+    const handleOpenCreateGameModal = () => {
+        setOpenCreateGameModal(true);
+    }
+    const handleCloseCreateGameModal = () => {
+        setOpenCreateGameModal(false);
     }
 
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item={12}>
+                <Grid item xs={12}>
                     <TableContainer component={Paper}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell padding='none' align="center">
+                                    <TableCell align="center">
                                         ID
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        Nombre
                                     </TableCell>
                                     <TableCell padding='none' align="center">
                                         Creado en
@@ -62,8 +69,11 @@ const Partidas = () => {
                             <TableBody>
                                 {games?.map(g => (
                                     <TableRow key={g.id}>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell align="center">
                                             {g.id}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            {g.nombre}
                                         </TableCell>
                                         <TableCell padding='none' align="center">
                                             {g.createdOn}
@@ -98,7 +108,7 @@ const Partidas = () => {
                     </TableContainer>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button onClick={handleCreateGame}
+                    <Button onClick={handleOpenCreateGameModal}
                             size="small" variant='contained' color={'warning'} fullWidth>
                         Crear Juego
                     </Button>
@@ -109,6 +119,10 @@ const Partidas = () => {
                 handleClose={handleCloseVerJugadoresAsignados}
                 players={partidaSeleccionada?.players}
             />
+            <CreateGameModal
+                open={openCreateGameModal}
+                handleClose={handleCloseCreateGameModal}
+                />
         </>
     );
 };

@@ -45,7 +45,8 @@ const AddRoleModal = ({open, handleClose, id}) => {
                 bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
-                borderRadius: 3
+                borderRadius: 3,
+                width:'30vw'
             }}
             >
                 <Grid container spacing={2}>

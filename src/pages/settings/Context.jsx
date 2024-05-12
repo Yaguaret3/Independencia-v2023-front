@@ -4,13 +4,13 @@ export const SettingsContext = React.createContext();
 
 export default function SettingsContextProvider({ children }) {
 
-    const [games, setGames] = useState({});
-    const [users, setUsers] = useState({})
+    const [games, setGames] = useState([]);
+    const [users, setUsers] = useState([])
     const [cities, setCities] = useState([])
     const [stompClient, setStompClient] = useState({})
 
     return (
-        <SettingsContextProvider.Provider
+        <SettingsContext.Provider
             value={{
                 games,
                 setGames,
@@ -22,6 +22,6 @@ export default function SettingsContextProvider({ children }) {
                 setCities
             }}>
             {children}
-        </SettingsContextProvider.Provider>
+        </SettingsContext.Provider>
     )
 }

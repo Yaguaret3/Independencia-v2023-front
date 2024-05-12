@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {
     Box, Button, Grid, List, ListItem,
-    Modal
+    Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 } from "@mui/material";
 import service from "../../Service.js";
 import useWebSocket from "../../../../hooks/useWebSocket.jsx";
@@ -13,12 +13,14 @@ const VerJugadoresAsignadosModal = ({open, handleClose, players}) => {
     const {stompClient} = useContext(SettingsContext);
 
     const handleQuitarRol = async ({player}) => {
-        await service.removeRole({id: player.id, rol: player.rol});
-        disparoSettings({stompClient: stompClient});
+        if(confirm('¿Está seguro que quiere eliminar el rol del jugador '+ player.username)){
+            await service.removeRole({id: player.id, rol: player.rol});
+            disparoSettings({stompClient: stompClient});
+        }
     }
 
     const renderLabel = ({player}) => {
-        if(player.role === 'GOBERNADOR'){
+        if (player.role === 'GOBERNADOR') {
             return player.username + ' (' + player.ciudad + ')';
         }
         return player.username;
@@ -34,31 +36,44 @@ const VerJugadoresAsignadosModal = ({open, handleClose, players}) => {
                 bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
-                borderRadius: 3
+                borderRadius: 3,
+                width:'90vw'
             }}
             >
                 <Grid container spacing={2}>
-                    {Array.from(new Set(players.map(player => player.rol))).map(role => (
-                        <Grid item xs={2} key={role}>
-                            {role}
-                            <List>
-                                {players.filter(player => player.rol === role).map(player => (
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={10}>
-                                            <ListItem key={player.id}>
-                                                {renderLabel({player: player})}
-                                            </ListItem>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button onClick={() => handleQuitarRol({player: player})}
-                                                    size="small" variant='outlined'
-                                                    color={'error'}>
-                                                -
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                ))}
-                            </List>
+                    {Array.from(new Set(players?.map(player => player.rol)))?.map(role => (
+                        <Grid item xs={3} key={role}>
+                            <TableContainer component={Paper}>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell align="center">
+                                                {role}
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {players.filter(player => player.rol === role).map(player => (
+                                            <TableRow key={player.id}>
+                                                <TableCell align="center">
+                                                    <Grid container spacings={2}>
+                                                        <Grid item xs={8}>
+                                                            {renderLabel({player: player})}
+                                                        </Grid>
+                                                        <Grid item xs={2}>
+                                                            <Button onClick={() => handleQuitarRol({player: player})}
+                                                                    size="small" variant='outlined'
+                                                                    color={'error'}>
+                                                                -
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         </Grid>
                     ))}
                 </Grid>

@@ -6,7 +6,7 @@ import AddRoleModal from "./modals/AddRoleModal.jsx";
 
 const Users = () => {
 
-    const {players} = useContext(SettingsContext);
+    const {users} = useContext(SettingsContext);
 
     const [openAddRole, setOpenAddRol] = useState(false);
     const handleOpenAddRole = ({id}) => {
@@ -36,16 +36,16 @@ const Users = () => {
 
                     </TableHead>
                     <TableBody>
-                        {players.map(p =>
+                        {users?.map(u =>
                             <TableRow>
                                 <TableCell padding='none' align="center">
-                                    {p.username}
+                                    {u.username}
                                 </TableCell>
                                 <TableCell padding='none' align="center">
-                                    {p.email}
+                                    {u.email}
                                 </TableCell>
                                 <TableCell padding='none' align="center">
-                                    <Button onClick={() => handleOpenAddRole({id: p.id})}
+                                    <Button onClick={() => handleOpenAddRole({id: u.id})}
                                             size="small" variant='contained'
                                             color={'warning'}>
                                         Ver

@@ -10,7 +10,7 @@ import {Box, TextField} from '@mui/material';
 import {Grid} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link, useLocation} from 'wouter';
-import login from './Service';
+import service from './Service';
 import {Bounce, toast} from "react-toastify";
 import RecuperarPassModal from "./modals/RecuperarPassModal.jsx";
 
@@ -33,7 +33,9 @@ export default function Login() {
             'email': email,
             'password': password
         }
-        const response = await login(data);
+        const response = await service.login(data);
+        localStorage.setItem('independencia-token', response.data.token)
+
         if (!response.data.playerAllowed) {
             toast.error('No estás incluido en ninguna partida activa. Contactate con Megajuegos Argentina.', {
                 position: "top-right",
@@ -49,7 +51,6 @@ export default function Login() {
             return
         }
 
-        localStorage.setItem('independencia-token', response.data.token)
         response.data.roles.map(r => {
             switch (r) {
                 case "CONTROL":
