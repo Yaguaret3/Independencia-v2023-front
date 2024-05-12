@@ -12,6 +12,7 @@ import {amber} from '@mui/material/colors';
 import {Link, useLocation} from 'wouter';
 import login from './Service';
 import {Bounce, toast} from "react-toastify";
+import RecuperarPassModal from "./modals/RecuperarPassModal.jsx";
 
 export default function Login() {
 
@@ -33,7 +34,7 @@ export default function Login() {
             'password': password
         }
         const response = await login(data);
-        if(!response.data.playerAllowed){
+        if (!response.data.playerAllowed) {
             toast.error('No estás incluido en ninguna partida activa. Contactate con Megajuegos Argentina.', {
                 position: "top-right",
                 autoClose: false,
@@ -71,59 +72,84 @@ export default function Login() {
             }
         });
     }
+    const [openRecuperarPassModal, setOpenRecuperarPassModal] = useState(false);
+    const handleOpenRecuperarPassModal = () => {
+        setOpenRecuperarPassModal(true);
+    }
+    const handleCloseRecuperarPassModal = () => {
+        setOpenRecuperarPassModal(false);
+    }
 
 
     return (
-        <Box sx={{
-            position: 'absolute',
-            top: '50vh',
-            left: '50vw',
-            transform: 'translate(-50%, -50%)',
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 3,
-            backgroundColor: amber.A700
-        }}
-        >
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-                justify="center"
-                height={'100vh'}
-                width={'100vw'}>
-                <Grid item xs={3}>
-                    <Card sx={{maxWidth: 345}}>
-                        <CardMedia
-                            component="img"
-                            sx={{height: 100,}}
-                            image="https://i.ebayimg.com/images/g/QpoAAOSwaB9fyTC~/s-l500.jpg"
-                            title="moneda peso"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" align='center'>
-                                ¡INDEPENDENCIA!
-                            </Typography>
-                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
-                                       variant={"standard"} type='email'/>
-                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
-                                       placeholder={"Contraseña"} variant={"standard"} type={'password'}/>
-                        </CardContent>
-                        <CardActions>
-                            <Button onClick={handleButton} size="medium" variant='contained' color='warning'
-                                    fullWidth>Iniciá Sesión</Button>
-
-                            <Link href='/register'>
-                                <Button size="medium" variant='outlined' color='warning'
-                                        fullWidth>Registrate</Button>
-                            </Link>
-                        </CardActions>
-                    </Card>
+        <>
+            <Box sx={{
+                position: 'absolute',
+                top: '50vh',
+                left: '50vw',
+                transform: 'translate(-50%, -50%)',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 3,
+                backgroundColor: amber.A700
+            }}
+            >
+                <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    justify="center"
+                    height={'100vh'}
+                    width={'100vw'}>
+                    <Grid item>
+                        <Card sx={{maxWidth: 345}}>
+                            <CardMedia
+                                component="img"
+                                sx={{height: 100,}}
+                                image="https://i.ebayimg.com/images/g/QpoAAOSwaB9fyTC~/s-l500.jpg"
+                                title="moneda peso"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div" align='center'>
+                                    ¡INDEPENDENCIA!
+                                </Typography>
+                                <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
+                                           variant={"standard"} type='email'/>
+                                <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
+                                           placeholder={"Contraseña"} variant={"standard"} type={'password'}/>
+                            </CardContent>
+                            <CardActions>
+                                <Grid container spacing={1}>
+                                    <Grid item xs={6}>
+                                        <Button onClick={handleButton} size="medium" variant='contained' color='warning'
+                                                fullWidth>Iniciá Sesión</Button>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Link href='/register'>
+                                            <Button size="medium" variant='outlined' color='warning'
+                                                    fullWidth>Registrate</Button>
+                                        </Link>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography onClick={handleOpenRecuperarPassModal}
+                                                    variant="h12" fontSize={12} component="div" align='center'
+                                                    color={amber.A700}>
+                                            Recuperar contraseña
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </CardActions>
+                        </Card>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+            <RecuperarPassModal
+                open={openRecuperarPassModal}
+                handleClose={handleCloseRecuperarPassModal}
+            />
+        </>
     );
 }
