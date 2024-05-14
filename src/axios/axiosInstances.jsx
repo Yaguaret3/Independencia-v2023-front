@@ -93,5 +93,28 @@ axiosControlInstance.interceptors.response.use(
         });
     }
 )
+const axiosLoginInstance = axios.create({
+    baseURL: "http://localhost:8085/api/"
+});
 
-export {axiosCommonInstance, axiosGetInstance, axiosControlInstance};
+axiosLoginInstance.interceptors.response.use(
+    responseBody => {
+        return responseBody;
+    },
+    error => {
+
+        toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
+    }
+)
+
+export {axiosCommonInstance, axiosGetInstance, axiosControlInstance, axiosLoginInstance};
