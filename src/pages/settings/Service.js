@@ -13,7 +13,7 @@ const getCities = async () => {
 const removeRole = async ({id, rol}) => {
     const body = {
         id:id,
-        rol:rol
+        role:rol
     }
     return await axiosControlInstance.post('/settings/remove-role', body);
 }
