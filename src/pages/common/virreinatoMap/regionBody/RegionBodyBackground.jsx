@@ -4,7 +4,9 @@ import Subregiones from "../complete/regiones/Subregiones.jsx";
 
 const RegionBodyBackground = ({gameRegion}) => {
 
-    const backgroundRegion =  encodeURI('src/assets/img/'+gameRegion?.nombre+'.jpg');
+    const plainURL = 'src/assets/img/%s.jpg'.replace("%s", gameRegion?.jpg)
+
+    const backgroundRegion =  encodeURI(plainURL);
 
     return (
         <Box style={{
