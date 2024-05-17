@@ -6,8 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {Box, TextField} from '@mui/material';
-import {Grid} from '@mui/material';
+import {Box, TextField, Grid} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link} from 'wouter';
 import register from './Service';
@@ -30,16 +29,27 @@ export default function Register() {
         setUsername(e.target.value);
     }
 
-    const handleButton = () => {
+    const handleButton = async () => {
 
-        console.log('Registering');
+        if(username === ""){
+            alert("Por favor, completar el nombre de usuario");
+            return;
+        }
+        if(email === ""){
+            alert("Por favor, completar el email");
+            return;
+        }
+        if(password === ""){
+            alert("Por favor, completar la contraseña");
+            return;
+        }
 
         const data = {
             'username': username,
             'email': email,
             'password': password
         }
-        const response = register(data)
+        await register(data)
 
         toast.success('Registrado con éxito. Vas a tener que contactarte con Megajuegos para que te asignen rol para el día de juego', {
             position: "top-right",
