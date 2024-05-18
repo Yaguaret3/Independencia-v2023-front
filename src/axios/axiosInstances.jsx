@@ -5,7 +5,7 @@ import {Bounce, toast} from "react-toastify";
 const token = localStorage.getItem('independencia-token');
 
 const axiosCommonInstance = axios.create({
-    baseURL: "http://localhost:8085/api/",
+    baseURL: "http://152.67.33.100:80/api/",
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -32,7 +32,7 @@ axiosCommonInstance.interceptors.response.use(
 )
 
 const axiosGetInstance = axios.create({
-    baseURL: "http://localhost:8085/api/",
+    baseURL: "http://152.67.33.100:80/api/",
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -58,7 +58,7 @@ axiosGetInstance.interceptors.response.use(
 )
 
 const axiosControlInstance = axios.create({
-    baseURL: "http://localhost:8085/api/",
+    baseURL: "http://152.67.33.100:80/api/",
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -94,7 +94,7 @@ axiosControlInstance.interceptors.response.use(
     }
 )
 const axiosLoginInstance = axios.create({
-    baseURL: "http://localhost:8085/api/"
+    baseURL: "http://152.67.33.100:80/api/"
 });
 
 axiosLoginInstance.interceptors.response.use(
