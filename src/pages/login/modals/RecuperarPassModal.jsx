@@ -16,7 +16,7 @@ const RecuperarPassModal = ({open, handleClose}) => {
         setAll({...all, email: e.target.value})
     }
     const handleOldPassword = (e) => {
-        setAll({...all, oldpass: e.target.value})
+        setAll({...all, oldPass: e.target.value})
     }
     const handleNewPassword = (e) => {
         setAll({...all, newPass: e.target.value})
@@ -45,19 +45,10 @@ const RecuperarPassModal = ({open, handleClose}) => {
                 bgcolor: 'background.paper',
                 boxShadow: 24,
                 p: 4,
-                borderRadius: 3,
-                width: '40%'
+                borderRadius:3
             }}
             >
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    justify="center"
-                    height={'100vh'}
-                    width={'100vw'}>
+                <Grid  container>
                     <Grid item>
                         <Card sx={{maxWidth: 345}}>
                             <CardMedia

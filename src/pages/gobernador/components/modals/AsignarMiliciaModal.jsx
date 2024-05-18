@@ -19,8 +19,8 @@ const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
     const handleLabelCapitanSelected = (value) => {
         setLabelCapitanSelected(value);
     }
-    const handleCantidadMiliciasSelected = (value) => {
-        setCantidadMiliciasSelected(value);
+    const handleCantidadMiliciasSelected = (e) => {
+        setCantidadMiliciasSelected(e.target.value);
     }
 
     const handleService = async () => {

@@ -9,11 +9,13 @@ import PagarModal from '../../common/PagarModal.jsx'
 import ElegirDiputadoModal from './modals/ElegirDiputadoModal'
 import AsignarMiliciaModal from './modals/AsignarMiliciaModal'
 import LogsModal from "../../common/LogsModal.jsx";
+import useWebSocket from "../../../hooks/useWebSocket.jsx";
 
 const Botones = () => {
 
     //Context
-    const { gameData, playerData } = useContext(GobernadorContext)
+    const { gameData, playerData, stompClient } = useContext(GobernadorContext)
+    const {disparoControl, disparoGobernadores} = useWebSocket({});
 
     //Entregar Mercado
     const [openEntregarMercadoModal, setOpenEntregarMercadoModal] = useState(false);
@@ -69,19 +71,21 @@ const Botones = () => {
         setPayingActionLabel('')
         setItemWanted({})
     }
-    const handlePayingService = ({ plata, resourcesIds }) => {
+    const handlePayingService = async ({ plata, resourcesIds }) => {
         if (payingActionLabel === 'Mejorar Nivel Comercial') {
-            service.mejorarMercado({
+            await service.mejorarMercado({
                 plata: plata,
                 resourcesIds: resourcesIds
             })
         }
         if (payingActionLabel === 'Reclutar Milicia') {
-            service.reclutarMilicia({
+            await service.reclutarMilicia({
                 plata: plata,
                 resourcesIds: resourcesIds
             })
         }
+        disparoControl({stompClient:stompClient});
+        disparoGobernadores({stompClient:stompClient});
     }
 
     //Elegir Diputado
@@ -220,13 +224,13 @@ const Botones = () => {
             <ElegirDiputadoModal
                 open={openElegirDiputadoModal}
                 handleClose={handleCloseElegirDiputadoModal}
-                revolucionarios={gameData && gameData.players && gameData.players.filter((p) => p.rol === 'REVOLUCIONARIO')}
-                representationCard={playerData && playerData.representacion}
+                revolucionarios={gameData?.players?.filter((p) => p.rol === 'REVOLUCIONARIO')}
+                representationCard={playerData?.representacion}
             />
             <AsignarMiliciaModal
                 open={openAsignarMiliciaModal}
                 handleClose={handleCloseAsignarMiliciaModal}
-                capitanes={gameData && gameData.players && gameData.players.filter((p) => p.rol === 'CAPITAN')}
+                capitanes={gameData?.players?.filter((p) => p.rol === 'CAPITAN')}
             />
             <LogsModal
                 open={openLogsModal}

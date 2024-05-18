@@ -25,7 +25,7 @@ const Mercader = () => {
 
     useEffect(() => {
 
-        const socket = new SockJS('http://localhost:8085/ws');
+        const socket = new SockJS('http://152.67.33.100:80/ws');
         const stompClient = over(socket);
         setStompClient(stompClient);
 
