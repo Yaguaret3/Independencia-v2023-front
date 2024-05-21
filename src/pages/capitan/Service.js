@@ -28,33 +28,29 @@ const playActionCard = async ({cardId, subregionId}) => {
 
     return await axiosCommonInstance.post('/militares/play-action-card', body);
 }
-const comprarActionCard = async ({cardTypeId, plata, puntajeComercial, disciplina, resourcesIds}) => {
+const comprarActionCard = async ({cardTypeId, plata, resourcesIds}) => {
 
     const body = {
         cardTypeId:cardTypeId,
         payment: {
             plata: plata,
-            puntajeComercial: puntajeComercial,
-            disciplina: disciplina,
             resourcesIds: resourcesIds
         }
     }
 
     return await axiosCommonInstance.post('/militares/buy-action-card', body);
 }
-const comprarBattleCard = async ({cardTypeId, plata, puntajeComercial, disciplina, resourcesIds}) => {
+const comprarBattleCard = async ({cardTypeId, plata, resourcesIds}) => {
 
     const body = {
         cardTypeId:cardTypeId,
         payment: {
             plata: plata,
-            puntajeComercial: puntajeComercial,
-            disciplina: disciplina,
             resourcesIds: resourcesIds
         }
     }
 
-    return await axiosCommonInstance.post('/militares/buy-action-card', body);
+    return await axiosCommonInstance.post('/militares/buy-battle-card', body);
 }
 const assignMilitia = async ({militia, battleId}) => {
 

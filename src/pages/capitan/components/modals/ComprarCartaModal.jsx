@@ -41,18 +41,20 @@ const ComprarCartaModal = ({open, handleClose, cards, recursos, label, accion, o
         setOpenPagarModal(false);
     }
 
-    const handleService = async ({cardTypeSelected, payment}) => {
+    const handleService = async ({plata, resourcesIds}) => {
 
         if(accion){
             await service.comprarActionCard({
-                payment: payment,
-                actionTypeId: cardTypeSelected.id
+                cardTypeId: cardSelected.id,
+                plata: plata,
+                resourcesIds: resourcesIds
             })
         }
         if(ordenDeBatalla){
             await service.comprarBattleCard({
-                payment: payment,
-                actionTypeId: cardTypeSelected.id
+                cardTypeId: cardSelected.id,
+                plata: plata,
+                resourcesIds: resourcesIds
             })
         }
         disparoControl({stompClient:stompClient});
