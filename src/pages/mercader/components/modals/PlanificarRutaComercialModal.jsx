@@ -28,7 +28,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
 
         setAllSubregions(allSubregionList);
 
-        let initialSubregions = allSubregions?.filter(s => playerData?.mercados.some(m => m.cityName === s?.nombre));
+        let initialSubregions = allSubregionList?.filter(s => playerData?.mercados.some(m => m.cityName === s?.nombre));
         setSubregionsAdjacent([initialSubregions]);
         setMarketsInUse(playerData?.mercados)
     }, [playerData])
