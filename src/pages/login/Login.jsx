@@ -6,19 +6,23 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {Box, TextField} from '@mui/material';
-import {Grid} from '@mui/material';
+import {Box, IconButton, InputAdornment, TextField, Grid} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link, useLocation} from 'wouter';
 import service from './Service';
 import {Bounce, toast} from "react-toastify";
 import RecuperarPassModal from "./modals/RecuperarPassModal.jsx";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [location, setLocation] = useLocation();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -120,7 +124,21 @@ export default function Login() {
                                 <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
                                            variant={"standard"} type='email'/>
                                 <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
-                                           placeholder={"Contraseña"} variant={"standard"} type={'password'}/>
+                                           placeholder={"Contraseña"} variant={"standard"} type={showPassword ? "text" : "password"}
+                                           InputProps={{ // <-- This is where the toggle button is added.
+                                               endAdornment: (
+                                                   <InputAdornment position="end">
+                                                       <IconButton
+                                                           aria-label="toggle password visibility"
+                                                           onClick={handleClickShowPassword}
+                                                           onMouseDown={handleMouseDownPassword}
+                                                       >
+                                                           {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                                       </IconButton>
+                                                   </InputAdornment>
+                                               )
+                                           }}
+                                />
                             </CardContent>
                             <CardActions>
                                 <Grid container spacing={1}>

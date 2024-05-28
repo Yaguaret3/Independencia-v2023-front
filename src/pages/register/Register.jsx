@@ -6,17 +6,26 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {Box, TextField, Grid} from '@mui/material';
+import {Box, TextField, Grid, InputAdornment, IconButton} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link} from 'wouter';
 import register from './Service';
 import {Bounce, toast} from "react-toastify";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function Register() {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPass, setConfirmPass] = useState("");
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+    const handleMouseDownConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -28,19 +37,26 @@ export default function Register() {
     const handleUsername = (e) => {
         setUsername(e.target.value);
     }
+    const handleConfirmPassword = (e) => {
+        setConfirmPass(e.target.value);
+    }
 
     const handleButton = async () => {
 
-        if(username === ""){
+        if (username === "") {
             alert("Por favor, completar el nombre de usuario");
             return;
         }
-        if(email === ""){
+        if (email === "") {
             alert("Por favor, completar el email");
             return;
         }
-        if(password === ""){
+        if (password === "") {
             alert("Por favor, completar la contraseña");
+            return;
+        }
+        if (password !== confirmPass) {
+            alert("Las contraseñas no coinciden");
             return;
         }
 
@@ -105,7 +121,36 @@ export default function Register() {
                             <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
                                        variant={"standard"} type='email'/>
                             <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth placeholder={"Contraseña"}
-                                       variant={"standard"} type={'password'}/>
+                                       variant={"standard"} type={showPassword ? "text" : "password"}
+                                       InputProps={{ // <-- This is where the toggle button is added.
+                                           endAdornment: (
+                                               <InputAdornment position="end">
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={handleClickShowPassword}
+                                                       onMouseDown={handleMouseDownPassword}
+                                                   >
+                                                       {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           )
+                                       }}/>
+                            <TextField onBlur={handleConfirmPassword} label={"Contraseña"} fullWidth
+                                       placeholder={"Confirmar Contraseña"}
+                                       variant={"standard"} type={showConfirmPassword ? "text" : "password"}
+                                       InputProps={{ // <-- This is where the toggle button is added.
+                                           endAdornment: (
+                                               <InputAdornment position="end">
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={handleClickShowConfirmPassword}
+                                                       onMouseDown={handleMouseDownConfirmPassword}
+                                                   >
+                                                       {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           )
+                                       }}/>
                         </CardContent>
                         <CardActions>
                             <Link href='/'>
