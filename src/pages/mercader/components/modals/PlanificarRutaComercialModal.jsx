@@ -33,6 +33,23 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
         setMarketsInUse(playerData?.mercados)
     }, [playerData])
 
+    const handleCloseSelf = () => {
+
+        let allSubregionList = gameData?.gameRegions?.flatMap(r => r.subregions);
+        allSubregionList?.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0));
+        setAllSubregions(allSubregionList);
+
+        let initialSubregions = allSubregionList?.filter(s => playerData?.mercados.some(m => m.cityName === s?.nombre));
+        setSubregionsAdjacent([initialSubregions]);
+
+        setSubregionsSelected([{}]);
+        setLabelSubregionSelected([""]);
+
+        marketsInUse.forEach(m => m.isSelected = false);
+
+        handleClose();
+    }
+
     const handleLabelSubregionSelected = (newValue, index) => {
 
         const newLabelsSelected = [...labelSubregionSelected];
@@ -93,7 +110,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
     }
 
     return (
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleCloseSelf}>
             <Box sx={{
                 position: 'absolute',
                 top: '50vh',
