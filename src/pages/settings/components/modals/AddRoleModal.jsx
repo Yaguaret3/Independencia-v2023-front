@@ -4,7 +4,7 @@ import {SettingsContext} from "../../Context.jsx";
 import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 import service from "../../Service.js";
 
-const AddRoleModal = ({open, handleClose, id}) => {
+const AddRoleModal = ({open, handleClose, player}) => {
 
     const {cities, stompClient} = useContext(SettingsContext);
     const {disparoSettings} = useWebSocket({});
@@ -28,9 +28,9 @@ const AddRoleModal = ({open, handleClose, id}) => {
     }
 
     const handleAsignarRolService = async () => {
-        await service.addRole({id:id, role:rolSelected});
+        await service.addRole({id:player.id, role:rolSelected});
         if(rolSelected === 'GOBERNADOR'){
-            await service.assignCity({playerId:id, cityId:ciudadSelected.id})
+            await service.assignCity({playerId:player.id, cityId:ciudadSelected.id})
         }
         disparoSettings({stompClient:stompClient});
     }
@@ -49,50 +49,58 @@ const AddRoleModal = ({open, handleClose, id}) => {
                 width:'30vw'
             }}
             >
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Autocomplete
-                            disablePortal
-                            getOptionLabel={(option) => option}
-                            options={roles}
-                            value={rolSelected}
-                            onChange={(event, newValue) => {
-                                handleSelectRol({newValue: newValue});
-                            }}
-                            inputValue={labelRolSelected}
-                            onInputChange={(event, newInputValue) => {
-                                handleLabelSelectRol({newValue: newInputValue});
-                            }}
-                            renderInput={(params) => <TextField {...params} label="Roles"/>}
-                        />
+                <Grid container direction={'column'}>
+                    <Grid item>
+                        {player?.username}
                     </Grid>
-                    {rolSelected === 'GOBERNADOR' &&
-                        <Grid item xs={6}>
-                            <Autocomplete
-                                disablePortal
-                                getOptionLabel={(option) => option.nombre}
-                                options={cities || []}
-                                value={ciudadSelected}
-                                onChange={(event, newValue) => {
-                                    handleSelectCity({newValue: newValue});
-                                }}
-                                inputValue={labelCiudadSelected}
-                                onInputChange={(event, newInputValue) => {
-                                    handleSelectCityLabel({newValue: newInputValue});
-                                }}
-                                renderInput={(params) => <TextField {...params} label="Ciudades"/>}
-                            />
-                        </Grid>
-                    }
-                    <Grid item xs={12}>
-                        <Button onClick={handleAsignarRolService}
-                                size="small" variant='contained'
-                                color={'error'} fullWidth>
-                            Asignar Rol
-                        </Button>
-                    </Grid>
+                    <Grid item>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <Autocomplete
+                                    disablePortal
+                                    getOptionLabel={(option) => option}
+                                    options={roles}
+                                    value={rolSelected}
+                                    onChange={(event, newValue) => {
+                                        handleSelectRol({newValue: newValue});
+                                    }}
+                                    inputValue={labelRolSelected}
+                                    onInputChange={(event, newInputValue) => {
+                                        handleLabelSelectRol({newValue: newInputValue});
+                                    }}
+                                    renderInput={(params) => <TextField {...params} label="Roles"/>}
+                                />
+                            </Grid>
+                            {rolSelected === 'GOBERNADOR' &&
+                                <Grid item xs={6}>
+                                    <Autocomplete
+                                        disablePortal
+                                        getOptionLabel={(option) => option.nombre}
+                                        options={cities || []}
+                                        value={ciudadSelected}
+                                        onChange={(event, newValue) => {
+                                            handleSelectCity({newValue: newValue});
+                                        }}
+                                        inputValue={labelCiudadSelected}
+                                        onInputChange={(event, newInputValue) => {
+                                            handleSelectCityLabel({newValue: newInputValue});
+                                        }}
+                                        renderInput={(params) => <TextField {...params} label="Ciudades"/>}
+                                    />
+                                </Grid>
+                            }
+                            <Grid item xs={12}>
+                                <Button onClick={handleAsignarRolService}
+                                        size="small" variant='contained'
+                                        color={'error'} fullWidth>
+                                    Asignar Rol
+                                </Button>
+                            </Grid>
 
+                        </Grid>
+                    </Grid>
                 </Grid>
+
             </Box>
         </Modal>
     );
