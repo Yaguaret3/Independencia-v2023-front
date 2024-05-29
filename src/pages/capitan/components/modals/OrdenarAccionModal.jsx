@@ -6,8 +6,8 @@ import ActionCard from "../../../common/ActionCard.jsx";
 const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
 
     const [cardSelected, setCardSelected] = useState(undefined);
-    const {subregionSelected, setSubregionSelected} = useState({});
-    const {labelSubregionSelected, setLabelSubregionSelected} = useState('');
+    const [subregionSelected, setSubregionSelected] = useState({});
+    const [labelSubregionSelected, setLabelSubregionSelected] = useState('');
 
     const handleCardSelected = (card) => {
         if(card.isSelected){
@@ -22,11 +22,11 @@ const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
         }
     }
 
-    const handleSubregionSelected = (region) => {
-        setSubregionSelected(region);
+    const handleSubregionSelected = ({newValue}) => {
+        setSubregionSelected(newValue);
     }
-    const handleLabelSubregionSelected = (label) => {
-        setLabelSubregionSelected(label);
+    const handleLabelSubregionSelected = ({newValue}) => {
+        setLabelSubregionSelected(newValue);
     }
 
     const handleService = () => {
@@ -62,28 +62,25 @@ const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
                                 Seleccionar carta de acción y destino
                             </Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={6}>
                             <Autocomplete
                                 disablePortal
-                                getOptionLabel={(option) => option.nombre}
+                                getOptionLabel={(option) => option.nombre || ''}
                                 options={subregions}
                                 value={subregionSelected}
                                 onChange={(event, newValue) => {
-                                    handleSubregionSelected(newValue);
+                                    handleSubregionSelected({newValue:newValue});
                                 }}
                                 inputValue={labelSubregionSelected}
                                 onInputChange={(event, newInputValue) => {
-                                    handleLabelSubregionSelected(newInputValue);
+                                    handleLabelSubregionSelected({newValue:newInputValue});
                                 }}
                                 renderInput={(params) => <TextField {...params} label="Subregiones" />}
                             />
                         </Grid>
                         <Grid item xs={6}>
                             {cards?.map((card) => (
-                                <Button onClick={() => handleCardSelected(card)}
-                                        size="small" variant='contained' color='warning' fullWidth>
-                                    <ActionCard actionName={card.actionType} />
-                                </Button>
+                                <ActionCard color={card.isSelected ? 'green' : 'black'} key={card.id} actionName={card.actionType} handleFunction={() => handleCardSelected(card)}/>
                             ))}
                         </Grid>
                     <Grid item xs={12}>
