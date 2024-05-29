@@ -9,14 +9,14 @@ const Users = () => {
     const {users} = useContext(SettingsContext);
 
     const [openAddRole, setOpenAddRol] = useState(false);
-    const handleOpenAddRole = ({id}) => {
+    const handleOpenAddRole = ({u}) => {
         setOpenAddRol(true);
-        setPlayerSelected(id);
+        setPlayerSelected(u);
     }
     const handleCloseAddRole = () => {
         setOpenAddRol(false);
     }
-    const [playerSelected, setPlayerSelected] = useState(0);
+    const [playerSelected, setPlayerSelected] = useState({});
 
     return (
         <>
@@ -45,7 +45,7 @@ const Users = () => {
                                     {u.email}
                                 </TableCell>
                                 <TableCell padding='none' align="center">
-                                    <Button onClick={() => handleOpenAddRole({id: u.id})}
+                                    <Button onClick={() => handleOpenAddRole({u: u})}
                                             size="small" variant='contained'
                                             color={'warning'}>
                                         Ver
@@ -59,7 +59,7 @@ const Users = () => {
             <AddRoleModal
                 open={openAddRole}
                 handleClose={handleCloseAddRole}
-                id={playerSelected}
+                player={playerSelected}
                 />
         </>
     );
