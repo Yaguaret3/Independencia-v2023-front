@@ -32,7 +32,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                 a.miliciasPerdidas = newValue;
             }
         })
-        setBatallaEdit(newList);
+        setBatallaEdit({...batallaEdit, combatientes:newList});
     }
     const toggleDestroy = ({armyId}) => {
         let newList = batallaEdit?.combatientes;
@@ -99,7 +99,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         Capitán
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell padding='none' align="center" key={c.id}>
                                             {c.capitanName}
                                         </TableCell>
                                     )}
@@ -113,7 +113,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         Milicias involucradas
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell padding='none' align="center" key={c.id}>
                                             {c.milicias}
                                         </TableCell>
                                     )}
@@ -123,7 +123,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         Ataque inicial
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell padding='none' align="center" key={c.id}>
                                             {c.valorAzar}
                                         </TableCell>
                                     )}
@@ -133,9 +133,9 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         Órdenes de batalla
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
-                                            {c.cartasDeCombate?.map(o =>
-                                                <div><BattleCard battleCardName={o.nombre}/></div>
+                                        <TableCell padding='none' align="center" key={c.id}>
+                                            {c.cartasJugadas?.map(o =>
+                                                <div  key={o.id}><BattleCard battleCardName={o.nombre}/></div>
                                             )}
                                         </TableCell>
                                     )}
@@ -145,7 +145,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         Milicias perdidas
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell padding='none' align="center" key={c.id}>
                                             <TextField
                                                 value={c?.miliciasPerdidas}
                                                 onChange={(event) => handleMiliciasPerdidas({
@@ -161,7 +161,7 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                         ¿Ejército destruído?
                                     </TableCell>
                                     {batallaEdit?.combatientes?.map(c =>
-                                        <TableCell padding='none' align="center">
+                                        <TableCell padding='none' align="center" key={c.id}>
                                             <Button onClick={() => toggleDestroy({armyId:c.id})}
                                                     size="small" variant='contained' color={c.destruir ? 'success' : 'error'} fullWidth>
                                                 {c.destruir ? 'Destruir' : 'No destruir'}
