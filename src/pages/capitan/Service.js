@@ -68,7 +68,7 @@ const playBattleCard = async ({cardId, battleId}) => {
         battleId:battleId
     }
 
-    return await axiosCommonInstance.post('/militares/play-battle-cards', body);
+    return await axiosCommonInstance.post('/militares/play-battle-card', body);
 }
 
 
