@@ -37,6 +37,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
 
         let allSubregionList = gameData?.gameRegions?.flatMap(r => r.subregions);
         allSubregionList?.sort((a,b) => (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0));
+        allSubregionList?.forEach(s => s.isSelected = false);
         setAllSubregions(allSubregionList);
 
         let initialSubregions = allSubregionList?.filter(s => playerData?.mercados.some(m => m.cityName === s?.nombre));
