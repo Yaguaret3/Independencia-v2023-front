@@ -210,7 +210,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
                         {marketsInUse?.map((market) => {
                             if(!market.isSelected){
                                 return (
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} key={market.id}>
                                         <MarketCard level={market.level} cityName={market.cityName}/>
                                     </Grid>
                                 )}
