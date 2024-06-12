@@ -4,8 +4,10 @@ import {Bounce, toast} from "react-toastify";
 
 const token = localStorage.getItem('independencia-token');
 
+const localUrl = "http://localhost:8085/api/";
+
 const axiosCommonInstance = axios.create({
-    baseURL: "http://152.67.33.100:80/api/",
+    baseURL: localUrl,
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -13,6 +15,17 @@ const axiosCommonInstance = axios.create({
 
 axiosCommonInstance.interceptors.response.use(
     responseBody => {
+        toast.success(responseBody.data, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+        });
         return responseBody;
     },
     error => {
@@ -32,7 +45,7 @@ axiosCommonInstance.interceptors.response.use(
 )
 
 const axiosGetInstance = axios.create({
-    baseURL: "http://152.67.33.100:80/api/",
+    baseURL: localUrl,
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -58,7 +71,7 @@ axiosGetInstance.interceptors.response.use(
 )
 
 const axiosControlInstance = axios.create({
-    baseURL: "http://152.67.33.100:80/api/",
+    baseURL: localUrl,
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -94,7 +107,7 @@ axiosControlInstance.interceptors.response.use(
     }
 )
 const axiosLoginInstance = axios.create({
-    baseURL: "http://152.67.33.100:80/api/"
+    baseURL: localUrl
 });
 
 axiosLoginInstance.interceptors.response.use(
