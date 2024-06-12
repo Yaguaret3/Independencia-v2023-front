@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 const useTimer = ({futureDate}) => {
 
     const [endOfTurn, setEndOfTurn] = useState({minutes:'00', seconds:'00'});
+    const [isRunning, setIsRunning] = useState(false);
 
     const calculateTimeLeft= ()  => {
         let difference = futureDate - new Date();
@@ -21,11 +22,13 @@ const useTimer = ({futureDate}) => {
     }
 
     const initTimer =() => {
-        const timer = setInterval(() => {
-            calculateTimeLeft();
-        }, 1000);
-
-        return () => clearInterval(timer);
+        if(!isRunning && futureDate){
+            const timer = setInterval(() => {
+                calculateTimeLeft();
+            }, 1000);
+            setIsRunning(true);
+            return () => clearInterval(timer);
+        }
     }
 
     return {
