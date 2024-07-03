@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Box, Button, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {ControlContext} from "../../../Context.jsx";
 import CrearBatallaModal from "./CrearBatallaModal.jsx";
@@ -8,7 +8,7 @@ const AccionesMilitares = ({open, handleClose}) => {
     const {gameData} = useContext(ControlContext);
 
     const accionesEnRegion = gameData?.gameRegions?.flatMap(r => r.accionesMilitares);
-    const accionesEnSubregion = gameData?.gameRegions?.subregions?.flatMap(sr => sr.accionesMilitares);
+    const accionesEnSubregion = gameData?.gameRegions?.flatMap(r => r.subregions?.flatMap(sr => sr.accionesMilitares));
 
     const [finalAcciones, setFinalAcciones] = useState(accionesEnRegion?.concat(accionesEnSubregion));
 
@@ -19,6 +19,10 @@ const AccionesMilitares = ({open, handleClose}) => {
     const handleCloseCrearBatallaModal = () => {
         setOpenCrearBatallaModal(false);
     }
+
+    useEffect(() => {
+        setFinalAcciones(accionesEnRegion?.concat(accionesEnSubregion));
+    }, [gameData]);
 
     return (
         <>
@@ -60,10 +64,10 @@ const AccionesMilitares = ({open, handleClose}) => {
                                                 {accion.actionType}
                                             </TableCell>
                                             <TableCell padding='none' align="center">
-                                                {accion.regionName || 'N/A'}
+                                                {accion.gameRegionName || 'N/A'}
                                             </TableCell>
                                             <TableCell padding='none' align="center">
-                                                {accion.subregionName || 'N/A'}
+                                                {accion.gameSubregionName || 'N/A'}
                                             </TableCell>
                                         </TableRow>
                                     )}
