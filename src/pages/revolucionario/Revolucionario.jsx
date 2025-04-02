@@ -28,7 +28,8 @@ const Revolucionario = () => {
 
     useEffect(() => {
 
-        const socket = new SockJS('http://152.67.33.100:80/ws');
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
+        const socket = new SockJS(baseURL+'/ws');
         const stompClient = over(socket);
         setStompClient(stompClient);
 

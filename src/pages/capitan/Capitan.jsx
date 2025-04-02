@@ -2,7 +2,6 @@ import React, {useContext, useEffect} from 'react'
 import BarraSuperior from './components/BarraSuperior'
 import BarraInferior from './components/BarraInferior'
 import Cuerpo from './components/Cuerpo'
-import {Box, Button} from '@mui/material'
 import service from './Service'
 import {CapitanContext} from './Context'
 import useWebSocket from "../../hooks/useWebSocket.jsx";
@@ -26,12 +25,15 @@ const Capitan = () => {
     })
 
     useEffect(() => {
-        const socket = new SockJS('http://152.67.33.100:80/ws');
+
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
+        const socket = new SockJS(baseURL+'/ws');
         const stompClient = over(socket);
         setStompClient(stompClient);
 
-        conectarWS({stompClient: stompClient});
         fetchData();
+        conectarWS({stompClient: stompClient});
+
     }, []);
 
     return (
