@@ -3,8 +3,7 @@ import {Bounce, toast} from "react-toastify";
 
 
 const token = localStorage.getItem('independencia-token');
-const baseURL = import.meta.env.VITE_BACKEND_URL;
-const apiURL = baseURL+'/api/';
+const apiURL = import.meta.env.VITE_BACKEND_URL;
 
 const axiosCommonInstance = axios.create({
     baseURL: apiURL,

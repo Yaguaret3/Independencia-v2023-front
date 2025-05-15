@@ -80,7 +80,6 @@ export default function Register() {
         });
     }
 
-
     return (
 
         <Box sx={{
