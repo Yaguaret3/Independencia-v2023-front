@@ -1,7 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import service from "./Service.js";
 import {ControlContext} from "./Context.jsx";
-import {Box, Button, Grid} from "@mui/material";
 import BarraSuperior from "../control/components/BarraSuperior.jsx";
 import Cuerpo from "../control/components/Cuerpo.jsx";
 import BarraInferior from "../control/components/BarraInferior.jsx";
@@ -28,8 +27,8 @@ const Control = () => {
 
     useEffect(() => {
 
-        const baseURL = import.meta.env.VITE_BACKEND_URL;
-        const socket = new SockJS(baseURL+'ws');
+        const baseURL = import.meta.env.VITE_BACKEND_URL_WS;
+        const socket = new SockJS(baseURL);
         const stompClient = over(socket);
         setStompClient(stompClient);
 
