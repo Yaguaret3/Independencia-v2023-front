@@ -29,7 +29,7 @@ const Control = () => {
     useEffect(() => {
 
         const baseURL = import.meta.env.VITE_BACKEND_URL;
-        const socket = new SockJS(baseURL+'/ws');
+        const socket = new SockJS(baseURL+'ws');
         const stompClient = over(socket);
         setStompClient(stompClient);
 

@@ -8,7 +8,6 @@ const useWebSocket = ({channel, fetchData}) => {
                 fetchData();
             });
             stompClient.subscribe('/actualizar-todos', function (valorFinal) {
-                console.log('Entra y...')
                 fetchData();
             });
         });
