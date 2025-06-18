@@ -4,7 +4,6 @@ import ResourceCard from "../../../common/ResourceCard.jsx";
 import {MercaderContext} from "../../Context.jsx";
 import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 import service from "../../Service.js";
-import {Bounce, toast} from "react-toastify";
 
 const ComprarRecursosModal = ({open, handleClose}) => {
 
@@ -13,17 +12,6 @@ const ComprarRecursosModal = ({open, handleClose}) => {
 
     const handleButton = async ({ priceId, puntajeAPagar }) => {
         await service.buyResources({ priceId: priceId, puntajeAPagar: puntajeAPagar })
-        toast.success("¡Recurso comprado!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-        });
         disparoMercaderes({stompClient:stompClient});
         disparoControl({stompClient:stompClient});
     }
