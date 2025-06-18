@@ -11,11 +11,7 @@ const BarraSuperior = (props) => {
 
     const { playerData, gameData } = useContext(GobernadorContext);
 
-    const {initTimer, minutes, seconds} = useTimer({futureDate:gameData?.nextEndOfTurn});
-
-    useEffect(() => {
-        initTimer();
-    });
+    const {minutes, seconds} = useTimer({futureDate: gameData?.nextEndOfTurn});
 
     return (
         <AppBar position="static" color='warning'>

@@ -11,11 +11,7 @@ const BarraSuperior = () => {
 
     const {playerData, gameData} = useContext(RevolucionarioContext);
 
-    const {initTimer, minutes, seconds} = useTimer({futureDate: gameData?.nextEndOfTurn});
-
-    useEffect(() => {
-        initTimer();
-    });
+    const {minutes, seconds} = useTimer({futureDate: gameData?.nextEndOfTurn});
 
     return (
         <AppBar position="static" color='warning'>

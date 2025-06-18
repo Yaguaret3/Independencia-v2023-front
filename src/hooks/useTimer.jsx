@@ -21,18 +21,15 @@ const useTimer = ({futureDate}) => {
             seconds: secString});
     }
 
-    const initTimer =() => {
-        if(!isRunning && futureDate){
-            const timer = setInterval(() => {
-                calculateTimeLeft();
-            }, 1000);
-            setIsRunning(true);
-            return () => clearInterval(timer);
-        }
-    }
+    useEffect(() => {
+        const timer = setInterval(() => {
+            calculateTimeLeft();
+        }, 1000);
+        setIsRunning(true);
+        return () => clearInterval(timer);
+        }, [futureDate]);
 
     return {
-        initTimer,
         minutes:endOfTurn.minutes,
         seconds:endOfTurn.seconds
     }
