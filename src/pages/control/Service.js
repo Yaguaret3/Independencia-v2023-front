@@ -68,8 +68,8 @@ const createNewArmy = async ({capitanId, subregionId}) => {
 
     return await axiosControlInstance.post('control/new-army', body);
 }
-const removeCongress = async({congressId}) => {
-    return await axiosControlInstance.delete('control/'+congressId+'/remove-congress');
+const removeCongress = async({congresoId}) => {
+    return await axiosControlInstance.delete('control/'+congresoId+'/remove-congress');
 }
 const updateCongress = async({congressId, presidente, plata, milicia}) => {
 
