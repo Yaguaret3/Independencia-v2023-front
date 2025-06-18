@@ -42,11 +42,25 @@ const NuevaPropuestaModal = ({ open, handleClose }) => {
             >
                 <Grid container>
                     <Grid item xs={12}>
-                        <TextField onChange={handleTextField} value={textField} variant='outlined' label='Nueva Propuesta' fullWidth/>
+                        <TextField
+                            onChange={handleTextField}
+                            value={textField}
+                            variant='outlined'
+                            label='Nueva Propuesta'
+                            fullWidth
+                            helperText={textField.length > 100 ? 'La propuesta no puede tener más de 100 caracteres.' : ''}
+                            error={textField.length > 100}
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button onClick={handleService}
-                            size="small" variant='contained' color='warning' fullWidth>
+                        <Button
+                            onClick={handleService}
+                            size="small"
+                            variant='contained'
+                            color='warning'
+                            fullWidth
+                            disabled={textField.length > 100}
+                        >
                             Proponer
                         </Button>
                     </Grid>
