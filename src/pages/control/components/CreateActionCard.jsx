@@ -9,7 +9,7 @@ const CreateActionCard = ({playerId}) => {
     const {stompClient} = useContext(ControlContext);
     const {disparoTodos} = useWebSocket({})
 
-    const actionTypes = ['MOVIMIENTO', 'ATAQUE', 'DEFENSA', 'REACCION', 'DESPLIEGUE', 'ACAMPE', 'NADA'];
+    const actionTypes = ['MOVIMIENTO', 'ATAQUE', 'DEFENSA', 'REACCION', 'DESPLIEGUE', 'ACAMPE'/*, 'NADA'*/];
     const [actionTypeSelected, setActionTypeSelected] = useState('');
 
     const handleSelectActionType = ({newValue}) => {
