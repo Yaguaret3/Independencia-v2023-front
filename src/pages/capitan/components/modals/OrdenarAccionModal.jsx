@@ -52,55 +52,54 @@ const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
     }
 
     return (
-        <>
-            <Modal open={open} onClose={handleClose}>
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50vh',
-                    left: '50vw',
-                    transform: 'translate(-50%, -50%)',
-                    bgcolor: 'background.paper',
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 3
-                }}
-                >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography >
-                                Seleccionar carta de acción y destino
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Autocomplete
-                                disablePortal
-                                getOptionLabel={(option) => option.nombre || ''}
-                                options={subregions}
-                                value={subregionSelected}
-                                onChange={(event, newValue) => {
-                                    handleSubregionSelected({newValue:newValue});
-                                }}
-                                inputValue={labelSubregionSelected}
-                                onInputChange={(event, newInputValue) => {
-                                    handleLabelSubregionSelected({newValue:newInputValue});
-                                }}
-                                renderInput={(params) => <TextField {...params} label="Subregiones" />}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            {cards?.map((card) => (
+        <Modal open={open} onClose={handleClose}>
+            <Box sx={{
+                position: 'absolute',
+                top: '50vh',
+                left: '50vw',
+                transform: 'translate(-50%, -50%)',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 3
+            }}
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography >
+                            Seleccionar carta de acción y destino
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Autocomplete
+                            disablePortal
+                            getOptionLabel={(option) => option.nombre || ''}
+                            options={subregions}
+                            value={subregionSelected}
+                            onChange={(event, newValue) => {
+                                handleSubregionSelected({newValue:newValue});
+                            }}
+                            inputValue={labelSubregionSelected}
+                            onInputChange={(event, newInputValue) => {
+                                handleLabelSubregionSelected({newValue:newInputValue});
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Subregiones" />}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        {cards?.filter(card => card.actionName === 'DESPLIEGUE' || card.actionName === 'DEFENSA' || card.actionName === 'ATAQUE')
+                            .map((card) => (
                                 <ActionCard color={card.isSelected ? 'green' : 'black'} key={card.id} actionName={card.actionType} handleFunction={() => handleCardSelected(card)}/>
                             ))}
-                        </Grid>
+                    </Grid>
                     <Grid item xs={12}>
                         <Button onClick={handleService}
                                 size="small" variant='contained' color='warning' fullWidth>Ordenar acción</Button>
                     </Grid>
 
-                    </Grid>
-                </Box>
-            </Modal>
-        </>
+                </Grid>
+            </Box>
+        </Modal>
     )
 }
 
