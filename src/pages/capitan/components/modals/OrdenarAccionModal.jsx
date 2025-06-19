@@ -47,6 +47,7 @@ const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
         })
         disparoControl({stompClient:stompClient});
         disparoCapitanes({stompClient:stompClient});
+        setCardSelected(undefined);
         handleClose();
     }
 
