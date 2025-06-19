@@ -43,60 +43,55 @@ const CambiarRegionModal = ({open, handleClose, cards, regions}) => {
     }
 
     return (
-        <>
-            <Modal open={open} onClose={handleClose}>
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50vh',
-                    left: '50vw',
-                    transform: 'translate(-50%, -50%)',
-                    bgcolor: 'background.paper',
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: 3
-                }}
-                >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Typography>
-                                Seleccionar carta de acción y destino
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Autocomplete
-                                disablePortal
-                                getOptionLabel={(option) => option.nombre || ''}
-                                options={regions}
-                                value={regionSelected}
-                                onChange={(event, newValue) => {
-                                    handleRegionSelected(newValue);
-                                }}
-                                inputValue={labelRegionSelected}
-                                onInputChange={(event, newInputValue) => {
-                                    handleLabelRegionSelected(newInputValue);
-                                }}
-                                renderInput={(params) => <TextField {...params} label="Regiones"
-                                                                    sx={{width: "250%"}}/>}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            {cards?.map((card) => (
-                                <Button onClick={() => handleCardSelected(card)}
-                                        size="small" variant='contained' color='warning' fullWidth>
-                                    <ActionCard actionName={card.actionType}/>
-                                </Button>
-                            ))}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button onClick={handleService}
-                                    size="small" variant='contained' color='warning' fullWidth>Trasladar campamento
-                                a</Button>
-                        </Grid>
-
+        <Modal open={open} onClose={handleClose}>
+            <Box sx={{
+                position: 'absolute',
+                top: '50vh',
+                left: '50vw',
+                transform: 'translate(-50%, -50%)',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: 3
+            }}
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography>
+                            Seleccionar carta de acción y destino
+                        </Typography>
                     </Grid>
-                </Box>
-            </Modal>
-        </>
+                    <Grid item xs={6}>
+                        <Autocomplete
+                            disablePortal
+                            getOptionLabel={(option) => option.nombre || ''}
+                            options={regions}
+                            value={regionSelected}
+                            onChange={(event, newValue) => {
+                                handleRegionSelected(newValue);
+                            }}
+                            inputValue={labelRegionSelected}
+                            onInputChange={(event, newInputValue) => {
+                                handleLabelRegionSelected(newInputValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Regiones"/>}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        {cards?.map((card) => (
+                            <ActionCard actionName={card.actionType} color={card.isSelected ? 'green' : 'black'} key={card.id}
+                                        handleFunction={() => handleCardSelected(card)}/>
+                        ))}
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button onClick={handleService}
+                                size="small" variant='contained' color='warning' fullWidth>Trasladar campamento
+                            a</Button>
+                    </Grid>
+
+                </Grid>
+            </Box>
+        </Modal>
     )
 }
 
