@@ -99,7 +99,6 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
         setSubregionsAdjacent(newSubregionsAdjacent);
 
         marketsInUse.find(mr => mr.cityName === oldValue.nombre).isSelected = false;
-        console.log("Hola")
     }
 
     const handleSendButton = async () => {
@@ -107,7 +106,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
         await service.playTradeRoute({subregionsSelected: subregionsSelected, marketsSelected : marketsInUse.filter(m => m.isSelected)})
         disparoControl({stompClient:stompClient});
         disparoMercaderes({stompClient:stompClient});
-        handleClose();
+        handleCloseSelf();
     }
 
     return (
@@ -132,14 +131,16 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
                     </Grid>
                     <Grid item xs={4}>
                         <Grid container>
-                            <Typography textAlign={'center'}>
-                                Subregiones
-                            </Typography>
+                            <Grid item xs={12} mb={2}>
+                                <Typography textAlign={'center'}>
+                                    Subregiones
+                                </Typography>
+                            </Grid>
                             {subregionsSelected?.map((subregion, index) => {
                                 return(
                                     <>
                                         {(index !== subregionsSelected.length-1 || index === 0) ?
-                                            <Grid item xs={12}>
+                                            <Grid item xs={12} mb={2}>
                                                 <Autocomplete
                                                     readOnly={index !== subregionsSelected.length-1}
                                                     disablePortal
@@ -159,7 +160,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
 
                                             :
                                             <>
-                                                <Grid item xs={9}>
+                                                <Grid item xs={9}  mb={2}>
                                                     <Autocomplete
                                                         readOnly={index !== subregionsSelected.length-1}
                                                         disablePortal
@@ -176,7 +177,7 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
                                                         renderInput={(params) => <TextField {...params} label="Subregión" />}
                                                     />
                                                 </Grid>
-                                                <Grid item xs={3}>
+                                                <Grid item xs={3}  mb={2}>
                                                     <Button onClick={() => handleDelButton()} size="large" variant='outlined' color='error' fullWidth>DEL</Button>
                                                 </Grid>
                                             </>
@@ -186,36 +187,42 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
                         </Grid>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography textAlign={'center'}>
-                            Mercados a utilizar
-                        </Typography>
-                        {subregionsSelected?.map((subregion, index) => {
+                        <Grid container>
+                            <Grid item xs={12} mb={2}>
+                                <Typography textAlign={'center'}>
+                                    Mercados a utilizar
+                                </Typography>
+                            </Grid>
+                            {subregionsSelected?.map((subregion, index) => {
 
-                            const m = marketsInUse?.find(mr => mr.cityName === subregion.nombre)
-                            return index !== subregionsSelected.length-1 &&
-                                (m?.isSelected ?
-                                    (<Grid item xs={12}>
-                                        <MarketCard level={m.level} cityName={m.cityName}/>
-                                    </Grid>)
-                                    :
-                                    (<Grid item xs={12}>
-                                        <MarketCard level={""} cityName={""}/>
-                                </Grid>))}
-                        )}
+                                const m = marketsInUse?.find(mr => mr.cityName === subregion.nombre)
+                                return index !== subregionsSelected.length-1 &&
+                                    (m?.isSelected ?
+                                        (<Grid item xs={12} mb={2}>
+                                            <MarketCard level={m.level} cityName={m.cityName}/>
+                                        </Grid>)
+                                        :
+                                        (<Grid item xs={12} mb={2}>
+                                            <MarketCard level={""} cityName={""}/>
+                                        </Grid>))}
+                            )}
+                        </Grid>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography textAlign={'center'}>
-                            Mercados disponibles
-                        </Typography>
-                        {marketsInUse?.map((market) => {
-                            if(!market.isSelected){
-                                return (
-                                    <Grid item xs={12} key={market.id}>
-                                        <MarketCard level={market.level} cityName={market.cityName}/>
-                                    </Grid>
-                                )}
-                            }
-                        )}
+                        <Grid container>
+                            <Typography textAlign={'center'}>
+                                Mercados disponibles
+                            </Typography>
+                            {marketsInUse?.map((market) => {
+                                    if(!market.isSelected){
+                                        return (
+                                            <Grid item xs={12} key={market.id} mb={2}>
+                                                <MarketCard level={market.level} cityName={market.cityName}/>
+                                            </Grid>
+                                        )}
+                                }
+                            )}
+                        </Grid>
                     </Grid>
                     <Button onClick={handleSendButton} size="medium" variant='contained' color='warning' fullWidth>Enviar planificación comercial</Button>
                 </Grid>
