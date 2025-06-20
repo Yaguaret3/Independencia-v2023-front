@@ -1,13 +1,13 @@
-import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
+import {axiosCommonInstance,axiosGetInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axiosCommonInstance.get('comercio/get-game-data');
+    return await axiosGetInstance.get('comercio/get-game-data');
 }
 
 const getPlayerData = async () => {
 
-    return await axiosCommonInstance.get('/comercio');
+    return await axiosGetInstance.get('/comercio');
 }
 
 const buyResources = async({priceId, puntajeAPagar}) => {

@@ -1,18 +1,18 @@
-import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
+import {axiosCommonInstance,axiosGetInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axiosCommonInstance.get('/revolucion/game/');
+    return await axiosGetInstance.get('/revolucion/game/');
 }
 
 const getPlayerData = async () => {
 
-    return await axiosCommonInstance.get('/revolucion/');
+    return await axiosGetInstance.get('/revolucion/');
 }
 
 const getCongresosData = async () => {
 
-    return await axiosCommonInstance.get('/revolucion/congresos/');
+    return await axiosGetInstance.get('/revolucion/congresos/');
 }
 
 const propose = async ({proposal}) => {

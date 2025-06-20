@@ -14,7 +14,7 @@ const axiosCommonInstance = axios.create({
 
 axiosCommonInstance.interceptors.response.use(
     responseBody => {
-        toast.success(responseBody.data, {
+        toast.success("Acción realizada", {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,

@@ -1,13 +1,13 @@
-import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
+import {axiosCommonInstance, axiosGetInstance} from '../../axios/axiosInstances.jsx';
 
 const getGameData = async () => {
 
-    return await axiosCommonInstance.get('/militares/game/');
+    return await axiosGetInstance.get('/militares/game/');
 }
 
 const getPlayerData = async () => {
 
-    return await axiosCommonInstance.get('/militares/');
+    return await axiosGetInstance.get('/militares/');
 }
 const moverCampamento = async ({cardId, regionToId}) => {
 

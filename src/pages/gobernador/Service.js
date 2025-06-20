@@ -1,12 +1,12 @@
-import {axiosCommonInstance} from '../../axios/axiosInstances.jsx';
+import {axiosCommonInstance, axiosGetInstance} from '../../axios/axiosInstances.jsx';
 
 const getPlayerData = async () => {
 
-    return await axiosCommonInstance.get('/ciudad');
+    return await axiosGetInstance.get('/ciudad');
 }
 const getGameData = async () => {
 
-    return await axiosCommonInstance.get('/ciudad/game/');
+    return await axiosGetInstance.get('/ciudad/game/');
 }
 
 const cambiarImpuestos = async ({aumentar, disminuir}) => {
