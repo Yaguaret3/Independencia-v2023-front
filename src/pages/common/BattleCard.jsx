@@ -8,7 +8,7 @@ const BattleCard = ({battleCardName, descripcion, color='black', handleFunction=
     }
 
     return (
-        <Tooltip title={descripcion}>
+        <Tooltip title={descripcion} arrow>
             <Card sx={cardBorder} onClick={handleFunction}>
                 <CardActionArea>
                     <CardContent sx={{backgroundColor: 'gray', paddingY: 0}}>

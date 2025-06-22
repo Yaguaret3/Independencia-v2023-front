@@ -38,7 +38,7 @@ const Subregion = ({subregion}) => {
 
 
 	return (
-		<Tooltip title={title}>
+		<Tooltip title={title} arrow>
 			<g id={subregion.nombre}>
 				<path
 					style={{ fill: color, opacity: opacity }}

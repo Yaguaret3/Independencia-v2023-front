@@ -3,7 +3,7 @@ import {Card, CardActionArea, CardContent, Tooltip, Typography} from "@mui/mater
 
 const BuildingCard = ({building}) => {
     return (
-        <Tooltip title={building.bonification}>
+        <Tooltip title={building.bonification} arrow>
             <Card sx={{ border: 'solid black' }}>
                 <CardActionArea>
                     <CardContent sx={{ backgroundColor: 'lightslategrey', paddingY: 0 }}>

@@ -3,7 +3,7 @@ import {Card, CardActionArea, CardContent, Tooltip, Typography} from "@mui/mater
 
 const ExtraCard = ({nombre, descripcion, bonificacion}) => {
     return (
-        <Tooltip title={bonificacion}>
+        <Tooltip title={bonificacion} arrow>
             <Card sx={{border: 'solid black'}}>
                 <CardActionArea>
                     <CardContent sx={{

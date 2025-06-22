@@ -53,7 +53,7 @@ const CrearEdificioModal = ({ open, handleClose, buildings, recursos }) => {
                         </Grid>
                         {buildings?.map((building) => (
                             <Grid item xs={4} key={building.id}>
-                                <Tooltip title={building.bonification}>
+                                <Tooltip title={building.bonification} arrow>
                                     <Button onClick={() => handleBuildingSelected(building)}
                                         size="small" variant='contained' color='warning' fullWidth>{building.name}</Button>
                                 </Tooltip>

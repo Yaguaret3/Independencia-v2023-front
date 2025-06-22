@@ -27,7 +27,7 @@ const Region = ({ region }) => {
 
     return (
         <>
-            <Tooltip title={region.nombre}>
+            <Tooltip title={region.nombre} arrow>
                 <g>
                     <path
                         style={{

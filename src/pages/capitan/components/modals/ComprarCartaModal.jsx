@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import {Modal, Grid, Box, Button, Typography} from '@mui/material'
+import {Modal, Grid, Box, Button, Typography, Tooltip} from '@mui/material'
 import service from '../../Service'
 import ActionCard from "../../../common/ActionCard.jsx";
 import PagarModal from "../../../common/PagarModal.jsx";
@@ -43,22 +43,22 @@ const ComprarCartaModal = ({open, handleClose, cards, recursos, label, accion, o
 
     const handleService = async ({plata, resourcesIds}) => {
 
-        if(accion){
+        if (accion) {
             await service.comprarActionCard({
                 cardTypeId: cardSelected.id,
                 plata: plata,
                 resourcesIds: resourcesIds
             })
         }
-        if(ordenDeBatalla){
+        if (ordenDeBatalla) {
             await service.comprarBattleCard({
                 cardTypeId: cardSelected.id,
                 plata: plata,
                 resourcesIds: resourcesIds
             })
         }
-        disparoControl({stompClient:stompClient});
-        disparoCapitanes({stompClient:stompClient});
+        disparoControl({stompClient: stompClient});
+        disparoCapitanes({stompClient: stompClient});
     }
 
     return (
@@ -82,13 +82,16 @@ const ComprarCartaModal = ({open, handleClose, cards, recursos, label, accion, o
                             </Typography>
                         </Grid>
                         {cards?.map((card) => (
-                            <Grid item xs={2}  key={card.id}>
-                                {accion && <ActionCard actionName={card.name}
-                                                       color={card.isSelected ? 'green' : 'black'}
-                                                       handleFunction={() => handleCardSelected(card)}/>}
-                                {ordenDeBatalla && <BattleCard battleCardName={card.name}
-                                                               color={card.isSelected ? 'green' : 'black'}
-                                                               handleFunction={() => handleCardSelected(card)}/>}
+                            <Grid item xs={3} key={card.id}>
+                                {accion &&
+                                    <ActionCard actionName={card.name}
+                                                color={card.isSelected ? 'green' : 'black'}
+                                                handleFunction={() => handleCardSelected(card)}/>}
+                                {ordenDeBatalla &&
+                                    <BattleCard battleCardName={card.nameToShow}
+                                                descripcion={card.descripcion}
+                                                color={card.isSelected ? 'green' : 'black'}
+                                                handleFunction={() => handleCardSelected(card)}/>}
                             </Grid>
                         ))}
                         <Grid item xs={12}>
