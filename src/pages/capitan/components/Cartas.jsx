@@ -44,7 +44,8 @@ const Cartas = () => {
                 <Grid item xs={12} xl={6}>
                     {playerData.battleCards?.map((battleCard) => (
 
-                        <BattleCard battleCardName={battleCard.battleOrderType}
+                        <BattleCard battleCardName={battleCard.nombre}
+                                    descripcion={battleCard.descripcion}
                                     handleFunction={() => handleOpen({card: battleCard})}/>
                     ))}
                 </Grid>
