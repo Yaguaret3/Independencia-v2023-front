@@ -21,8 +21,8 @@ const CreateActionCard = ({playerId}) => {
     }
 
     return (
-        <>
-            <Grid item xs={6}>
+        <Grid item container spacing={2}>
+            <Grid item xs={8}>
                 <Autocomplete
                     disablePortal
                     getOptionLabel={(option) => option}
@@ -35,13 +35,13 @@ const CreateActionCard = ({playerId}) => {
                     renderInput={(params) => <TextField {...params} label="Acción"/>}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                 <Button onClick={handleCrearNewActionCard}
-                        size="small" variant='contained' color='warning' >
+                        size="small" variant='contained' color='warning' fullWidth>
                     Crear
                 </Button>
             </Grid>
-        </>
+        </Grid>
     );
 };
 

@@ -31,7 +31,7 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
             }}
             >
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                         <Grid container spacing={2}>
                             <Autocomplete
                                 fullWidth
@@ -47,47 +47,38 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                             />
                         </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Grid container spacing={2}>
-                            {typeSelected === 'Recursos' &&
-                                <CreateResourceCard playerId={playerId}/>
-                            }
-                            {typeSelected === 'Mercado' &&
-                                <CreateMarketCard playerId={playerId}/>
-                            }
-                            {typeSelected === 'Representacion' &&
-                                <CreateRepresentationCard playerId={playerId}/>
-                            }
-                            {typeSelected === 'Accion' &&
-                                <CreateActionCard playerId={playerId}/>
-                            }
-                            {typeSelected === 'Batalla' &&
-                                <CreateBattleCard playerId={playerId}/>
-                            }
-                            {typeSelected === 'Extra' &&
-                                <>
-                                    <Grid item xs={6}>
-                                        <Autocomplete
-                                            disablePortal
-                                            getOptionLabel={(option) => option}
-                                            options={recursosTypes}
-                                            value={recursoTypeSelected}
-                                            onChange={(event, newValue) => {
-                                                handleSelectRecursoType({newValue: newValue});
-                                            }}
-                                            inputValue={recursoTypeSelected}
-                                            renderInput={(params) => <TextField {...params} label=""/>}
-                                        />Recurso
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Button onClick={handleCrearNewResourceCard}
-                                                size="small" variant='contained' color='warning'>
-                                            Crear
-                                        </Button>
-                                    </Grid>
-                                </>
-                            }
-                        </Grid>
+                    <Grid item xs={8}>
+                        {typeSelected === 'Recursos' &&
+                            <CreateResourceCard playerId={playerId}/>
+                        }
+                        {typeSelected === 'Mercado' &&
+                            <CreateMarketCard playerId={playerId}/>
+                        }
+                        {typeSelected === 'Representacion' &&
+                            <CreateRepresentationCard playerId={playerId}/>
+                        }
+                        {typeSelected === 'Accion' &&
+                            <CreateActionCard playerId={playerId}/>
+                        }
+                        {typeSelected === 'Batalla' &&
+                            <CreateBattleCard playerId={playerId}/>
+                        }
+                        {/*typeSelected === 'Extra' &&
+                            <Grid item container spacing={2}>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        value={militiaSelected}
+                                        onChange={(e) => handleSelectMilitia({milicia:e.target.value})}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Button onClick={handleCrearNewResourceCard}
+                                            size="small" variant='contained' color='warning'>
+                                        Crear
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        */}
                     </Grid>
                 </Grid>
             </Box>

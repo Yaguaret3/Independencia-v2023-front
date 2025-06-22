@@ -9,7 +9,16 @@ const CreateBattleCard = ({playerId}) => {
     const {stompClient} = useContext(ControlContext);
     const {disparoTodos} = useWebSocket({})
 
-    const battleTypes = ['CARGA_DE_INFANTERIA'];
+    const battleTypes = [
+        'CARGA_DE_INFANTERIA',
+        'FUEGO_DE_ARTILLERIA',
+        'FLANQUEO_DE_CABALLERIA',
+        'MOVIMIENTO_EN_PINZAS',
+        'FALSA_RETIRADA',
+        'REAGRUPAMIENTO',
+        'ADAPTACION',
+        'RETIRADA_ORDENADA'
+    ];
     const [battleTypeSelected, setBattleTypeSelected] = useState('');
 
     const handleSelectBattleType = ({newValue}) => {
@@ -20,8 +29,8 @@ const CreateBattleCard = ({playerId}) => {
         disparoTodos({stompClient:stompClient});
     }
     return (
-        <>
-            <Grid item xs={6}>
+        <Grid item container spacing={2}>
+            <Grid item xs={8}>
                 <Autocomplete
                     disablePortal
                     getOptionLabel={(option) => option}
@@ -34,13 +43,13 @@ const CreateBattleCard = ({playerId}) => {
                     renderInput={(params) => <TextField {...params} label="Orden de batalla"/>}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                 <Button onClick={handleCrearNewBattleCard}
-                        size="small" variant='contained' color='warning' >
+                        size="small" variant='contained' color='warning' fullWidth>
                     Crear
                 </Button>
             </Grid>
-        </>
+        </Grid>
     );
 };
 

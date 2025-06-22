@@ -27,8 +27,8 @@ const CreateRepresentationCard = ({playerId}) => {
     }
 
     return (
-        <>
-            <Grid item={6}>
+        <Grid item container spacing={2}>
+            <Grid item={8}>
                 <Autocomplete
                     disablePortal
                     getOptionLabel={(option) => option.name || ''}
@@ -44,13 +44,13 @@ const CreateRepresentationCard = ({playerId}) => {
                     renderInput={(params) => <TextField {...params} label="Ciudad"/>}
                 />
             </Grid>
-            <Grid item={6}>
+            <Grid item={4}>
                 <Button onClick={handleCrearNewRepresentationCard}
-                        size="small" variant='contained' color='warning' >
+                        size="small" variant='contained' color='warning' fullWidth>
                     Crear
                 </Button>
             </Grid>
-        </>
+        </Grid>
     );
 };
 

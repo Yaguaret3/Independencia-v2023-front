@@ -27,7 +27,7 @@ const CreateMarketCard = ({playerId}) => {
     }
 
     return (
-        <>
+        <Grid item container spacing={2}>
             <Grid item xs={6}>
                 <Autocomplete
                     disablePortal
@@ -55,11 +55,11 @@ const CreateMarketCard = ({playerId}) => {
             </Grid>
             <Grid item xs={3}>
                 <Button onClick={handleCrearNewMarketCard}
-                        size="small" variant='contained' color='warning' >
+                        size="small" variant='contained' color='warning' fullWidth>
                     Crear
                 </Button>
             </Grid>
-        </>
+        </Grid>
     );
 };
 
