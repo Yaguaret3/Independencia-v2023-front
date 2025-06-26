@@ -89,7 +89,9 @@ const OrdenarAccionModal = ({ open, handleClose, cards, subregions }) => {
                     <Grid item xs={6}>
                         {cards?.filter(card => card.actionType === 'DESPLIEGUE' || card.actionType === 'DEFENSA' || card.actionType === 'ATAQUE')
                             .map((card) => (
-                                <ActionCard color={card.isSelected ? 'green' : 'black'} key={card.id} actionName={card.actionType} handleFunction={() => handleCardSelected(card)}/>
+                                <ActionCard color={card.isSelected ? 'green' : 'black'} key={card.id}
+                                            actionName={card.actionType}
+                                            descripcion={card.descripcion} handleFunction={() => handleCardSelected(card)}/>
                             ))}
                     </Grid>
                     <Grid item xs={12}>

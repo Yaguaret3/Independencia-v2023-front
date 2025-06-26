@@ -38,7 +38,8 @@ const Cartas = () => {
                 <Grid item xs={12} xl={6}>
                     {playerData.actionCards?.map((action) => (
 
-                        <ActionCard actionName={action.actionType}/>
+                        <ActionCard actionName={action.actionType}
+                                    descripcion={action.descripcion}/>
                     ))}
                 </Grid>
                 <Grid item xs={12} xl={6}>

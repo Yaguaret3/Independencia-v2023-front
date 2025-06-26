@@ -85,6 +85,7 @@ const ComprarCartaModal = ({open, handleClose, cards, recursos, label, accion, o
                             <Grid item xs={3} key={card.id}>
                                 {accion &&
                                     <ActionCard actionName={card.name}
+                                                descripcion={card.descripcion}
                                                 color={card.isSelected ? 'green' : 'black'}
                                                 handleFunction={() => handleCardSelected(card)}/>}
                                 {ordenDeBatalla &&

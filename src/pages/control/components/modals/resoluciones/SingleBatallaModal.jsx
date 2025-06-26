@@ -135,7 +135,8 @@ const SingleBatallaModal = ({open, handleClose, batalla}) => {
                                     {batallaEdit?.combatientes?.map(c =>
                                         <TableCell padding='none' align="center" key={c.id}>
                                             {c.cartasJugadas?.map(o =>
-                                                <div  key={o.id}><BattleCard battleCardName={o.nombre}/></div>
+                                                <div  key={o.id}><BattleCard battleCardName={o.nombre}
+                                                                             descripcion={o.descripcion}/></div>
                                             )}
                                         </TableCell>
                                     )}
