@@ -4,7 +4,7 @@ import {Grid} from "@mui/material";
 
 
 const VirreinatoMapComplete = ({gameData, xs, xl}) => {
-    const backgroundSrc = "src/assets/img/map_independencia_recortado.jpg";
+    const backgroundSrc = "/img/map_independencia_recortado.jpg";
 
     const backgroundMapComponent =
         <img src={backgroundSrc} alt="BackgroundImage" style={{maxHeight:'100%', maxWidth:'100%'}}/>;

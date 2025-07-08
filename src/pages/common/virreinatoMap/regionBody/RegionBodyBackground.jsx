@@ -4,7 +4,7 @@ import Subregiones from "../complete/regiones/Subregiones.jsx";
 
 const RegionBodyBackground = ({gameRegion}) => {
 
-    const plainURL = 'src/assets/img/%s.jpg'.replace("%s", gameRegion?.jpg)
+    const plainURL = '/img/%s.jpg'.replace("%s", gameRegion?.jpg)
 
     const backgroundRegion =  encodeURI(plainURL);
 

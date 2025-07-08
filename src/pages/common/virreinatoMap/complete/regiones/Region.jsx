@@ -23,7 +23,7 @@ const Region = ({ region }) => {
         setOpen(false);
     };
 
-    const backgroundRegion =  encodeURI('src/assets/img/'+region?.jpg+'.jpg');
+    const backgroundRegion =  encodeURI('/img/'+region?.jpg+'.jpg');
 
     return (
         <>
