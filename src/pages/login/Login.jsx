@@ -5,13 +5,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import {Box, IconButton, InputAdornment, TextField, Grid} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link, useLocation} from 'wouter';
 import service from './Service';
 import {Bounce, toast} from "react-toastify";
-import RecuperarPassModal from "./modals/RecuperarPassModal.jsx";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export default function Login() {
@@ -77,98 +75,74 @@ export default function Login() {
             }
         });
     }
-    const [openRecuperarPassModal, setOpenRecuperarPassModal] = useState(false);
-    const handleOpenRecuperarPassModal = () => {
-        setOpenRecuperarPassModal(true);
-    }
-    const handleCloseRecuperarPassModal = () => {
-        setOpenRecuperarPassModal(false);
-    }
-
-
     return (
-        <>
-            <Box sx={{
-                position: 'absolute',
-                top: '50vh',
-                left: '50vw',
-                transform: 'translate(-50%, -50%)',
-                bgcolor: 'background.paper',
-                boxShadow: 24,
-                p: 4,
-                borderRadius: 3,
-                backgroundColor: amber.A700
-            }}
+        <Box sx={{
+            position: 'absolute',
+            top: '50vh',
+            left: '50vw',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 3,
+            backgroundColor: amber.A700
+        }}
+        >
+            <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+                justify="center"
+                height={'100vh'}
+                width={'100vw'}
             >
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    justify="center"
-                    height={'100vh'}
-                    width={'100vw'}>
-                    <Grid item>
-                        <Card sx={{maxWidth: 345}}>
-                            <CardMedia
-                                component="img"
-                                sx={{height: 100,}}
-                                image="https://i.ebayimg.com/images/g/QpoAAOSwaB9fyTC~/s-l500.jpg"
-                                title="moneda peso"
+                <Grid item>
+                    <Card sx={{maxWidth: '45vw'}}>
+                        <CardMedia
+                            component="img"
+                            sx={{maxWidth: '95%', margin: '0 auto'}}
+                            image={'/img/isologotipo_tag.png'}
+                            title="moneda peso"
+                        />
+                        <CardContent>
+                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
+                                       variant={"standard"} type='email'/>
+                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
+                                       placeholder={"Contraseña"} variant={"standard"} type={showPassword ? "text" : "password"}
+                                       InputProps={{ // <-- This is where the toggle button is added.
+                                           endAdornment: (
+                                               <InputAdornment position="end">
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={handleClickShowPassword}
+                                                       onMouseDown={handleMouseDownPassword}
+                                                   >
+                                                       {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           )
+                                       }}
                             />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div" align='center'>
-                                    ¡INDEPENDENCIA!
-                                </Typography>
-                                <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
-                                           variant={"standard"} type='email'/>
-                                <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
-                                           placeholder={"Contraseña"} variant={"standard"} type={showPassword ? "text" : "password"}
-                                           InputProps={{ // <-- This is where the toggle button is added.
-                                               endAdornment: (
-                                                   <InputAdornment position="end">
-                                                       <IconButton
-                                                           aria-label="toggle password visibility"
-                                                           onClick={handleClickShowPassword}
-                                                           onMouseDown={handleMouseDownPassword}
-                                                       >
-                                                           {showPassword ? <Visibility/> : <VisibilityOff/>}
-                                                       </IconButton>
-                                                   </InputAdornment>
-                                               )
-                                           }}
-                                />
-                            </CardContent>
-                            <CardActions>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={6}>
-                                        <Button onClick={handleButton} size="medium" variant='contained' color='warning'
-                                                fullWidth>Iniciá Sesión</Button>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Link href='/register'>
-                                            <Button size="medium" variant='outlined' color='warning'
-                                                    fullWidth>Registrate</Button>
-                                        </Link>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Typography onClick={handleOpenRecuperarPassModal}
-                                                    variant="h12" fontSize={12} component="div" align='center'
-                                                    color={amber.A700}>
-                                            Recuperar contraseña
-                                        </Typography>
-                                    </Grid>
+                        </CardContent>
+                        <CardActions>
+                            <Grid container spacing={1}>
+                                <Grid item xs={6}>
+                                    <Button onClick={handleButton} size="medium" variant='contained' color='warning'
+                                            fullWidth>Iniciá Sesión</Button>
                                 </Grid>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                                <Grid item xs={6}>
+                                    <Link href='/register'>
+                                        <Button size="medium" variant='outlined' color='warning'
+                                                fullWidth>Registrate</Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </CardActions>
+                    </Card>
                 </Grid>
-            </Box>
-            <RecuperarPassModal
-                open={openRecuperarPassModal}
-                handleClose={handleCloseRecuperarPassModal}
-            />
-        </>
+            </Grid>
+        </Box>
     );
 }

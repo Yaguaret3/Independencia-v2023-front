@@ -5,7 +5,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import {Box, TextField, Grid, InputAdornment, IconButton} from '@mui/material';
 import {amber} from '@mui/material/colors';
 import {Link} from 'wouter';
@@ -104,17 +103,14 @@ export default function Register() {
                 height={'100vh'}
                 width={'100vw'}>
                 <Grid item xs={3}>
-                    <Card sx={{maxWidth: 345}}>
+                    <Card sx={{maxWidth: '40vw'}}>
                         <CardMedia
                             component="img"
-                            sx={{height: 100,}}
-                            image="https://i.ebayimg.com/images/g/QpoAAOSwaB9fyTC~/s-l500.jpg"
+                            sx={{maxWidth: '95%', margin: '0 auto'}}
+                            image={'/img/isologotipo_tag.png'}
                             title="moneda peso"
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" align='center'>
-                                ¡Registrate!
-                            </Typography>
                             <TextField onBlur={handleUsername} label={"Username"} fullWidth placeholder={"Username"}
                                        variant={"standard"}/>
                             <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
