@@ -16,12 +16,9 @@ const BarraSuperior = () => {
     return (
         <AppBar position="static" color='warning'>
             <Toolbar>
-                <Grid container spacing={2}>
-
+                <Grid container spacing={2} paddingTop={1} paddingBottom={1}>
                     <Grid item xs={2}>
-                        <Typography variant="h6">
-                            Independencia: El Megajuego!
-                        </Typography>
+                        <Box component="img" src="/img/isologotipo_tag_blanco.png" alt="Independencia: El Megajuego!" sx={{ maxWidth: '100%' }} />
                     </Grid>
                     <Grid item xs={10}>
                         <TableContainer>
