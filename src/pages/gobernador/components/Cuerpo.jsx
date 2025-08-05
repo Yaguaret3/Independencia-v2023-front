@@ -12,10 +12,10 @@ const Cuerpo = () => {
     return (
         <Box sx={{ flexGrow: 1, padding: 0, height: '80vh', position: 'relative', overflow: 'hidden' }}>
             <Grid container spacing={5}>
-                <Grid item xs={5} >
+                <Grid item xs={8} >
                     <RegionBodyBackground gameRegion={playerData?.gameRegion}/>
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={4}>
                     <Actions />
                 </Grid>
 
