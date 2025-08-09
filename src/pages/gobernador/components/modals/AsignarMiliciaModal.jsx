@@ -25,7 +25,7 @@ const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
 
     const handleService = async () => {
         if (capitanSelected === '' || capitanSelected === null) {
-            alert('Por favor, elegir un capitán')
+            alert('Por favor, elegir un caudillo')
             return;
         }
         if (cantidadMiliciasSelected === 0 || cantidadMiliciasSelected === null) {
@@ -65,7 +65,7 @@ const AsignarMiliciaModal = ({ open, handleClose, capitanes }) => {
                             onInputChange={(event, newInputValue) => {
                                 handleLabelCapitanSelected(newInputValue);
                             }}
-                            renderInput={(params) => <TextField {...params} label="Capitanes" />}
+                            renderInput={(params) => <TextField {...params} label="Caudillos" />}
                         />
                     </Grid>
                     <Grid item xs={3}>
