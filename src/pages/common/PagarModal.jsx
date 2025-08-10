@@ -15,11 +15,13 @@ const PagarModal = ({ open, handleClose, itemWanted, handleService, payLabel, re
     }, [recursoList]);
 
     const handleButton = () => {
-        handleClose();
         handleService({
             plata: plata,
             resourcesIds: resourcesSelectedIds
         });
+        handleClose();
+        setPlata(0)
+        setResourcesSelectedIds([]);
     }
 
     const handleChangePlata = (e) => {
