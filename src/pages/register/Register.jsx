@@ -64,19 +64,24 @@ export default function Register() {
             'email': email,
             'password': password
         }
-        await register(data)
+        const response = await register(data);
 
-        toast.success('Registrado con éxito. Vas a tener que contactarte con Megajuegos para que te asignen rol para el día de juego', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-        });
+        if (response?.status >= 200 && response?.status < 300) {
+            toast.success(
+                'Registrado con éxito. Vas a tener que contactarte con Megajuegos para que te asignen rol para el día de juego',
+                {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    transition: Bounce,
+                });
+        }
+
     }
 
     return (
