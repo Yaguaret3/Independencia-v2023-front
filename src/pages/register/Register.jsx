@@ -116,11 +116,11 @@ export default function Register() {
                             title="moneda peso"
                         />
                         <CardContent>
-                            <TextField onBlur={handleUsername} label={"Username"} fullWidth placeholder={"Username"}
+                            <TextField onChange={handleUsername} label={"Username"} fullWidth placeholder={"Username"}
                                        variant={"standard"}/>
-                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
+                            <TextField onChange={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
                                        variant={"standard"} type='email'/>
-                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth placeholder={"Contraseña"}
+                            <TextField onChange={handlePassword} label={"Contraseña"} fullWidth placeholder={"Contraseña"}
                                        variant={"standard"} type={showPassword ? "text" : "password"}
                                        InputProps={{ // <-- This is where the toggle button is added.
                                            endAdornment: (
@@ -135,7 +135,7 @@ export default function Register() {
                                                </InputAdornment>
                                            )
                                        }}/>
-                            <TextField onBlur={handleConfirmPassword} label={"Contraseña"} fullWidth
+                            <TextField onChange={handleConfirmPassword} label={"Contraseña"} fullWidth
                                        placeholder={"Confirmar Contraseña"}
                                        variant={"standard"} type={showConfirmPassword ? "text" : "password"}
                                        InputProps={{ // <-- This is where the toggle button is added.

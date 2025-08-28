@@ -107,9 +107,9 @@ export default function Login() {
                             title="moneda peso"
                         />
                         <CardContent>
-                            <TextField onBlur={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
+                            <TextField onChange={handleEmail} label={"E-mail"} fullWidth placeholder={"E-mail"}
                                        variant={"standard"} type='email'/>
-                            <TextField onBlur={handlePassword} label={"Contraseña"} fullWidth
+                            <TextField onChange={handlePassword} label={"Contraseña"} fullWidth
                                        placeholder={"Contraseña"} variant={"standard"} type={showPassword ? "text" : "password"}
                                        InputProps={{ // <-- This is where the toggle button is added.
                                            endAdornment: (
