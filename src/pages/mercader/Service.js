@@ -30,6 +30,7 @@ const playTradeRoute = async ({subregionsSelected, marketsSelected}) => {
             return {
                 position: index + 1,
                 id: s.id,
+                name: s.nombre,
                 cityMarketCardId: marketsSelected.find(mr => mr.cityName === s.nombre)?.id
             };
         })
