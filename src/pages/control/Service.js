@@ -213,6 +213,12 @@ const solveBattle = async({battleId, resultados}) => {
 
     return await axiosControlInstance.post('control/solve-battle', body);
 }
+const updateTradeScore = async ({value, playerId}) => {
+    const body = {
+        newValue:value
+    }
+    return await axiosControlInstance.post('control/'+playerId+'/update-trade-score', body);
+}
 export default {
     getGameData,
     getControlData,
@@ -243,5 +249,6 @@ export default {
     createBattle,
     updateRoute,
     assignRandomValues,
-    solveBattle
+    solveBattle,
+    updateTradeScore
  }

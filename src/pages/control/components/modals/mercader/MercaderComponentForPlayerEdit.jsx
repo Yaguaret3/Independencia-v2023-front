@@ -1,9 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Grid, TextField} from "@mui/material";
 import SingleAttributeEdit from "../../SingleAttributeEdit.jsx";
 import RutasModal from "./RutasModal.jsx";
+import service from "../../../Service.js";
+import {ControlContext} from "../../../Context.jsx";
+import useWebSocket from "../../../../../hooks/useWebSocket.jsx";
 
 const MercaderComponentForPlayerEdit = ({player}) => {
+
+    const {stompClient} = useContext(ControlContext);
+    const {disparoMercaderes, disparoControl} = useWebSocket({});
 
     const [openRutasModal, setOpenRutasModal] = useState(false);
     const handleOpenRutasModal = () => {
@@ -11,6 +17,12 @@ const MercaderComponentForPlayerEdit = ({player}) => {
     }
     const handleCloseRutasModal = () => {
         setOpenRutasModal(false);
+    }
+
+    const handleUpdateTradeScore = async ({newValue}) => {
+        await service.updateTradeScore({value: newValue, playerId: player.id});
+        disparoControl({stompClient: stompClient});
+        disparoMercaderes({stompClient: stompClient});
     }
 
     return (
@@ -22,19 +34,14 @@ const MercaderComponentForPlayerEdit = ({player}) => {
             <Grid item xs={12}>
 
                 <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            value = {player?.puntajeComercial}
-                            label = {'Puntaje Comercial'}
-                            disabled={true} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            value = {player?.puntajeComercialAcumulado}
-                            label = {'Puntaje Comercial Acumulado'}
-                            disabled={true} />
-                    </Grid>
-
+                    <SingleAttributeEdit nombre={'Puntaje Comercial'} valorActual={player?.puntajeComercial}
+                                         handleActualizar={handleUpdateTradeScore}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        value={player?.puntajeComercialAcumulado}
+                        label={'Puntaje Comercial Acumulado'}
+                        disabled={true}/>
                 </Grid>
             </Grid>
             <RutasModal
