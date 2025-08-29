@@ -8,7 +8,6 @@ const Subregion = ({subregion}) => {
     const opacity = 0.3;
 
     const handleMouseOver = () => {
-		console.log()
         setColor(subregion.color)
     }
     const handleMouseOut = () => {
@@ -20,8 +19,15 @@ const Subregion = ({subregion}) => {
 			<p>{subregion?.nombre}</p>
 			{subregion?.city  &&
 				<>
-					<p>Ciudad: {subregion?.city?.name || '-'}</p>
+					<p>Ciudad: {subregion?.city?.name} - {subregion?.city?.prestige}</p>
 					<p><dd>Gob: {subregion?.city?.gobernadorName || '-'}</dd></p>
+					{subregion?.city?.buildings?.length > 0 && <p>
+						<dd>Edificios:</dd>
+					</p>}
+					{subregion?.city?.buildings?.map(b => {
+						return <p><dd><dd>{b.buildingType ? b.buildingType : b}</dd></dd></p>; //Mercader trae el nombre en b, Control trae el objeto en b
+					})}
+
 				</>}
 			{subregion?.ejercitos.length !== 0  &&
 				<p>Ejércitos:</p>}

@@ -25,7 +25,6 @@ const removeBuilding = async ({cityId, buildingId}) => {
 }
 const addBuilding = async ({cityId, buildingType}) => {
 
-    debugger
     const body = {
         buildingType:buildingType
     }

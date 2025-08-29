@@ -14,13 +14,21 @@ const SubRegionBody = ({subregion }) => {
         setCurrentColor('black')
     }
 
+
     const title =
         <div>
             <p>{subregion?.nombre}</p>
             {subregion?.city  &&
                 <>
-                    <p>Ciudad: {subregion?.city?.name || '-'}</p>
+                    <p>Ciudad: {subregion?.city?.name} - {subregion?.city?.prestige}</p>
                     <p><dd>Gob: {subregion?.city?.gobernadorName || '-'}</dd></p>
+                    {subregion?.city?.buildings?.length > 0 && <p>
+                        <dd>Edificios:</dd>
+                    </p>}
+                    {subregion?.city?.buildings.map(b => {
+                        return <p><dd><dd>{b}</dd></dd></p>;
+                    })}
+
                 </>}
             {subregion?.ejercitos.length !== 0  &&
                 <p>Ejércitos:</p>}
