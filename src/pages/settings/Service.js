@@ -43,6 +43,13 @@ const assignCity = async ({playerId, cityId}) => {
     }
     return await axiosControlInstance.post('/settings/assign-city', body);
 }
+const updateUsername = async ({id, username}) => {
+    const body = {
+        id:id,
+        username:username
+    }
+    return await axiosControlInstance.post('/settings/update-username', body);
+}
 
 
 export default {
@@ -54,5 +61,6 @@ export default {
     deactivateGame,
     deleteGame,
     addRole,
-    assignCity
+    assignCity,
+    updateUsername
 }
