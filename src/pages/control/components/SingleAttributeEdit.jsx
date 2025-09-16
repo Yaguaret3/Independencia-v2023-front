@@ -7,6 +7,13 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
     const handleNewValue = (e) => {
         setNewValue(e.target.value);
     }
+    const handleButton = () => {
+        if(newValue === ''){
+            handleActualizar({newValue: 0});
+            return;
+        }
+        handleActualizar({newValue:newValue});
+    }
 
     return (
         <>
@@ -14,6 +21,7 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
                 <TextField
                     value = {valorActual}
                     label = {nombre}
+                    InputLabelProps={{ shrink: true }}
                     disabled={true} />
             </Grid>
             <Grid item xs={3}>
@@ -26,9 +34,7 @@ const SingleAttributeEdit = ({nombre, valorActual, handleActualizar}) => {
             </Grid>
             <Grid item xs={4}>
                 {handleActualizar &&
-                <Button onClick={() => {
-                    handleActualizar({newValue:newValue})
-                }}
+                <Button onClick={handleButton}
                         size="small" variant='contained' color='warning' fullWidth>Actualizar</Button>
                 }
             </Grid>
