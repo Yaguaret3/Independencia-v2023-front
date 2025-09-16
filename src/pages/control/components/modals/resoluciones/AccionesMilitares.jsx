@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Box, Button, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import {Box, Button, Checkbox, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {ControlContext} from "../../../Context.jsx";
 import CrearBatallaModal from "./CrearBatallaModal.jsx";
 
@@ -24,6 +24,12 @@ const AccionesMilitares = ({open, handleClose}) => {
         setFinalAcciones(accionesEnRegion?.concat(accionesEnSubregion));
     }, [gameData]);
 
+    const toggleActionCheck = (id, isChecked) => {
+        setFinalAcciones(prev =>
+            prev.map(a => a.id === id ? { ...a, checked: isChecked } : a)
+        );
+    };
+
     return (
         <>
             <Modal open={open} onClose={handleClose}>
@@ -47,16 +53,21 @@ const AccionesMilitares = ({open, handleClose}) => {
                             <Table>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell padding='none' align="center">Capitán</TableCell>
+                                        <TableCell padding='none' align="center">#</TableCell>
+                                        <TableCell padding='none' align="center">Caudillo</TableCell>
                                         <TableCell padding='none' align="center">Acción</TableCell>
                                         <TableCell padding='none' align="center">Región</TableCell>
                                         <TableCell padding='none' align="center">Subregión</TableCell>
+                                        <TableCell padding='none' align="center"></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {finalAcciones?.map(accion =>
+                                    {finalAcciones?.map((accion, index) =>
 
                                         <TableRow key={accion.id}>
+                                            <TableCell padding='none' align="center">
+                                                {index + 1}
+                                            </TableCell>
                                             <TableCell padding='none' align="center">
                                                 {accion.capitanName}
                                             </TableCell>
@@ -69,6 +80,12 @@ const AccionesMilitares = ({open, handleClose}) => {
                                             <TableCell padding='none' align="center">
                                                 {accion.gameSubregionName || 'N/A'}
                                             </TableCell>
+                                            <Checkbox
+                                                checked={accion.checked}
+                                                onChange={(e) =>
+                                                    toggleActionCheck(accion.id, e.target.checked)
+                                                }
+                                            />
                                         </TableRow>
                                     )}
                                 </TableBody>
