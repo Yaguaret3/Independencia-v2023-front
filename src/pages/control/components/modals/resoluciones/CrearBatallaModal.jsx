@@ -124,7 +124,7 @@ const CrearBatallaModal = ({open, handleClose}) => {
                             <Grid item xs={10}>
                                 <Autocomplete
                                     disablePortal
-                                    getOptionLabel={(option) => option.name || ''}
+                                    getOptionLabel={(option) => option.nombre || ''}
                                     options={gameData?.gameRegions}
                                     value={filtro}
                                     onChange={(event, newOption) => {
