@@ -145,7 +145,7 @@ const RutasComercialesModal = ({open, handleClose}) => {
                                         </TableCell>
                                         <TableCell padding='none' align="center" width={'15%'}>
                                             {ruta?.subregions.map(sr =>
-                                                <div key={sr.id}>
+                                                <div key={sr.id} style={{ minHeight: "1em" }}>
                                                     <u>{sr.ejercitos?.map(e => e.capitanName).join(", ")}</u>
                                                 </div>
                                             )}
