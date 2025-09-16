@@ -36,6 +36,7 @@ const CreateBattleCard = ({playerId}) => {
                     getOptionLabel={(option) => option}
                     options={battleTypes}
                     value={battleTypeSelected}
+                    clearIcon={null}
                     onChange={(event, newValue) => {
                         handleSelectBattleType({newValue: newValue});
                     }}

@@ -34,6 +34,7 @@ const CreateMarketCard = ({playerId}) => {
                     getOptionLabel={(option) => option.name || ''}
                     options={gameData?.gameRegions?.flatMap(r => r.subregions).filter(sr => sr.city !== null)?.flatMap(sr => sr.city)}
                     value={citySelected}
+                    clearIcon={null}
                     onChange={(event, newValue) => {
                         handleSelectCity({newValue: newValue});
                     }}

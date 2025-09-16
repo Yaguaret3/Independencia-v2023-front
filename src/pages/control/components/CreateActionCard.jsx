@@ -28,6 +28,7 @@ const CreateActionCard = ({playerId}) => {
                     getOptionLabel={(option) => option}
                     options={actionTypes}
                     value={actionTypeSelected}
+                    clearIcon={null}
                     onChange={(event, newValue) => {
                         handleSelectActionType({newValue: newValue});
                     }}

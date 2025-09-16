@@ -38,6 +38,7 @@ const CreateRepresentationCard = ({playerId}) => {
                         handleSelectCity({newValue: newValue});
                     }}
                     inputValue={labelCitySelected}
+                    clearIcon={null}
                     onInputChange={(event, newInputValue) => {
                         handleSelectCityLabel({newValue:newInputValue});
                     }}

@@ -28,6 +28,7 @@ const CreateResourceCard = ({playerId}) => {
                     getOptionLabel={(option) => option}
                     options={recursosTypes}
                     value={recursoTypeSelected}
+                    clearIcon={null}
                     onChange={(event, newValue) => {
                         handleSelectRecursoType({newValue: newValue});
                     }}

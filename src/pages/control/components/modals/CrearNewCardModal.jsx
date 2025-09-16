@@ -39,6 +39,7 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                                 getOptionLabel={(option) => option}
                                 options={types}
                                 value={typeSelected}
+                                clearIcon={null}
                                 onChange={(event, newValue) => {
                                     handleSelectType({newValue: newValue});
                                 }}
