@@ -32,7 +32,7 @@ const PlayersModal = ({open, handleClose, players} ) => {
         handleClose();
     }
 
-    const playersFiltered = players?.filter(p => p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter));
+    const playersFiltered = players?.filter(p => p.rol !== 'CONTROL' && p.username.toLowerCase().includes(playersFilter) && p.rol.toLowerCase().includes(rolesFilter));
 
     useEffect(() => {
         if(playerSelected !== undefined){

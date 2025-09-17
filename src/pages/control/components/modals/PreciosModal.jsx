@@ -72,7 +72,7 @@ const PreciosModal = ({precios, playerRol, show}) => {
 
     return (
         <>
-            {show && <TableContainer component={Paper}>
+            {show && <TableContainer component={Paper} sx={{ overflowX: "auto", maxHeight: "80vh" }}>
                 <Table>
                     <TableHead>
                         <TableRow>

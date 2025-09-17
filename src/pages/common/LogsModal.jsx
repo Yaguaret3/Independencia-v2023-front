@@ -13,7 +13,7 @@ const LogsModal = ({logs, open, handleClose}) => {
                 boxShadow: 24,
                 p: 4,
                 borderRadius: 3,
-                maxHeight:'80%',
+                maxHeight:'80vh',
                 overflow:'auto'
             }}
             >
