@@ -8,6 +8,7 @@ import useWebSocket from "../../../hooks/useWebSocket.jsx";
 import AccionesMilitares from "./modals/resoluciones/AccionesMilitares.jsx";
 import BatallasModal from "./modals/resoluciones/BatallasModal.jsx";
 import RutasComercialesModal from "./modals/resoluciones/RutasComercialesModal.jsx";
+import LogsModal from "../../common/LogsModal.jsx";
 
 const Acciones = () => {
 
@@ -63,6 +64,14 @@ const Acciones = () => {
         setOpenRutasComercialesModal(false);
     }
 
+    const [openLogsModal, setOpenLogsModal] = useState(false);
+    const handleOpenLogsModal = () => {
+        setOpenLogsModal(true);
+    }
+    const handleCloseLogsModal = () => {
+        setOpenLogsModal(false);
+    }
+
     return (
         <>
             <Grid container
@@ -110,6 +119,12 @@ const Acciones = () => {
                         Rutas Comerciales
                     </Button>
                 </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenLogsModal}
+                            size="small" variant='contained' color='warning'>
+                        Abrir Historial
+                    </Button>
+                </Grid>
 
             </Grid>
             <PlayersModal
@@ -133,6 +148,11 @@ const Acciones = () => {
             <RutasComercialesModal
                 open={openRutasComercialesModal}
                 handleClose={handleCloseRutasComercialesModal}
+            />
+            <LogsModal
+                open={openLogsModal}
+                handleClose={handleCloseLogsModal}
+                logs={controlData?.historial}
             />
         </>
     )
