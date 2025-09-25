@@ -103,7 +103,14 @@ const PlanificarRutaComercialModal = ({ open, handleClose}) => {
 
     const handleSendButton = async () => {
 
-        await service.playTradeRoute({subregionsSelected: subregionsSelected, marketsSelected : marketsInUse.filter(m => m.isSelected)})
+        const marketsSelected = marketsInUse.filter(m => m.isSelected);
+
+        if(marketsSelected.length < 2){
+            alert("Por favor, armá una ruta entre dos o más ciudades");
+            return;
+        }
+
+        await service.playTradeRoute({subregionsSelected: subregionsSelected, marketsSelected : marketsSelected})
         disparoControl({stompClient:stompClient});
         disparoMercaderes({stompClient:stompClient});
         handleCloseSelf();

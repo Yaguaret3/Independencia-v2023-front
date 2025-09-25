@@ -139,7 +139,7 @@ const RutasComercialesModal = ({open, handleClose}) => {
                                         <TableCell padding='none' align="center">
                                             {ruta?.subregions.map(sr =>
                                                 <div key={sr.id}>
-                                                    {sr.nombre}
+                                                    {sr.nombre} ( {sr.tradeScore} )
                                                 </div>
                                             )}
                                         </TableCell>
