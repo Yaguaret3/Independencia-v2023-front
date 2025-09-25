@@ -17,7 +17,6 @@ const moverCampamento = async ({cardId, regionToId}) => {
     }
 
     return await axiosCommonInstance.post('/militares/move', body);
-
 }
 const playActionCard = async ({cardId, subregionId}) => {
 
@@ -70,7 +69,24 @@ const playBattleCard = async ({cardId, battleId}) => {
 
     return await axiosCommonInstance.post('/militares/play-battle-card', body);
 }
+const makeCamp = async ({cardId, subregionId}) => {
 
+    const body = {
+        campCardId:cardId,
+        newAreaId: subregionId
+    }
+
+    return await axiosCommonInstance.post('/militares/make-camp', body);
+}
+const rush = async ({cardId, subregionId}) => {
+
+    const body = {
+        cardId:cardId,
+        subregionId: subregionId
+    }
+
+    return await axiosCommonInstance.post('/militares/rush', body);
+}
 
 export default {
     getGameData,
@@ -80,5 +96,7 @@ export default {
     comprarActionCard,
     comprarBattleCard,
     assignMilitia,
-    playBattleCard
+    playBattleCard,
+    makeCamp,
+    rush
 }

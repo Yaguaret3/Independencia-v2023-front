@@ -6,6 +6,8 @@ import OrdenarAccionModal from "./modals/OrdenarAccionModal.jsx";
 import ComprarCartaModal from "./modals/ComprarCartaModal.jsx";
 import BatallasModal from "./modals/BatallasModal.jsx";
 import LogsModal from "../../common/LogsModal.jsx";
+import ReaccionModal from "./modals/ReaccionModal.jsx";
+import AcampeModal from "./modals/AcampeModal.jsx";
 
 const Botones = () => {
 
@@ -19,6 +21,22 @@ const Botones = () => {
     }
     const handleCloseCambiarRegionModal = () => {
         setOpenCambiarRegionModal(false);
+    }
+    //Acampar
+    const [openAcampeModal, setOpenAcampeModal] = useState(false);
+    const handleOpenAcampeModal = () => {
+        setOpenAcampeModal(true)
+    }
+    const handleCloseAcampeModal = () => {
+        setOpenAcampeModal(false);
+    }
+    //Cambiar Región
+    const [openReaccionModal, setOpenReaccionModal] = useState(false);
+    const handleOpenReaccionModal = () => {
+        setOpenReaccionModal(true)
+    }
+    const handleCloseReaccionModal = () => {
+        setOpenReaccionModal(false);
     }
     //Jugar Carta de Acción
     const [openOrdenarAccionModal, setOpenOrdenarAccionModal] = useState(false);
@@ -76,6 +94,18 @@ const Botones = () => {
                     </Button>
                 </Grid>
                 <Grid item>
+                    <Button onClick={handleOpenAcampeModal}
+                            size="small" variant='contained' color='warning'>
+                        Volver a acampar
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleOpenReaccionModal}
+                            size="small" variant='contained' color='warning'>
+                        Interceptar
+                    </Button>
+                </Grid>
+                <Grid item>
                     <Button onClick={handleOpenOrdenarAccionModal}
                             size="small" variant='contained' color='warning'>
                         Ordenar Acción
@@ -112,6 +142,18 @@ const Botones = () => {
                 handleClose={handleCloseCambiarRegionModal}
                 regions={gameData?.gameRegionsTiny}
                 cards={playerData?.actionCards?.filter(c => c.actionType === 'MOVIMIENTO')}
+            />
+            <AcampeModal
+                open={openAcampeModal}
+                handleClose={handleCloseAcampeModal}
+                subregions={gameData?.gameRegion?.subregions}
+                cards={playerData?.actionCards?.filter(c => c.actionType === 'ACAMPE')}
+            />
+            <ReaccionModal
+                open={openReaccionModal}
+                handleClose={handleCloseReaccionModal}
+                subregions={gameData?.gameRegion?.subregions}
+                cards={playerData?.actionCards?.filter(c => c.actionType === 'REACCION')}
             />
             <OrdenarAccionModal
                 open={openOrdenarAccionModal}
