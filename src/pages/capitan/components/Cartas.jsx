@@ -6,6 +6,7 @@ import ActionCard from '../../common/ActionCard';
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
 import EntregarCartaModal from "../../common/EntregarCartaModal.jsx";
 import service from "../../mercader/Service.js";
+import ExtraCard from "../../common/ExtraCard.jsx";
 
 const Cartas = () => {
 
@@ -48,6 +49,15 @@ const Cartas = () => {
                         <BattleCard battleCardName={battleCard.nombre}
                                     descripcion={battleCard.descripcion}
                                     handleFunction={() => handleOpen({card: battleCard})}/>
+                    ))}
+                </Grid>
+                <Grid item xs={12} xl={6}>
+                    {playerData.extras?.map((extra) => (
+
+                        <ExtraCard nombre={extra.nombre}
+                                    descripcion={extra.descripcion}
+                                    bonificacion={extra.bonificacion}
+                                    handleFunction={() => handleOpen({card: extra})}/>
                     ))}
                 </Grid>
             </Grid>
