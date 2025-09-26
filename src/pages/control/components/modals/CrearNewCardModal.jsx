@@ -6,6 +6,7 @@ import CreateMarketCard from "../CreateMarketCard.jsx";
 import CreateRepresentationCard from "../CreateRepresentationCard.jsx";
 import CreateActionCard from "../CreateActionCard.jsx";
 import CreateBattleCard from "../CreateBattleCard.jsx";
+import CreateExtraCard from "../CreateExtraCard.jsx";
 
 const CrearNewCardModal = ({open, handleClose, playerId}) => {
 
@@ -64,22 +65,9 @@ const CrearNewCardModal = ({open, handleClose, playerId}) => {
                         {typeSelected === 'Batalla' &&
                             <CreateBattleCard playerId={playerId}/>
                         }
-                        {/*typeSelected === 'Extra' &&
-                            <Grid item container spacing={2}>
-                                <Grid item xs={6}>
-                                    <TextField
-                                        value={militiaSelected}
-                                        onChange={(e) => handleSelectMilitia({milicia:e.target.value})}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Button onClick={handleCrearNewResourceCard}
-                                            size="small" variant='contained' color='warning'>
-                                        Crear
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        */}
+                        {typeSelected === 'Extra' &&
+                            <CreateExtraCard playerId={playerId}/>
+                        }
                     </Grid>
                 </Grid>
             </Box>

@@ -57,8 +57,6 @@ const CardsComponentForPlayerEdit = ({player}) => {
                             <ExtraCard nombre={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>
                         </Button>
                 ))}
-
-                {/*TODO Battle & Action cards */}
                 {player?.battleCards?.map((card) => (
                     <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'batalla'})}>
                         <BattleCard battleCardName={card.nombre} descripcion={card.descripcion} bonificacion={card.bonificacion}/>

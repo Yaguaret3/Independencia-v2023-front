@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Button, Grid, TextareaAutosize, TextField} from "@mui/material";
+import {Button, FormControl, Grid, InputLabel, TextareaAutosize, TextField} from "@mui/material";
 import service from "../Service.js";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
 import {ControlContext} from "../Context.jsx";
@@ -41,17 +41,48 @@ const CreateExtraCard = ({playerId}) => {
                         label = "Nombre"
                         onChange = {handleNombre} />
                 </Grid>
-                <Grid item={12}>
-                    <TextareaAutosize aria-label={'Descripción'}
-                                      style={{width: "100%"}}
-                                      value={descripcion}
-                                      onChange={handleDescripcion}/>
+                <Grid item xs={12}>
+                    <FormControl fullWidth>
+                        <InputLabel shrink>Descripción</InputLabel>
+                        <TextareaAutosize
+                            aria-label="Descripción"
+                            style={{
+                                width: "100%",
+                                fontFamily: "inherit",
+                                fontSize: "1rem",
+                                borderRadius: 4,
+                                borderColor: "rgba(0, 0, 0, 0.23)",
+                                borderWidth: 1,
+                                padding: "10px",
+                                outline: "none",
+                                resize: "vertical",
+                            }}
+                            value={descripcion}
+                            onChange={handleDescripcion}
+                        />
+                    </FormControl>
                 </Grid>
-                <Grid item={12}>
-                    <TextareaAutosize aria-label={'Bonificación'}
-                                      style={{width: "100%"}}
-                                      value={bonificacion}
-                                      onChange={handleBonificacion}/>
+
+                <Grid item xs={12}>
+                    <FormControl fullWidth>
+                        <InputLabel shrink>Bonificación</InputLabel>
+                        <TextareaAutosize
+                            aria-label="Bonificación"
+                            style={{
+                                width: "100%",
+                                fontFamily: "inherit",
+                                fontSize: "1rem",
+                                borderRadius: 4,
+                                borderColor: "rgba(0, 0, 0, 0.23)",
+                                borderWidth: 1,
+                                padding: "10px",
+                                outline: "none",
+                                resize: "vertical",
+                            }}
+                            value={bonificacion}
+                            onChange={handleBonificacion}
+                        />
+                    </FormControl>
                 </Grid>
             </Grid>
             <Grid item={12}>
