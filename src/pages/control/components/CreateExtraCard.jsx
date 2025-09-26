@@ -26,7 +26,7 @@ const CreateExtraCard = ({playerId}) => {
     const handleCrear = async () => {
         await service.createNewExtraCard({playerId:playerId,
                                                                     nombre:nombre,
-                                                                    descripcion:descripcion,
+                                                                    //descripcion:descripcion,
                                                                     bonificacion:bonificacion})
         disparoTodos({stompClient:stompClient});
     }

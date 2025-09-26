@@ -8,6 +8,7 @@ import BuildingCard from "../../common/BuildingCard.jsx";
 import EntregarCartaModal from "../../common/EntregarCartaModal.jsx";
 import service from "../../mercader/Service.js";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";
+import ExtraCard from "../../common/ExtraCard.jsx";
 
 const Cartas = () => {
 
@@ -60,6 +61,15 @@ const Cartas = () => {
 
                     {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion?.poblacion}
                                                                        ciudad={playerData.representacion?.ciudad}/>)}
+                    <Grid item xs={12} xl={6}>
+                        {playerData.extras?.map((extra) => (
+
+                            <ExtraCard nombre={extra.nombre}
+                                       descripcion={extra.descripcion}
+                                       bonificacion={extra.bonificacion}
+                                       handleFunction={() => handleOpen({card: extra})}/>
+                        ))}
+                    </Grid>
                 </Grid>
 
             </Grid>
