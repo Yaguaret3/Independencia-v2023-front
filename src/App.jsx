@@ -10,13 +10,14 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import WrapperContextSettings from "./pages/settings/WrapperContextSettings.jsx";
+import WrapperContextRegister from "./pages/register/WrapperContextRegister.jsx";
 
 export default function App() {
 
     return (
         <>
             <Route path="/" component={Login}/>
-            <Route path="/register" component={Register}/>
+            <Route path="/register" component={WrapperContextRegister}/>
             <Route path="/gobernador" component={WrapperContextGobernador}/>
             <Route path="/mercader" component={WrapperContextMercader}/>
             <Route path="/revolucionario" component={WrapperContextRevolucionario}/>

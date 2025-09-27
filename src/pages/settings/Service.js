@@ -50,6 +50,9 @@ const updateUsername = async ({id, username}) => {
     }
     return await axiosControlInstance.post('/settings/update-username', body);
 }
+const forceConcludePhase = async () => {
+    return await axiosControlInstance.post('/settings/force-conclude-phase');
+}
 
 
 export default {
@@ -62,5 +65,6 @@ export default {
     deleteGame,
     addRole,
     assignCity,
-    updateUsername
+    updateUsername,
+    forceConcludePhase
 }

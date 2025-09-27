@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,8 +11,15 @@ import {Link} from 'wouter';
 import register from './Service';
 import {Bounce, toast} from "react-toastify";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import useWebSocket from "../../hooks/useWebSocket.jsx";
+import SockJS from "sockjs-client";
+import {over} from "stompjs";
+import {RegisterContext} from "./Context.jsx";
 
 export default function Register() {
+
+    const {stompClient,setStompClient} = useContext(RegisterContext);
+    const {disparoSettings} = useWebSocket({});
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -25,6 +32,15 @@ export default function Register() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
     const handleMouseDownConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+
+    useEffect(() => {
+
+        const baseURL = import.meta.env.VITE_BACKEND_URL_WS;
+        const socket = new SockJS(baseURL);
+        const stompClient = over(socket);
+        setStompClient(stompClient);
+
+    }, []);
 
     const handleEmail = (e) => {
         setEmail(e.target.value)
@@ -80,6 +96,7 @@ export default function Register() {
                     theme: "colored",
                     transition: Bounce,
                 });
+            disparoSettings({stompClient: stompClient});
         }
 
     }
