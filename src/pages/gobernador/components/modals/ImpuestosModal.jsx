@@ -7,11 +7,14 @@ import useWebSocket from "../../../../hooks/useWebSocket.jsx";
 const ImpuestosModal = ({ open, handleClose, label, aumentar, disminuir}) => {
 
     const {stompClient} = useContext(GobernadorContext);
-    const {disparoControl, disparoGobernadores} = useWebSocket({});
+    const {disparoControl, disparoGobernadores, disparoRevolucionarios} = useWebSocket({});
     const handleService = async () => {
         await service.cambiarImpuestos({ aumentar: aumentar, disminuir: disminuir })
         disparoGobernadores({stompClient:stompClient});
         disparoControl({stompClient:stompClient});
+        if(disminuir){
+            disparoRevolucionarios({stompClient:stompClient});
+        }
     }
 
     return (

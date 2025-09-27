@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
 
-const RepresentationCard = ({poblacion, ciudad}) => {
+const RepresentationCard = ({poblacion, ciudad, prestigio}) => {
   return (
       <Card sx={{border: 'solid black'}}>
           <CardActionArea>
@@ -14,7 +14,7 @@ const RepresentationCard = ({poblacion, ciudad}) => {
                       Representacion:
                   </Typography>
                   <Typography variant="button" color={'skyblue'} textAlign={'right'} fontSize={10}>
-                      {poblacion + 'h.'}
+                      {prestigio + 'p. / '+ poblacion + 'h.'}
                   </Typography>
               </CardContent>
               <CardContent sx={{

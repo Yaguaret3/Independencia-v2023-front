@@ -26,18 +26,16 @@ const Partidas = () => {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Button onClick={handleOpenCreateGameModal}
-                            size="small" variant='contained' color={'warning'} fullWidth>
-                        Crear Juego
-                    </Button>
-                </Grid>
-                {games.length > 0 && <Grid item xs={12}>
+                {games.length > 0 ? <Grid item xs={12}>
                     <Button onClick={handleForceConcludePhase}
                             size="small" variant='contained' color={'warning'} fullWidth>
                         Forzar Terminar Fase
                     </Button>
-                </Grid>}
+                </Grid>
+                : <Button onClick={handleOpenCreateGameModal}
+                          size="small" variant='contained' color={'warning'} fullWidth>
+                        Crear Juego
+                    </Button>}
             </Grid>
             <CreateGameModal
                 open={openCreateGameModal}

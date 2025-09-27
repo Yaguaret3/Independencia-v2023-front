@@ -25,7 +25,7 @@ const EntregarCartaModal = ({ open, handleClose, players, card, handleService=()
             case "mercado":
                 return <MarketCard cityName={card?.cityName} level={card?.level}/>;
             case "representacion":
-                return <RepresentationCard poblacion={card?.poblacion} ciudad={card?.ciudad}/>;
+                return <RepresentationCard poblacion={card?.poblacion} ciudad={card?.ciudad} prestigio={card?.prestigio}/>;
             case "accion":
                 return <ActionCard actionName={card?.actionName}/>;
             case "batalla":

@@ -139,7 +139,8 @@ const Congreso = () => {
                                         <TableCell>
                                             {v.representacionResponse?.map((c) => (
                                                 <RepresentationCard key={c.id} poblacion={c.poblacion}
-                                                                    ciudad={c.ciudad}/>
+                                                                    ciudad={c.ciudad}
+                                                                    prestigio={c.prestigio}/>
                                             ))}
                                         </TableCell>
                                     </TableRow>

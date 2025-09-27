@@ -103,7 +103,7 @@ const RevolucionarioComponentForPlayerEdit = ({player}) => {
 
                         {player?.congreso?.votations?.find(v => v.active)?.votos.find(v => v.revolucionarioName === player.username)?.representacionResponse.map(r => {
                             return (<Grid item xs={4} key={r.id}>
-                                <RepresentationCard ciudad={r.ciudad} poblacion={r.poblacion}/>
+                                <RepresentationCard ciudad={r.ciudad} poblacion={r.poblacion} prestigio={r?.prestigio}/>
                             </Grid>)
                         })}
                     </Grid>

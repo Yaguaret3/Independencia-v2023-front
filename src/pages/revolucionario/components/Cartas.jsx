@@ -48,7 +48,8 @@ const Cartas = () => {
                 {playerData?.representacion?.map(r =>
                     <Grid item sm={12} lg={6} xl={3} key={r.id}>
                         <RepresentationCard poblacion={r.poblacion}
-                                            ciudad={r.ciudad}/>
+                                            ciudad={r.ciudad}
+                                            prestigio={r?.prestigio}/>
                     </Grid>
 
                 )}

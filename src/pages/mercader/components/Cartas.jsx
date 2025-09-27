@@ -1,10 +1,6 @@
 import {Grid} from '@mui/material';
 import React, {useContext, useState} from 'react';
-import {GobernadorContext, MercaderContext} from '../Context';
-import ResourceCard from '../../common/ResourceCard';
-import MarketCard from '../../common/MarketCard';
-import RepresentationCard from '../../common/RepresentationCard';
-import BuildingCard from "../../common/BuildingCard.jsx";
+import {MercaderContext} from '../Context';
 import EntregarCartaModal from "../../common/EntregarCartaModal.jsx";
 import service from "../../mercader/Service.js";
 import useWebSocket from "../../../hooks/useWebSocket.jsx";

@@ -56,7 +56,7 @@ const EditarCardModal = ({open, handleClose, card, playerId}) => {
                                         <MarketCard cityName={card?.cityName} level={card?.level}/>
                                     }
                                     {card.representacion &&
-                                        <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion}/>
+                                        <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion} prestigio={card?.prestigio}/>
                                     }
                                     {card.extra &&
                                         <ExtraCard nombre={card.nombre} descripcion={card.descripcion}

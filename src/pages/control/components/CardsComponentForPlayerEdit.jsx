@@ -49,7 +49,7 @@ const CardsComponentForPlayerEdit = ({player}) => {
                 ))}
                 {player?.representacion?.map((card) => (
                     <Button key={card.id}  onClick={() => handleCardSelected({card:card, cardType:'representacion'})}>
-                        <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion}/>
+                        <RepresentationCard ciudad={card?.ciudad} poblacion={card?.poblacion} prestigio={card?.prestigio}/>
                     </Button>
                 ))}
                 {player?.extras?.map((card) => (

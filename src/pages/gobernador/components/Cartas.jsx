@@ -60,7 +60,8 @@ const Cartas = () => {
                     ))}
 
                     {playerData.representacion && (<RepresentationCard poblacion={playerData.representacion?.poblacion}
-                                                                       ciudad={playerData.representacion?.ciudad}/>)}
+                                                                       ciudad={playerData.representacion?.ciudad}
+                                                                       prestigio={playerData.representacion?.prestigio}/>)}
                     <Grid item xs={12} xl={6}>
                         {playerData.extras?.map((extra) => (
 
