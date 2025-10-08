@@ -23,9 +23,11 @@ const AccionesMilitares = ({open, handleClose}) => {
     }
 
     useEffect(() => {
-        const regiones = accionesEnRegion || [];
-        const subregiones = accionesEnSubregion || [];
-        setFinalAcciones(regiones?.concat(subregiones));
+        if(gameData.fase !== 'Revelación'){
+            const regiones = accionesEnRegion || [];
+            const subregiones = accionesEnSubregion || [];
+            setFinalAcciones(regiones?.concat(subregiones));
+        }
     }, [gameData]);
 
     const toggleActionCheck = (id, isChecked) => {
